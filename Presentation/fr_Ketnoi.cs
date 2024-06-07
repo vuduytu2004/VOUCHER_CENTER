@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using Report_Center.DataAccess;
+using System;
 using System.IO;
-using Report_Center.DataAccess;
+using System.Windows.Forms;
 using static Report_Center.Main;
 
 namespace Report_Center.Presentation
@@ -22,11 +16,11 @@ namespace Report_Center.Presentation
 
         private void cmddn_Click(object sender, EventArgs e)
         {
-            if (mk.Text!="Vu Duy Tu")
+            if (mk.Text != "Vu Duy Tu")
             {
                 MessageBox.Show("Không thiết lập được", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Application.Exit();
-            }    
+            }
             try
             {
                 if (File.Exists(File_INI))
@@ -34,7 +28,7 @@ namespace Report_Center.Presentation
                     File.Delete(File_INI);
                 }
 
-                txtserver1.Text =   (txtserver1.Text);
+                txtserver1.Text = (txtserver1.Text);
                 txtdb1.Text = (txtdb1.Text);
                 user1.Text = ConnectDB.EncryptString((user1.Text), bientoancuc.amti);
                 pass1.Text = ConnectDB.EncryptString((pass1.Text), bientoancuc.amti);
@@ -103,14 +97,14 @@ namespace Report_Center.Presentation
 
         private void check_Click(object sender, EventArgs e)
         {
-            if (mk.Text=="Vu Duy Tu")
+            if (mk.Text == "Vu Duy Tu")
             {
                 txtserver1.Text = ((txtserver1.Text));
                 txtdb1.Text = ((txtdb1.Text));
                 user1.Text = ConnectDB.DecryptString((user1.Text), bientoancuc.amti);
                 pass1.Text = ConnectDB.DecryptString((pass1.Text), bientoancuc.amti);
-                txtserver2.Text =   (txtserver2.Text);
-                txtdb2.Text =   (txtdb2.Text);
+                txtserver2.Text = (txtserver2.Text);
+                txtdb2.Text = (txtdb2.Text);
                 user2.Text = ConnectDB.DecryptString((user2.Text), bientoancuc.amti);
                 pass2.Text = ConnectDB.DecryptString((pass2.Text), bientoancuc.amti);
                 // Chỉnh lần 3
@@ -119,7 +113,7 @@ namespace Report_Center.Presentation
                 user3.Text = ConnectDB.DecryptString((user3.Text), bientoancuc.amti);
                 pass3.Text = ConnectDB.DecryptString((pass3.Text), bientoancuc.amti);
                 //ConnectDB.EncryptString((txtserver1.Text), bientoancuc.amti);
-                
+
             }
             else
             {
@@ -138,7 +132,7 @@ namespace Report_Center.Presentation
                 this.user3.Text = (read.ReadLine().Split(':')[1]);
                 this.pass3.Text = (read.ReadLine().Split(':')[1]);
                 read.Close();
-            }    
+            }
         }
     }
 }

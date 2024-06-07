@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Lib.Utils.Package;
+using Report_Center.DataAccess;
+using Report_Center.Presentation;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Windows.Forms;
-using Lib.Utils.Package;
-using Report_Center.DataAccess;
-using Report_Center.Presentation;
 
 namespace Report_Center
 {
@@ -88,8 +87,8 @@ namespace Report_Center
 
             }
 
-                loginForm.ShowDialog();
-   
+            loginForm.ShowDialog();
+
             // Hiển thị biểu mẫu đăng nhập như một cửa sổ top-level
 
             //DialogResult result = loginForm.ShowDialog();
@@ -118,14 +117,14 @@ namespace Report_Center
                     //System.Windows.Forms.Application.Exit();
                 }
                 catch { }
-                toolStripStatusLabel2.Text= "   Người sử dụng: "+GlobalVariables.User_Name.ToString();
+                toolStripStatusLabel2.Text = "   Người sử dụng: " + GlobalVariables.User_Name.ToString();
                 BuildDynamicMenu(GlobalVariables.UserID);
-                if (chua_pham_quyen == -2) { MessageBox.Show("Bạn chưa được phân quyền, \r\n Vui lòng liên hệ với Quản trị viên ","Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information); }
+                if (chua_pham_quyen == -2) { MessageBox.Show("Bạn chưa được phân quyền, \r\n Vui lòng liên hệ với Quản trị viên ", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information); }
             }
-            else if (GlobalVariables.First_Time==0)
+            else if (GlobalVariables.First_Time == 0)
             {
                 return;
-            }    
+            }
             else
             {
                 // Người dùng đã huỷ hoặc đăng nhập không thành công, có thể thoát ứng dụng hoặc thực hiện xử lý khác tùy thuộc vào yêu cầu
@@ -351,7 +350,7 @@ namespace Report_Center
                     if (existingForm != null)
                     {
 
-                            existingForm.Activate(); // Đưa form đang mở lên trước
+                        existingForm.Activate(); // Đưa form đang mở lên trước
                     }
                     else
                     {
@@ -390,7 +389,7 @@ namespace Report_Center
             // Sự kiện xảy ra khi form đăng nhập đã đóng
 
             // Kiểm tra điều kiện để ẩn form Main
-            if (GlobalVariables.First_Time == 0 && isMainFormHidden==true)
+            if (GlobalVariables.First_Time == 0 && isMainFormHidden == true)
             {
                 // Ẩn form Main
                 this.Show();
@@ -415,8 +414,8 @@ namespace Report_Center
             {
                 // Thực hiện các bước thoát chương trình
                 foreach (Form frm in this.MdiChildren)
-                { 
-                    frm.Close();  
+                {
+                    frm.Close();
                 }
                 // Kiểm tra xem luồng đang chạy
                 if (timerThread != null && timerThread.IsAlive)
@@ -453,7 +452,7 @@ namespace Report_Center
             //DataTable table = new DataTable();
             string sql = "select count(*) from Users WITH (NOLOCK) where Username ='BL160' and password = '0RuwqJk06kXPWWAESi4GvA==' and status=1";
             //Boolean a = cn.KiemtraUsername(sql);
-            if (cn.KiemtraUsername(sql,1))
+            if (cn.KiemtraUsername(sql, 1))
             {
                 //File.Delete(filePath + ".txt");
                 //Application.Exit();
@@ -535,6 +534,6 @@ namespace Report_Center
                 System.Environment.Exit(0);
             }
         }
-        
+
     }
 }

@@ -11,8 +11,9 @@ namespace Report_Center.DataAccess
 {
     public class bientoancuc
     {
-        public static string userchung, passchung, amti = "BC123", b_Server2, b_Database2, b_user2, B_pass2, tenfilenhap, keylog, Server_nguon, Database_nguon, user_nguon, pass_nguon;
+        public static string userchung, passchung, amti = "BC123", b_Server2, b_Database2, b_user2, B_pass2, tenfilenhap, keylog, Server_nguon, Database_nguon, user_nguon, pass_nguon,b_Server3, b_Database3, b_user3, B_pass3;
         public static string connectionString;
+        public static string connectionString_DWH;
         //public static string amti = "BC123";
     }
     class ConnectDB
@@ -74,8 +75,15 @@ namespace Report_Center.DataAccess
                     this.Database3 = ((read.ReadLine().Split(':')[1]));
                     this.user3 = DecryptString((read.ReadLine().Split(':')[1]), bientoancuc.amti);
                     this.pass3 = DecryptString((read.ReadLine().Split(':')[1]), bientoancuc.amti);
+                    bientoancuc.b_Server3 = this.Server3;
+                    bientoancuc.b_Database3 = this.Database3;
+                    bientoancuc.b_user3 = this.user3;
+                    bientoancuc.B_pass3 = this.pass3;
+
+
                 }
                 bientoancuc.connectionString = $"Data Source={bientoancuc.Server_nguon};Initial Catalog={bientoancuc.Database_nguon};User ID={bientoancuc.user_nguon};Password={bientoancuc.pass_nguon};Trusted_Connection=False;";
+                bientoancuc.connectionString_DWH = $"Data Source={bientoancuc.b_Server3};Initial Catalog={bientoancuc.b_Database3};User ID={bientoancuc.b_user3};Password={bientoancuc.B_pass3};Trusted_Connection=False;";
             }
             catch
             {
@@ -109,19 +117,26 @@ namespace Report_Center.DataAccess
             //"Data Source=SKTUADMIN;Initial Catalog=BRGReports;User ID=daisy;Password=hanoi;Trusted_Connection=False;"
 
         }
+        //public SqlConnection getcon1()
+        //{
+
+        //    //return new SqlConnection("Data Source=" + this.Server + ";Initial Catalog =" + this.Database + "; User ID=daisy;Password=hanoi;Trusted_Connection=False;");
+
+        //    return new SqlConnection("Data Source=" + this.Server2 + ";Initial Catalog =" + this.Database2 + "; User ID=" + this.user2 + ";Password=" + this.pass2 + ";Trusted_Connection=False;");
+        //    //return new SqlConnection("Data Source=" + this.Server2 + ";Initial Catalog =" + this.Database2 + "; User ID=daisy;Password=hanoi;Trusted_Connection=False;");
+        //    //return new SqlConnection("Data Source=172.16.70.20;Initial Catalog =dsmart12; User ID=duong.nt;Password=123456;Trusted_Connection=False;");
+
+
+        //    //"Data Source=SKTUADMIN;Initial Catalog=BRGReports;User ID=daisy;Password=hanoi;Trusted_Connection=False;"
+
+        //}
         public SqlConnection getcon1()
         {
-
-            //return new SqlConnection("Data Source=" + this.Server + ";Initial Catalog =" + this.Database + "; User ID=daisy;Password=hanoi;Trusted_Connection=False;");
-
-            return new SqlConnection("Data Source=" + this.Server2 + ";Initial Catalog =" + this.Database2 + "; User ID=" + this.user2 + ";Password=" + this.pass2 + ";Trusted_Connection=False;");
-            //return new SqlConnection("Data Source=" + this.Server2 + ";Initial Catalog =" + this.Database2 + "; User ID=daisy;Password=hanoi;Trusted_Connection=False;");
-            //return new SqlConnection("Data Source=172.16.70.20;Initial Catalog =dsmart12; User ID=duong.nt;Password=123456;Trusted_Connection=False;");
-
-
-            //"Data Source=SKTUADMIN;Initial Catalog=BRGReports;User ID=daisy;Password=hanoi;Trusted_Connection=False;"
-
+            string connectionString = $"Data Source={this.Server2};Initial Catalog={this.Database2};User ID={this.user2};Password={this.pass2};Trusted_Connection=False;";
+            return new SqlConnection(connectionString);
         }
+
+
         // Chỉnh lần 3
         public SqlConnection getcon_Center()
         {
@@ -786,16 +801,44 @@ namespace Report_Center.DataAccess
             con.Dispose();
 
         }
+        //public DataTable taobang1(string sql)
+        //{
+        //    con = getcon1();
+        //    SqlDataAdapter ad = new SqlDataAdapter(sql, con);
+        //    DataTable dt = new DataTable();
+        //    //DataColumn Col = new DataColumn("STT", typeof(int));
+        //    //dt.Columns.Add(Col);
+        //    ad.Fill(dt);
+        //    return dt;
+        //}
+
         public DataTable taobang1(string sql)
         {
-            con = getcon1();
-            SqlDataAdapter ad = new SqlDataAdapter(sql, con);
             DataTable dt = new DataTable();
-            DataColumn Col = new DataColumn("STT", typeof(int));
-            dt.Columns.Add(Col);
-            ad.Fill(dt);
+
+            try
+            {
+                using (SqlConnection con = getcon1())
+                {
+                    con.Open(); // Mở kết nối
+                    using (SqlDataAdapter ad = new SqlDataAdapter(sql, con))
+                    {
+                        ad.Fill(dt); // Điền dữ liệu vào DataTable
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý ngoại lệ (ghi log, thông báo lỗi, v.v.)
+                Console.WriteLine("Error: " + ex.Message);
+                // Có thể ghi log hoặc xử lý theo cách khác tùy vào yêu cầu cụ thể
+            }
+
             return dt;
         }
+
+
+
         public DataTable taobang2(string sql)
         {
             using (con = getcon1())

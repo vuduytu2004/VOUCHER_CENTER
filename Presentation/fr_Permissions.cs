@@ -1,16 +1,11 @@
 ﻿using Report_Center.DataAccess;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Report_Center.Main;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace Report_Center.Presentation
 {
@@ -48,7 +43,7 @@ namespace Report_Center.Presentation
                 // Load dữ liệu vào DataGridView
                 dgvUsers.DataSource = userDataTable;
                 dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                
+
             }
         }
 
@@ -60,8 +55,8 @@ namespace Report_Center.Presentation
 
                 string query = "SELECT MenuItemID, MenuItemName, ParentMenuID FROM MenuItems WITH (NOLOCK) where Enable_Check=1 ORDER BY COALESCE(ParentMenuID, MenuItemID), MenuItemID;";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-                DataTable dataTable = new DataTable(); 
-                adapter.Fill(dataTable); 
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
 
                 // Load dữ liệu vào DataGridView
                 dgvUserPermissions.DataSource = dataTable;
@@ -175,7 +170,7 @@ namespace Report_Center.Presentation
             }
             else
             {
-                var a = cmbUsers.SelectedIndex ;
+                var a = cmbUsers.SelectedIndex;
                 if (a > 0)
                 {
                     cmbUsers.DroppedDown = false;
@@ -281,9 +276,9 @@ namespace Report_Center.Presentation
                 // Gán màu xám cho dòng nếu MenuItemID tồn tại
 
                 var aaa = row.Cells["ParentMenuID"].Value?.ToString().Length ?? 0;
-                if (aaa==0) 
-                { 
-                    row.DefaultCellStyle.BackColor = Color.IndianRed ; 
+                if (aaa == 0)
+                {
+                    row.DefaultCellStyle.BackColor = Color.IndianRed;
                 }
                 else
                 {
@@ -424,7 +419,7 @@ namespace Report_Center.Presentation
 
         //    return menuItemIDs;
         //}
-        
+
 
         private void CompareMenuItemIDs11(Tuple<int, int> menuItemIDs)
         {
@@ -444,7 +439,7 @@ namespace Report_Center.Presentation
                 row.DefaultCellStyle.BackColor = menuItemExists ? Color.White : Color.DarkGoldenrod;
             }
         }
-        private Tuple<int, int> GetMenuItemIDsForUser2(int userID)  
+        private Tuple<int, int> GetMenuItemIDsForUser2(int userID)
         {
             int menuItemID1 = -1;
             int menuItemID2 = -1;
@@ -521,7 +516,7 @@ namespace Report_Center.Presentation
             return menuItemIDs.ToArray();
         }
 
-        
+
         private void CompareMenuItemIDs1(int[] menuItemIDs)
         {
             // Duyệt qua các dòng trong dgvUserPermissions
@@ -552,7 +547,7 @@ namespace Report_Center.Presentation
 
         private void btn_Update_Click(object sender, EventArgs e)
         {
-            var convert_txt_UserID= Convert.ToInt32(txt_UserID.Text);
+            var convert_txt_UserID = Convert.ToInt32(txt_UserID.Text);
             foreach (DataGridViewRow row in dgvRoleGroup.Rows)
             {
                 int RoleGroupID = Convert.ToInt32(row.Cells["RoleGroupID"].Value);
@@ -568,7 +563,7 @@ namespace Report_Center.Presentation
                     {
                         command.Parameters.AddWithValue("@UserID", convert_txt_UserID);
                         command.Parameters.AddWithValue("@RoleGroupID", RoleGroupID);
-                        command.Parameters.AddWithValue("@RoleGroupID_Check", RoleGroupID_Check); 
+                        command.Parameters.AddWithValue("@RoleGroupID_Check", RoleGroupID_Check);
                         command.ExecuteNonQuery();
                     }
 
@@ -624,7 +619,7 @@ namespace Report_Center.Presentation
         private void btn_Update_CT_Click(object sender, EventArgs e)
         {
             var convert_txt_UserID = Convert.ToInt32(txt_UserID.Text);
-            
+
             /// phần này hơi lôm côm, nhg để sửa lai sau vậy
             foreach (DataGridViewRow row in dgvUserPermissions.Rows)
             {

@@ -64,6 +64,12 @@
     <ApplicationIcon>Tu.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClosedXML">
+      <HintPath>..\..\Winform_TraCuu\TraCuuDuLieu\bin\TraCuDuLieu\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml">
+      <HintPath>..\..\Winform_TraCuu\TraCuuDuLieu\bin\TraCuDuLieu\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="EPPlus, Version=6.2.10.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>packages\EPPlus.6.2.10\lib\net462\EPPlus.dll</HintPath>
     </Reference>
@@ -73,8 +79,15 @@
     <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
       <HintPath>packages\EPPlus.System.Drawing.6.1.1\lib\net462\EPPlus.System.Drawing.dll</HintPath>
     </Reference>
+    <Reference Include="ExcelNumberFormat">
+      <HintPath>..\..\Winform_TraCuu\TraCuuDuLieu\bin\TraCuDuLieu\ExcelNumberFormat.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Office.Interop.Excel.14.0.0.1\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Win32.Primitives.4.0.1\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
@@ -147,6 +160,18 @@
     <Compile Include="DataAccess\ConnectDB.cs" />
     <Compile Include="DataAccess\LogBuild.cs" />
     <Compile Include="DataAccess\Unicode2TCVN.cs" />
+    <Compile Include="Presentation\fr_BLe_BBuon_By_SKU_VH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\fr_BLe_BBuon_By_SKU_VH.designer.cs">
+      <DependentUpon>fr_BLe_BBuon_By_SKU_VH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\fr_CheckConnects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\fr_CheckConnects.designer.cs">
+      <DependentUpon>fr_CheckConnects.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\fr_DangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,11 +202,41 @@
     <Compile Include="Presentation\Fr_QLKV.Designer.cs">
       <DependentUpon>Fr_QLKV.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\Fr_Mar_Imp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\Fr_Mar_Imp.Designer.cs">
+      <DependentUpon>Fr_Mar_Imp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\fr_Reports.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Presentation\fr_Reports.Designer.cs">
       <DependentUpon>fr_Reports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\fr_StkISQty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\fr_StkISQty.designer.cs">
+      <DependentUpon>fr_StkISQty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\fr_StkISQty_Doc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\fr_StkISQty_Doc.designer.cs">
+      <DependentUpon>fr_StkISQty_Doc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\fr_Zone_Prices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\fr_Zone_Prices.designer.cs">
+      <DependentUpon>fr_Zone_Prices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\fr_Zone_Prices_STK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\fr_Zone_Prices_STK.designer.cs">
+      <DependentUpon>fr_Zone_Prices_STK.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\GetFrAPI_BM01.cs">
       <SubType>Form</SubType>
@@ -191,6 +246,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Presentation\fr_BLe_BBuon_By_SKU_VH.resx">
+      <DependentUpon>fr_BLe_BBuon_By_SKU_VH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\fr_CheckConnects.resx">
+      <DependentUpon>fr_CheckConnects.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation\fr_DangNhap.resx">
       <DependentUpon>fr_DangNhap.cs</DependentUpon>
     </EmbeddedResource>
@@ -206,8 +267,23 @@
     <EmbeddedResource Include="Presentation\Fr_QLKV.resx">
       <DependentUpon>Fr_QLKV.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\Fr_Mar_Imp.resx">
+      <DependentUpon>Fr_Mar_Imp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation\fr_Reports.resx">
       <DependentUpon>fr_Reports.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\fr_StkISQty.resx">
+      <DependentUpon>fr_StkISQty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\fr_StkISQty_Doc.resx">
+      <DependentUpon>fr_StkISQty_Doc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\fr_Zone_Prices.resx">
+      <DependentUpon>fr_Zone_Prices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\fr_Zone_Prices_STK.resx">
+      <DependentUpon>fr_Zone_Prices_STK.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentation\GetFrAPI_BM01.resx">
       <DependentUpon>GetFrAPI_BM01.cs</DependentUpon>
@@ -222,6 +298,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Media\Template\Import_Marketting.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Media\Template\Template-rpt_DioByNCC.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -253,6 +332,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Media\Template\Template_Excl_Dynamic_Colums_More_1tr_Rows.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Media\Template\Template_Marketting.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

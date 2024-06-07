@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data.SqlClient;
-using System.Data;
-using System.IO;
-using System.Windows.Forms;
-using Report_Center.Presentation;
-using System.Security.Cryptography;
-
-namespace Report_Center.DataAccess
+﻿namespace Report_Center.DataAccess
 {
     class Converter
     {
@@ -65,7 +54,7 @@ namespace Report_Center.DataAccess
             string rstr = new string(chars);
             return rstr;
         }
-        
+
     }
     //-------------------------------------------------------
 

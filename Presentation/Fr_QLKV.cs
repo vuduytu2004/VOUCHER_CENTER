@@ -3,7 +3,6 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-using static Report_Center.Main;
 
 namespace Report_Center.Presentation
 {

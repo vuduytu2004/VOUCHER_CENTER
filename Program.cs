@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using OfficeOpenXml;
+using System;
 using System.Windows.Forms;
 
 namespace Report_Center
@@ -14,6 +12,9 @@ namespace Report_Center
         [STAThread]
         static void Main()
         {
+            // Thiết lập LicenseContext
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Main());

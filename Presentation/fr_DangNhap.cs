@@ -1,4 +1,5 @@
 ﻿using Lib.Utils.Package;
+using Report_Center.DataAccess;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -6,8 +7,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 using static Report_Center.Main;
-using Report_Center.DataAccess;
-using System.IO;
 
 namespace Report_Center.Presentation
 {
@@ -39,8 +38,8 @@ namespace Report_Center.Presentation
 
                 // Đặt DialogResult là OK và đóng hộp thoại
                 DialogResult = DialogResult.OK;
-                
-                Close();              
+
+                Close();
             }
             else
             {
@@ -98,7 +97,7 @@ namespace Report_Center.Presentation
             }
         }
 
-        
+
 
         private string ComputeHash(string input)
         {
