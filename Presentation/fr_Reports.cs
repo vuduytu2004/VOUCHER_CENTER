@@ -1,9 +1,11 @@
-﻿using OfficeOpenXml;
+﻿using Lib.Utils.Package;
+using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using Report_Center.DataAccess;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -278,6 +280,10 @@ namespace Report_Center.Presentation
 
         private async void bt_BC_Click(object sender, EventArgs e)
         {
+            if (Pro_name.Text ==null) { return; }
+
+            progressBar1.Style = ProgressBarStyle.Marquee;
+
             string Dirpath = Directory.GetCurrentDirectory();
             string Template = Dirpath + @"/Media/Template/";
             string file_temp = "";
@@ -346,6 +352,15 @@ namespace Report_Center.Presentation
                     {
                         await Task.Run(() => RunReportAsync_ByMonth(templatePath, uniqueFileName));
                     }
+                    else if (Pro_name.Text == "rpt_truyen_nhan")
+                    {
+                        await Task.Run(() => RunReportAsync_truyen_nhan(templatePath, uniqueFileName));
+                    }
+                    else if (Pro_name.Text == "Tach_Don_333_314_315")
+                    {
+                        await Task.Run(() => RunReportAsync_Tach_Don_333_314_315(templatePath, uniqueFileName));
+                    }
+
                     else
                     {
                         await Task.Run(() => RunReportAsync(templatePath, uniqueFileName));
@@ -354,9 +369,13 @@ namespace Report_Center.Presentation
                 }
                 else
                 {
+                    progressBar1.Style = ProgressBarStyle.Blocks;
+
                     Console.WriteLine("Operation canceled by the user.");
                 }
             }
+
+            progressBar1.Style = ProgressBarStyle.Blocks;
 
         }
         private string GetUniqueFileName(string baseFileName, string directory)
@@ -799,6 +818,193 @@ namespace Report_Center.Presentation
                 }
             }
         }
+        private async Task RunReportAsync_truyen_nhan(string templatePath, string outputPath)
+        {
+            using (SqlConnection connection = new SqlConnection(bientoancuc.connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand(Pro_name.Text, connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@frdate", frdate.Value.ToString("yyyyMMdd"));
+
+                    command.Parameters.AddWithValue("@todate", todate.Value.ToString("yyyyMMdd"));
+
+                    command.CommandTimeout = 0; // Đặt thời gian chờ theo cần thiết
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        DataTable dataTable = new DataTable();
+                        adapter.Fill(dataTable);
+
+                        if (dataTable.Rows.Count == 0)
+                        {
+                            // Thông báo hoặc xử lý khi không có dữ liệu
+                            MessageBox.Show("Không có dữ liệu", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Console.WriteLine("Không có dữ liệu để xuất Excel.");
+                            return; // hoặc thực hiện các hành động khác theo yêu cầu của bạn
+                        }
+
+                        FileInfo templateFile = new FileInfo(templatePath);
+                        FileInfo outputFile = new FileInfo(outputPath);
+
+                        using (ExcelPackage package = new ExcelPackage(templateFile))
+                        {
+                            ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+
+                            // Ghi các biến @frdate và @todate vào ô C3
+                            worksheet.Cells["C3"].Value = $"Từ ngày: {frdate.Value.ToString("dd/MM/yyyy")} - đến ngày: {todate.Value.ToString("dd/MM/yyyy")}";
+
+                            // Ghi dữ liệu từ stored procedure vào từ ô A6
+
+                            worksheet.Cells["A6"].LoadFromDataTable(dataTable, false);
+
+                            // Kẻ ô cho file Excel từ A5 đến hết dữ liệu
+                            int rows = dataTable.Rows.Count + 5;
+                            int columns = dataTable.Columns.Count;
+
+                            using (var range = worksheet.Cells[5, 1, rows, columns])
+                            {
+                                range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                                range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                                range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                            }
+
+                            // Lưu file Excel
+                            //package.SaveAs(outputFile);
+                            // Lưu gói Excel đã được sửa đổi vào tệp đầu ra
+                            package.SaveAs(new FileInfo(outputPath));
+
+
+
+                            // Mở tệp Excel sau khi đã lưu
+                            System.Diagnostics.Process.Start(outputPath);
+                        }
+                    }
+                }
+            }
+        }
+        private async Task RunReportAsync_Tach_Don_333_314_315(string templatePath, string outputPath)
+        {
+            using (SqlConnection connection = new SqlConnection(bientoancuc.connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand(Pro_name.Text, connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@frdate", frdate.Value.ToString("yyyyMMdd"));
+
+                    command.Parameters.AddWithValue("@todate", todate.Value.ToString("yyyyMMdd"));
+
+                    command.CommandTimeout = 0; // Đặt thời gian chờ theo cần thiết
+
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+
+                        if (!reader.HasRows)
+                        {
+                            // Thông báo hoặc xử lý khi không có dữ liệu
+                            MessageBox.Show("Không có dữ liệu", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Console.WriteLine("Không có dữ liệu để xuất Excel.");
+                            return; // hoặc thực hiện các hành động khác theo yêu cầu của bạn
+                        }
+
+                        using (ExcelPackage package = new ExcelPackage(new FileInfo(templatePath)))
+                        {
+                            
+                            var frto = "Từ ngày: " + frdate.Value.ToString("dd-MM-yyyy") + " đến ngày: " + todate.Value.ToString("dd-MM-yyyy");
+                            if (await reader.ReadAsync())
+                            {
+                                ExcelWorksheet sheet1 = package.Workbook.Worksheets["333"];
+                                sheet1.Cells["D3"].Value = frto;
+                                int row = 7;
+                                do
+                                {
+                                    for (int col = 0; col < reader.FieldCount; col++)
+                                    {
+                                        sheet1.Cells[row, col+1 ].Value = reader.GetValue(col);
+                                    }
+                                    row++;
+                                } while (await reader.ReadAsync());
+                                // Kẻ ô cho file Excel từ A5 đến hết dữ liệu
+                                int Endrows = row - 1;
+                                int columns = reader.FieldCount;
+
+                                using (var range = sheet1.Cells[7, 1, Endrows, columns])
+                                {
+                                    range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                                    range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                                    range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                    range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                                }
+                            }
+                            
+                            await reader.NextResultAsync();
+                            if (await reader.ReadAsync())
+                            {
+                                ExcelWorksheet sheet2 = package.Workbook.Worksheets["314"];
+                                sheet2.Cells["D3"].Value = frto;
+                                int row = 7;
+                                do
+                                {
+                                    for (int col = 0; col < reader.FieldCount; col++)
+                                    {
+                                        sheet2.Cells[row, col + 1].Value = reader.GetValue(col);
+                                    }
+                                    row++;
+                                } while (await reader.ReadAsync());
+                                // Kẻ ô cho file Excel từ A5 đến hết dữ liệu
+                                int Endrows = row - 1;
+                                int columns = reader.FieldCount;
+
+                                using (var range = sheet2.Cells[7, 1, Endrows, columns])
+                                {
+                                    range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                                    range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                                    range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                    range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                                }
+                            }
+
+                            await reader.NextResultAsync();
+                            if (await reader.ReadAsync())
+                            {
+                                ExcelWorksheet sheet3 = package.Workbook.Worksheets["315"];
+                                sheet3.Cells["D3"].Value = frto;
+                                int row = 7;
+                                do
+                                {
+                                    for (int col = 0; col < reader.FieldCount; col++)
+                                    {
+                                        sheet3.Cells[row, col + 1].Value = reader.GetValue(col);
+                                    }
+                                    row++;
+                                } while (await reader.ReadAsync());
+                                // Kẻ ô cho file Excel từ A5 đến hết dữ liệu
+                                int Endrows = row - 1;
+                                int columns = reader.FieldCount;
+
+                                using (var range = sheet3.Cells[7, 1, Endrows, columns])
+                                {
+                                    range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                                    range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                                    range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                    range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                                }
+                            }
+
+                            await package.SaveAsAsync(new FileInfo(outputPath));
+                            System.Diagnostics.Process.Start(new ProcessStartInfo(outputPath) { UseShellExecute = true });
+                        }
+                    }
+                }
+            }
+        }
         private async Task RunReportAsync_ByMonth(string templatePath, string outputPath)
         {
             using (SqlConnection connection = new SqlConnection(bientoancuc.connectionString))
@@ -1233,11 +1439,14 @@ namespace Report_Center.Presentation
 
         private void report_name_Click(object sender, EventArgs e)
         {
-            Node_id.Visible = true;
-            Pro_name.Visible = true;
-            gr_para_name.Visible = true;
-            para_name.Visible = true;
-            lbl_API.Visible = true;
+            if (GlobalVariables.User_Name.UpperCase() == "ADMIN")
+            {
+                Node_id.Visible = true;
+                Pro_name.Visible = true;
+                gr_para_name.Visible = true;
+                para_name.Visible = true;
+                lbl_API.Visible = true;
+            }
         }
         private string GetExcelColumnName(int columnIndex)
         {

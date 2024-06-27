@@ -30,10 +30,10 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Report_Center.Presentation
 {
-    public partial class fr_BLe_BBuon_By_SKU_VH : Form
+    public partial class fr_SUM_Bill_By_Store_VH : Form
     {
 
-        public fr_BLe_BBuon_By_SKU_VH()
+        public fr_SUM_Bill_By_Store_VH()
         {
             InitializeComponent();
             //Shown += new EventHandler(fr_StkISQty_Shown);
@@ -88,7 +88,7 @@ namespace Report_Center.Presentation
             try
             {
 
-                fr_BLe_BBuon_By_SKU_VH f3 = (fr_BLe_BBuon_By_SKU_VH)Application.OpenForms["fr_BLe_BBuon_By_SKU_VH"];
+                fr_SUM_Bill_By_Store_VH f3 = (fr_SUM_Bill_By_Store_VH)Application.OpenForms["fr_SUM_Bill_By_Store_VH"];
                 f3.Close();
             }
             catch (NullReferenceException ne)
@@ -100,7 +100,7 @@ namespace Report_Center.Presentation
                 }
             }
         }
-        void fr_BLe_BBuon_By_SKU_VH_Shown(object sender, EventArgs e)
+        void fr_SUM_Bill_By_Store_VH_Shown(object sender, EventArgs e)
         {
             progressBar1.Visible = true;
             progressBar1.Style = ProgressBarStyle.Marquee;
@@ -116,10 +116,10 @@ namespace Report_Center.Presentation
             //DataTable table1 = new DataTable();
             //DataTable table1 = new DataTable();
 
-            string sql1 = "rpt_SUM_Bill_By_SKU_VH";
+            string sql1 = "rpt_SUM_Bill_By_Store_VH";
             //dt = cn.taobang_from_Procedure(sql);
             //List_Connected.DataSource = cn.taobang_from_Procedure(sql1);
-            table1 = cn.taobang_from_Procedure_Parameter1_Center_SKU(sql1, frdate, todate, Node_Id.Text.ToString(), GRP_ID.Text.ToString(), SKU_ID.Text.ToString(), 3);
+            table1 = cn.taobang_from_Procedure_Parameter1_Center(sql1, frdate, todate, Node_Id.Text.ToString());
 
             //Response.clear()
             //    Creating DataTable.
@@ -205,16 +205,14 @@ namespace Report_Center.Presentation
                 tk_Full.Enabled = true;
                 export_full.Enabled = true;
 
-                //decimal Total = 0;
+                decimal Total = 0;
 
-                //for (int i = 0; i < dataGridView_full.Rows.Count; i++)
-                //{
-                //    Total += Convert.ToDecimal(dataGridView_full.Rows[i].Cells["Tổng DT"].Value);
-                //}
+                for (int i = 0; i < dataGridView_full.Rows.Count; i++)
+                {
+                    Total += Convert.ToDecimal(dataGridView_full.Rows[i].Cells["DoanhThu"].Value);
+                }
 
-                //Sum_DT.Text = Total.ToString("N2");
-
-
+                SUM_DT.Text = Total.ToString("N2");
                 //for (int i = 0; i < dataGridView_full.Rows.Count; i++)
                 //{
                 //    dataGridView_full.Rows[i].Cells[0].Value = i + 1;
@@ -227,7 +225,7 @@ namespace Report_Center.Presentation
 
         }
 
-        private void fr_BLe_BBuon_By_SKU_VH_Load(object sender, EventArgs e)
+        private void fr_SUM_Bill_By_Store_VH_Load(object sender, EventArgs e)
         {
 
             //backgroundWorker1.RunWorkerAsync();
@@ -480,67 +478,47 @@ namespace Report_Center.Presentation
         //--------------------------------------------------------
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                //string value =
-                if (e.ColumnIndex == 1)
-                {
-                    if (Node_Id.Text.Length > 0)
-                    { Node_Id.Text += "," + dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString().Substring(1, 3); }
-                    else
-                    { Node_Id.Text = dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString().Substring(1, 3); ; }
+            ////////if (e.RowIndex >= 0)
+            ////////{
+            ////////    //string value =
+            ////////    if (e.ColumnIndex == 1)
+            ////////    {
+            ////////        Ma_NCC.Text = dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
+            ////////    }
+            ////////    if (e.ColumnIndex == 3)
+            ////////    {
+            ////////        Ma_NCC.Text = Converter.TCVN3ToUnicode(dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString());
+            ////////    }
+            ////////    if (e.ColumnIndex == 4 || e.ColumnIndex == 5 || e.ColumnIndex == 6)
+            ////////    {
+            ////////        Ma_hang.Text = dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
+            ////////    }
+            ////////    if (e.ColumnIndex == 9)
+            ////////    {
+            ////////        Ma_nhom.Text = dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
+            ////////    }
+            ////////    if (e.ColumnIndex == 10)
+            ////////    {
+            ////////        Ma_nhom.Text = Converter.TCVN3ToUnicode(dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString());
+            ////////    }
+            ////////    if (e.ColumnIndex == 7)
+            ////////    {
+            ////////        Ma_hang.Text = Converter.TCVN3ToUnicode(dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString());
+            ////////    }
+            ////////    ////Lưu lại dòng dữ liệu vừa kích chọn
+            ////////    //DataGridViewRow rowss = this.dataGridView_full.Rows[e.RowIndex];
+            ////////    ////DataGridViewCell cell = this.dataGridView_full.CellClick();
+            ////////    //DataGridViewColumn columnss =this.dataGridView_full.Columns[e.ColumnIndex];
+            ////////    ////Đưa dữ liệu vào textbox
+            ////////    //Ma_NCC.Text = rowss.Cells[columnss.ValueType].Value.ToString();
+            ////////    //string value =
+            ////////    //dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
+            ////////    //txtHoVaTen.Text = row.Cells[1].Value.ToString();
+            ////////    //txtQueQuan.Text = row.Cells[2].Value.ToString();
 
-                }
-                if (e.ColumnIndex == 3 || e.ColumnIndex == 5 || e.ColumnIndex == 7 || e.ColumnIndex == 9)
-                {
-                    if (GRP_ID.Text.Length > 0)
-                    { GRP_ID.Text += "," + dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString(); }
-                    else
-                    { GRP_ID.Text = dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString(); ; }
-
-                }
-                if (e.ColumnIndex == 11 || e.ColumnIndex == 12 || e.ColumnIndex == 13)
-                {
-                    if (SKU_ID.Text.Length > 0)
-                    { SKU_ID.Text += "," + dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString(); }
-                    else
-                    { SKU_ID.Text = dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString(); ; }
-
-                }
-                //if (e.ColumnIndex == 3)
-                //{
-                //    Ma_NCC.Text = Converter.TCVN3ToUnicode(dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString());
-                //}
-                //if (e.ColumnIndex == 4 || e.ColumnIndex == 5 || e.ColumnIndex == 6)
-                //{
-                //    Ma_hang.Text = dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
-                //}
-                //if (e.ColumnIndex == 9)
-                //{
-                //    Ma_nhom.Text = dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
-                //}
-                //if (e.ColumnIndex == 10)
-                //{
-                //    Ma_nhom.Text = Converter.TCVN3ToUnicode(dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString());
-                //}
-                //if (e.ColumnIndex == 7)
-                //{
-                //    Ma_hang.Text = Converter.TCVN3ToUnicode(dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString());
-                //}
-                ////Lưu lại dòng dữ liệu vừa kích chọn
-                //DataGridViewRow rowss = this.dataGridView_full.Rows[e.RowIndex];
-                ////DataGridViewCell cell = this.dataGridView_full.CellClick();
-                //DataGridViewColumn columnss =this.dataGridView_full.Columns[e.ColumnIndex];
-                ////Đưa dữ liệu vào textbox
-                //Ma_NCC.Text = rowss.Cells[columnss.ValueType].Value.ToString();
-                //string value =
-                //dataGridView_full.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
-                //txtHoVaTen.Text = row.Cells[1].Value.ToString();
-                //txtQueQuan.Text = row.Cells[2].Value.ToString();
-
-                //Không cho phép sửa trường STT
-                //txtSTT.Enabled = false;
-            }
+            ////////    //Không cho phép sửa trường STT
+            ////////    //txtSTT.Enabled = false;
+            ////////}
         }
         //----------------------------------------------------------
         private void dataGridView_full_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
@@ -946,19 +924,10 @@ namespace Report_Center.Presentation
                 {
                     //(dataGridView_full.DataSource as DataTable).DefaultView.RowFilter = string.Format("sku_id LIKE '%{0}%'", txt_Fillter.Text);
                     string rowFilter = string.Format("stk_id LIKE '%{0}%'", txt_Fillter.Text);
-                    rowFilter += string.Format("or STK_NAME LIKE '%{0}%'", txt_Fillter.Text);
-                    rowFilter += string.Format("or [Mã NH] LIKE '%{0}%'", txt_Fillter.Text);
-                    rowFilter += string.Format("or [Tên NH] LIKE '%{0}%'", txt_Fillter.Text);
-                    rowFilter += string.Format("or [Mã nhóm cấp 3] LIKE '%{0}%'", txt_Fillter.Text);
-                    rowFilter += string.Format("or [Tên nhóm cấp 3] LIKE '%{0}%'", txt_Fillter.Text);
-                    rowFilter += string.Format("or [Mã nhóm cấp 4] LIKE '%{0}%'", txt_Fillter.Text);
-                    rowFilter += string.Format("or [Tên nhóm cấp 4] LIKE '%{0}%'", txt_Fillter.Text);
-                    rowFilter += string.Format("or [Mã nhóm cấp 5] LIKE '%{0}%'", txt_Fillter.Text);
-                    rowFilter += string.Format("or [Tên nhóm cấp 5] LIKE '%{0}%'", txt_Fillter.Text);
-                    rowFilter += string.Format("or SKU_ID LIKE '%{0}%'", txt_Fillter.Text);
-                    rowFilter += string.Format("or SKU_CODE LIKE '%{0}%'", txt_Fillter.Text);
-                    rowFilter += string.Format("or BARCODE LIKE '%{0}%'", txt_Fillter.Text);
-                    rowFilter += string.Format("or Full_name LIKE '%{0}%'", txt_Fillter.Text);
+                    rowFilter += string.Format("or bu_id LIKE '%{0}%'", txt_Fillter.Text);
+                    rowFilter += string.Format("or BU_DESC LIKE '%{0}%'", txt_Fillter.Text);
+                    //rowFilter += string.Format("or grp_name LIKE '%{0}%'", txt_Fillter.Text);
+                    //rowFilter += string.Format("or full_name LIKE '%{0}%'", txt_Fillter.Text);
                     (dataGridView_full.DataSource as DataTable).DefaultView.RowFilter = rowFilter;
                 }
                 else
@@ -1036,7 +1005,7 @@ namespace Report_Center.Presentation
             {
                 try
                 {
-                    ////F003_Splash.ShowSplash();
+                    //F003_Splash.ShowSplash();
                     //progressBar1.Visible = true;
                     //progressBar1.Style = ProgressBarStyle.Marquee;
 
@@ -1168,17 +1137,6 @@ namespace Report_Center.Presentation
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
         }
-
-        private void progressBar1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void New_Export_Click1()
         {
             if (dataGridView_full.RowCount == 0)
@@ -1188,7 +1146,7 @@ namespace Report_Center.Presentation
 
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Excel Documents (*.xls)|*.xls";
-            sfd.FileName = "Doanh thu chi tiết BB, BL.xlsx";
+            sfd.FileName = "Doanh_Thu_Bill.xlsx";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -1252,7 +1210,7 @@ namespace Report_Center.Presentation
                     //workSheet.Name = "aaaaa";
                     //workSheet = (Worksheet)wb.Sheets[1];
                     //    workSheet.Activate();
-                    workSheet.Name = "Detail";
+                    workSheet.Name = "DT_Bill";
                     workSheet.Rows[1].WrapText = true;
                     workSheet.Range["G:G"].NumberFormat = "0";
                     workSheet.Range["C:C"].NumberFormat = "00000";
@@ -1285,7 +1243,7 @@ namespace Report_Center.Presentation
                     newRng1.VerticalAlignment = XlVAlign.xlVAlignCenter;
                     newRng1.HorizontalAlignment = XlHAlign.xlHAlignCenter;
 
-                    workSheet.Cells[1, 4] = "BÁO CÁO DOANH THU CHI TIẾT BÁN BUÔN, BÁN LẺ";
+                    workSheet.Cells[1, 4] = "BÁO CÁO TỔNG BILL LẺ/ BUÔN THEO ĐIỂM";
                     workSheet.Cells[2, 4] = "Thời gian : " + frdate.Value.ToString("dd/M/yyyy") + " - " + todate.Value.ToString("dd/M/yyyy");
                     try
                     {

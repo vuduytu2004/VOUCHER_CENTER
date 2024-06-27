@@ -160,6 +160,12 @@
     <Compile Include="DataAccess\ConnectDB.cs" />
     <Compile Include="DataAccess\LogBuild.cs" />
     <Compile Include="DataAccess\Unicode2TCVN.cs" />
+    <Compile Include="Presentation\fr_BLe_BBuon_By_NH_VH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\fr_BLe_BBuon_By_NH_VH.designer.cs">
+      <DependentUpon>fr_BLe_BBuon_By_NH_VH.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\fr_BLe_BBuon_By_SKU_VH.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,6 +232,12 @@
     <Compile Include="Presentation\fr_StkISQty_Doc.designer.cs">
       <DependentUpon>fr_StkISQty_Doc.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentation\fr_SUM_Bill_By_Store_VH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\fr_SUM_Bill_By_Store_VH.designer.cs">
+      <DependentUpon>fr_SUM_Bill_By_Store_VH.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\fr_Zone_Prices.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -246,6 +258,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Presentation\fr_BLe_BBuon_By_NH_VH.resx">
+      <DependentUpon>fr_BLe_BBuon_By_NH_VH.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation\fr_BLe_BBuon_By_SKU_VH.resx">
       <DependentUpon>fr_BLe_BBuon_By_SKU_VH.cs</DependentUpon>
     </EmbeddedResource>
@@ -278,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentation\fr_StkISQty_Doc.resx">
       <DependentUpon>fr_StkISQty_Doc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\fr_SUM_Bill_By_Store_VH.resx">
+      <DependentUpon>fr_SUM_Bill_By_Store_VH.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentation\fr_Zone_Prices.resx">
       <DependentUpon>fr_Zone_Prices.cs</DependentUpon>
@@ -326,6 +344,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Media\Template\Template-rpt_TotalRetailWholesaleByMonth.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Media\Template\Template-rpt_truyen_nhan.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Media\Template\Template-Tach_Don_333_314_315.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Media\Template\Template.xlsx">

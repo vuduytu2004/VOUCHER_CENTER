@@ -1,6 +1,7 @@
 ﻿//using System.Collections;
 using ClosedXML.Excel;
 using Microsoft.Office.Interop.Excel;
+using Report_Center.DataAccess;
 using System;
 //using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,6 @@ using System.Threading;
 //using System.Linq;
 //using System.Text;
 using System.Windows.Forms;
-using Report_Center.DataAccess;
 //using System.Threading;
 //using Font = System.Drawing.Font;
 using Application = System.Windows.Forms.Application;

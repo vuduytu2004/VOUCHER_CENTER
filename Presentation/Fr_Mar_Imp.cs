@@ -6,10 +6,8 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Report_Center.Main;
 
 
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
@@ -270,10 +268,10 @@ namespace Report_Center.Presentation
                 {
                     string selectedDirectory = Path.GetDirectoryName(saveFileDialog.FileName);
                     string uniqueFileName = GetUniqueFileName(Path.GetFileName(saveFileDialog.FileName), selectedDirectory);
-
+                    Exp_data.Enabled = false;
                     await RunReportAsync_MKT(templatePath, uniqueFileName);
-
-                    MessageBox.Show($"File saved to: {uniqueFileName}", "Export Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Exp_data.Enabled = true;
+                    //MessageBox.Show($"File saved to: {uniqueFileName}", "Export Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {

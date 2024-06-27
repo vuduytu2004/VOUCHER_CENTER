@@ -11,7 +11,7 @@ namespace Report_Center.DataAccess
 {
     public class bientoancuc
     {
-        public static string userchung, passchung, amti = "BC123", b_Server2, b_Database2, b_user2, B_pass2, tenfilenhap, keylog, Server_nguon, Database_nguon, user_nguon, pass_nguon,b_Server3, b_Database3, b_user3, B_pass3;
+        public static string userchung, passchung, amti = "BC123", b_Server2, b_Database2, b_user2, B_pass2, tenfilenhap, keylog, Server_nguon, Database_nguon, user_nguon, pass_nguon, b_Server3, b_Database3, b_user3, B_pass3;
         public static string connectionString;
         public static string connectionString_DWH;
         //public static string amti = "BC123";

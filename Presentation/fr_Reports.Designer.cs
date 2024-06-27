@@ -55,6 +55,7 @@
             this.gr_supp_id = new System.Windows.Forms.GroupBox();
             this.supp_id = new System.Windows.Forms.TextBox();
             this.lbl_supp_id = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.gr_fr_to_date.SuspendLayout();
             this.gr_dept_id.SuspendLayout();
             this.gr_stk_id.SuspendLayout();
@@ -381,11 +382,19 @@
             this.lbl_supp_id.TabIndex = 18;
             this.lbl_supp_id.Text = "Supp_id";
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(417, 489);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(408, 23);
+            this.progressBar1.TabIndex = 28;
+            // 
             // fr_Reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(895, 564);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.gr_supp_id);
             this.Controls.Add(this.gr_sku_code);
             this.Controls.Add(this.lbl_API);
@@ -450,5 +459,6 @@
         private System.Windows.Forms.GroupBox gr_supp_id;
         private System.Windows.Forms.TextBox supp_id;
         private System.Windows.Forms.Label lbl_supp_id;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
