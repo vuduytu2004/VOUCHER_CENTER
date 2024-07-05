@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Report_Center
+namespace VOUCHER_CENTER
 {
     internal static class Program
     {

@@ -1,4 +1,4 @@
-﻿namespace Report_Center.Presentation
+﻿namespace VOUCHER_CENTER.Presentation
 {
     partial class fr_Permissions
     {
@@ -30,7 +30,7 @@
         {
             this.dgvUsers = new System.Windows.Forms.DataGridView();
             this.dgvUserPermissions = new System.Windows.Forms.DataGridView();
-            this.dgvRoleGroup = new System.Windows.Forms.DataGridView();
+            this.dgvBRGGroup = new System.Windows.Forms.DataGridView();
             this.cmbUsers = new System.Windows.Forms.ComboBox();
             this.txt_Fillter = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,9 +38,11 @@
             this.btn_Close = new System.Windows.Forms.Button();
             this.btn_Update = new System.Windows.Forms.Button();
             this.btn_Update_CT = new System.Windows.Forms.Button();
+            this.dgvBRGDetail = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUserPermissions)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRoleGroup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBRGGroup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBRGDetail)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvUsers
@@ -48,7 +50,7 @@
             this.dgvUsers.AllowUserToAddRows = false;
             this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsers.Location = new System.Drawing.Point(8, 38);
-            this.dgvUsers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvUsers.Margin = new System.Windows.Forms.Padding(2);
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.ReadOnly = true;
             this.dgvUsers.RowHeadersWidth = 62;
@@ -66,32 +68,32 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvUserPermissions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUserPermissions.Location = new System.Drawing.Point(638, 38);
-            this.dgvUserPermissions.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvUserPermissions.Margin = new System.Windows.Forms.Padding(2);
             this.dgvUserPermissions.Name = "dgvUserPermissions";
             this.dgvUserPermissions.RowHeadersWidth = 62;
             this.dgvUserPermissions.RowTemplate.Height = 28;
             this.dgvUserPermissions.Size = new System.Drawing.Size(511, 436);
             this.dgvUserPermissions.TabIndex = 1;
             // 
-            // dgvRoleGroup
+            // dgvBRGGroup
             // 
-            this.dgvRoleGroup.AllowUserToAddRows = false;
-            this.dgvRoleGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvBRGGroup.AllowUserToAddRows = false;
+            this.dgvBRGGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.dgvRoleGroup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRoleGroup.Location = new System.Drawing.Point(8, 286);
-            this.dgvRoleGroup.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.dgvRoleGroup.Name = "dgvRoleGroup";
-            this.dgvRoleGroup.RowHeadersWidth = 62;
-            this.dgvRoleGroup.RowTemplate.Height = 28;
-            this.dgvRoleGroup.Size = new System.Drawing.Size(626, 188);
-            this.dgvRoleGroup.TabIndex = 5;
+            this.dgvBRGGroup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvBRGGroup.Location = new System.Drawing.Point(8, 286);
+            this.dgvBRGGroup.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvBRGGroup.Name = "dgvBRGGroup";
+            this.dgvBRGGroup.RowHeadersWidth = 62;
+            this.dgvBRGGroup.RowTemplate.Height = 28;
+            this.dgvBRGGroup.Size = new System.Drawing.Size(283, 188);
+            this.dgvBRGGroup.TabIndex = 5;
             // 
             // cmbUsers
             // 
             this.cmbUsers.FormattingEnabled = true;
             this.cmbUsers.Location = new System.Drawing.Point(885, 16);
-            this.cmbUsers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbUsers.Margin = new System.Windows.Forms.Padding(2);
             this.cmbUsers.Name = "cmbUsers";
             this.cmbUsers.Size = new System.Drawing.Size(73, 21);
             this.cmbUsers.TabIndex = 4;
@@ -102,7 +104,7 @@
             // txt_Fillter
             // 
             this.txt_Fillter.Location = new System.Drawing.Point(99, 14);
-            this.txt_Fillter.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_Fillter.Margin = new System.Windows.Forms.Padding(2);
             this.txt_Fillter.Name = "txt_Fillter";
             this.txt_Fillter.Size = new System.Drawing.Size(130, 20);
             this.txt_Fillter.TabIndex = 6;
@@ -149,6 +151,7 @@
             this.btn_Update.TabIndex = 10;
             this.btn_Update.Text = "Update Nhóm";
             this.btn_Update.UseVisualStyleBackColor = true;
+            this.btn_Update.Visible = false;
             this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
             // 
             // btn_Update_CT
@@ -162,27 +165,43 @@
             this.btn_Update_CT.UseVisualStyleBackColor = true;
             this.btn_Update_CT.Click += new System.EventHandler(this.btn_Update_CT_Click);
             // 
+            // dgvBRGDetail
+            // 
+            this.dgvBRGDetail.AllowUserToAddRows = false;
+            this.dgvBRGDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dgvBRGDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvBRGDetail.Location = new System.Drawing.Point(295, 286);
+            this.dgvBRGDetail.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvBRGDetail.Name = "dgvBRGDetail";
+            this.dgvBRGDetail.RowHeadersWidth = 62;
+            this.dgvBRGDetail.RowTemplate.Height = 28;
+            this.dgvBRGDetail.Size = new System.Drawing.Size(339, 188);
+            this.dgvBRGDetail.TabIndex = 12;
+            // 
             // fr_Permissions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1160, 523);
+            this.Controls.Add(this.dgvBRGDetail);
             this.Controls.Add(this.btn_Update_CT);
             this.Controls.Add(this.btn_Update);
             this.Controls.Add(this.btn_Close);
             this.Controls.Add(this.txt_UserID);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txt_Fillter);
-            this.Controls.Add(this.dgvRoleGroup);
+            this.Controls.Add(this.dgvBRGGroup);
             this.Controls.Add(this.cmbUsers);
             this.Controls.Add(this.dgvUserPermissions);
             this.Controls.Add(this.dgvUsers);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "fr_Permissions";
             this.Text = "fr_Permissions";
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUserPermissions)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRoleGroup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBRGGroup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBRGDetail)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -192,7 +211,7 @@
 
         private System.Windows.Forms.DataGridView dgvUsers;
         private System.Windows.Forms.DataGridView dgvUserPermissions;
-        private System.Windows.Forms.DataGridView dgvRoleGroup;
+        private System.Windows.Forms.DataGridView dgvBRGGroup;
         private System.Windows.Forms.ComboBox cmbUsers;
         private System.Windows.Forms.TextBox txt_Fillter;
         private System.Windows.Forms.Label label1;
@@ -200,5 +219,6 @@
         private System.Windows.Forms.Button btn_Close;
         private System.Windows.Forms.Button btn_Update;
         private System.Windows.Forms.Button btn_Update_CT;
+        private System.Windows.Forms.DataGridView dgvBRGDetail;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Lib.Utils.Package;
-using Report_Center.DataAccess;
-using Report_Center.Presentation;
+using VOUCHER_CENTER.DataAccess;
+using VOUCHER_CENTER.Presentation;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Report_Center
+namespace VOUCHER_CENTER
 {
     public partial class Main : Form
     {
@@ -28,12 +28,11 @@ namespace Report_Center
 
         // Tạo tên file theo tên máy
         public static string coputerName = System.Environment.MachineName;
-
+        
         // Tạo đường dẫn đầy đủ đến file txt
         public static string filePath = Path.Combine(LogsDirectory, coputerName);
         // Tạo đường dẫn đầy đủ đến file txt
-        public static string File_INI = Path.Combine(projectDirectory, "Rp_Center");
-
+        public static string File_INI = Path.Combine(projectDirectory, "VC_Center");
 
         public static class GlobalVariables
         {
@@ -42,6 +41,9 @@ namespace Report_Center
             public static string User_Pass { get; set; }
             public static int First_Time { get; set; }
             public static int demSl { get; set; }
+            public static string Locations_Group { get; set; }
+            public static string Locations_Detail { get; set; }
+            public static string Computer_Name { get; set; }
 
             // Các biến toàn cục khác có thể được thêm vào đây
         }
@@ -54,7 +56,7 @@ namespace Report_Center
             GlobalVariables.First_Time = 1;
             ShowLoginForm();
 
-
+            GlobalVariables.Computer_Name = coputerName;
             // Tạo một ToolStripStatusLabel
             ToolStripStatusLabel toolStripStatusLabel3 = new ToolStripStatusLabel();
 
@@ -119,6 +121,7 @@ namespace Report_Center
                 catch { }
                 toolStripStatusLabel2.Text = "   Người sử dụng: " + GlobalVariables.User_Name.ToString();
                 BuildDynamicMenu(GlobalVariables.UserID);
+                Get_use_location(GlobalVariables.UserID);
                 if (chua_pham_quyen == -2) { MessageBox.Show("Bạn chưa được phân quyền, \r\n Vui lòng liên hệ với Quản trị viên ", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information); }
             }
             else if (GlobalVariables.First_Time == 0)
@@ -133,6 +136,33 @@ namespace Report_Center
             }
         }
 
+        // Lây vị trí người sử dụng
+        private void Get_use_location(int userID)
+        {
+            using (SqlConnection connection = new SqlConnection(bientoancuc.connectionString))
+            {
+                connection.Open();
+                GlobalVariables.Locations_Group = "";
+                GlobalVariables.Locations_Detail = "";
+                if (userID != 1)
+                {
+                    string query_admin = "SELECT [Locations_Group], [Locations_Detail] FROM [VOUCHER_CENTER].[dbo].[Users] WITH (NOLOCK) WHERE status=1 AND [UserID]=@UserID";
+                    using (SqlCommand command = new SqlCommand(query_admin, connection))
+                    {
+                        command.Parameters.AddWithValue("@UserID", userID);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                GlobalVariables.Locations_Group = reader["Locations_Group"].ToString();
+                                GlobalVariables.Locations_Detail = reader["Locations_Detail"].ToString();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         // Phần Code để Build Menu theo Phân Quyền
         private void BuildDynamicMenu(int userID)
         {
@@ -144,7 +174,7 @@ namespace Report_Center
 
                     // Truy vấn cơ sở dữ liệu để lấy danh sách MenuItemID mà người dùng có quyền truy cập
                     //string query_admin = "SELECT MenuItemID FROM MenuItems";
-                    string query_admin = "SELECT * FROM MenuItems WITH (NOLOCK) WHERE Enable_Check=1 -- WHERE MenuItemID BETWEEN 1 AND 10";
+                    string query_admin = "SELECT * FROM MenuItems WITH (NOLOCK) WHERE Enable_Check=1 order by Ord_by -- WHERE MenuItemID BETWEEN 1 AND 10";
                     using (SqlCommand command = new SqlCommand(query_admin, connection))
                     {
                         //command.Parameters.AddWithValue("@UserID", userID);
@@ -198,7 +228,7 @@ namespace Report_Center
                 //string query = "SELECT * FROM MenuItems where MenuItemID in "+ allowedMenuItems + " ORDER BY MenuItemID,MenuLevel, ParentMenuID, MenuItemName";
                 // Xây dựng câu truy vấn với danh sách giá trị MenuItemID
                 string menuItemIds = string.Join(",", allowedMenuItems.Select(id => id.ToString()));
-                string query = $"SELECT * FROM MenuItems WITH (NOLOCK) WHERE MenuItemID IN ({menuItemIds}) and  Enable_Check=1  ORDER BY MenuItemID, MenuLevel, ParentMenuID, MenuItemName";
+                string query = $"SELECT * FROM MenuItems WITH (NOLOCK) WHERE MenuItemID IN ({menuItemIds}) and  Enable_Check=1  ORDER BY Ord_by,MenuItemID, MenuLevel, ParentMenuID, MenuItemName";
                 //string query = $"SELECT * FROM MenuItems ORDER BY MenuItemID, MenuLevel, ParentMenuID, MenuItemName";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
                 DataTable dataTable = new DataTable();
@@ -535,5 +565,9 @@ namespace Report_Center
             }
         }
 
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -5,9 +5,9 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 //using NuGet;
-using static Report_Center.Main;
+using static VOUCHER_CENTER.Main;
 
-namespace Report_Center.DataAccess
+namespace VOUCHER_CENTER.DataAccess
 {
     public class bientoancuc
     {
@@ -56,29 +56,29 @@ namespace Report_Center.DataAccess
                     this.Database1 = read.ReadLine().Split(':')[1];
                     this.user1 = DecryptString((read.ReadLine().Split(':')[1]), bientoancuc.amti);
                     this.pass1 = DecryptString((read.ReadLine().Split(':')[1]), bientoancuc.amti);
-                    this.Server2 = ((read.ReadLine().Split(':')[1]));
-                    this.Database2 = ((read.ReadLine().Split(':')[1]));
-                    this.user2 = DecryptString((read.ReadLine().Split(':')[1]), bientoancuc.amti);
-                    this.pass2 = DecryptString((read.ReadLine().Split(':')[1]), bientoancuc.amti);
-                    bientoancuc.b_Server2 = this.Server2;
-                    bientoancuc.b_Database2 = this.Database2;
-                    bientoancuc.b_user2 = this.user2;
-                    bientoancuc.B_pass2 = this.pass2;
+                    //this.Server2 = ((read.ReadLine().Split(':')[1]));
+                    //this.Database2 = ((read.ReadLine().Split(':')[1]));
+                    //this.user2 = DecryptString((read.ReadLine().Split(':')[1]), bientoancuc.amti);
+                    //this.pass2 = DecryptString((read.ReadLine().Split(':')[1]), bientoancuc.amti);
+                    //bientoancuc.b_Server2 = this.Server2;
+                    //bientoancuc.b_Database2 = this.Database2;
+                    //bientoancuc.b_user2 = this.user2;
+                    //bientoancuc.B_pass2 = this.pass2;
 
                     bientoancuc.Server_nguon = this.Server1;
                     bientoancuc.Database_nguon = this.Database1;
                     bientoancuc.user_nguon = this.user1;
                     bientoancuc.pass_nguon = this.pass1;
 
-                    // Chỉnh lần 3
-                    this.Server3 = ((read.ReadLine().Split(':')[1]));
-                    this.Database3 = ((read.ReadLine().Split(':')[1]));
-                    this.user3 = DecryptString((read.ReadLine().Split(':')[1]), bientoancuc.amti);
-                    this.pass3 = DecryptString((read.ReadLine().Split(':')[1]), bientoancuc.amti);
-                    bientoancuc.b_Server3 = this.Server3;
-                    bientoancuc.b_Database3 = this.Database3;
-                    bientoancuc.b_user3 = this.user3;
-                    bientoancuc.B_pass3 = this.pass3;
+                    //// Chỉnh lần 3
+                    //this.Server3 = ((read.ReadLine().Split(':')[1]));
+                    //this.Database3 = ((read.ReadLine().Split(':')[1]));
+                    //this.user3 = DecryptString((read.ReadLine().Split(':')[1]), bientoancuc.amti);
+                    //this.pass3 = DecryptString((read.ReadLine().Split(':')[1]), bientoancuc.amti);
+                    //bientoancuc.b_Server3 = this.Server3;
+                    //bientoancuc.b_Database3 = this.Database3;
+                    //bientoancuc.b_user3 = this.user3;
+                    //bientoancuc.B_pass3 = this.pass3;
 
 
                 }

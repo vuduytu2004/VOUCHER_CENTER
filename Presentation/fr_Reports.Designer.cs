@@ -1,4 +1,4 @@
-﻿namespace Report_Center.Presentation
+﻿namespace VOUCHER_CENTER.Presentation
 {
     partial class fr_Reports
     {

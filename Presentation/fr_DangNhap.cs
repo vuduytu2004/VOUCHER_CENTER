@@ -1,18 +1,18 @@
 ﻿using Lib.Utils.Package;
-using Report_Center.DataAccess;
+using VOUCHER_CENTER.DataAccess;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
-using static Report_Center.Main;
+using static VOUCHER_CENTER.Main;
 
-namespace Report_Center.Presentation
+namespace VOUCHER_CENTER.Presentation
 {
     public partial class fr_DangNhap : Form
     {
-        //private string connectionString = "Data Source=172.16.71.170;Initial Catalog=HCRC_Report_Center;User ID=hieund;Password=123@123123;";
+        //private string connectionString = "Data Source=172.16.71.170;Initial Catalog=HCRC_VOUCHER_CENTER;User ID=hieund;Password=123@123123;";
         //public int UserID { get; private set; } // Thuộc tính để lưu trữ UserID
         public fr_DangNhap()
         {

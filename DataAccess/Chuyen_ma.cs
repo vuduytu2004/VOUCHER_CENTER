@@ -1,4 +1,4 @@
-﻿namespace Report_Center.DataAccess
+﻿namespace VOUCHER_CENTER.DataAccess
 {
     class Converter
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Report_Center.Properties {
+namespace VOUCHER_CENTER.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Report_Center.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Report_Center.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VOUCHER_CENTER.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -76,6 +76,16 @@ namespace Report_Center.Properties {
         internal static System.Drawing.Bitmap BRGMart {
             get {
                 object obj = ResourceManager.GetObject("BRGMart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap E_voucher {
+            get {
+                object obj = ResourceManager.GetObject("E_voucher", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

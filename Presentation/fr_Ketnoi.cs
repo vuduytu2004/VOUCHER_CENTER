@@ -1,10 +1,10 @@
-﻿using Report_Center.DataAccess;
+﻿using VOUCHER_CENTER.DataAccess;
 using System;
 using System.IO;
 using System.Windows.Forms;
-using static Report_Center.Main;
+using static VOUCHER_CENTER.Main;
 
-namespace Report_Center.Presentation
+namespace VOUCHER_CENTER.Presentation
 {
     public partial class fr_Ketnoi : Form
     {

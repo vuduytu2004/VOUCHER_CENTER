@@ -1,4 +1,4 @@
-﻿namespace Report_Center.Presentation
+﻿namespace VOUCHER_CENTER.Presentation
 {
     partial class fr_DangNhap
     {
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fr_DangNhap));
             this.cmdthoat = new System.Windows.Forms.Button();
             this.cmddn = new System.Windows.Forms.Button();
             this.txtpass = new System.Windows.Forms.TextBox();
@@ -66,7 +67,7 @@
             this.txtpass.Location = new System.Drawing.Point(196, 51);
             this.txtpass.Name = "txtpass";
             this.txtpass.PasswordChar = '*';
-            this.txtpass.Size = new System.Drawing.Size(214, 37);
+            this.txtpass.Size = new System.Drawing.Size(214, 27);
             this.txtpass.TabIndex = 1;
             // 
             // txtuser
@@ -74,7 +75,7 @@
             this.txtuser.Font = new System.Drawing.Font("Times New Roman", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtuser.Location = new System.Drawing.Point(196, 12);
             this.txtuser.Name = "txtuser";
-            this.txtuser.Size = new System.Drawing.Size(214, 37);
+            this.txtuser.Size = new System.Drawing.Size(214, 27);
             this.txtuser.TabIndex = 0;
             // 
             // label3
@@ -84,7 +85,7 @@
             this.label3.Font = new System.Drawing.Font("Times New Roman", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(7, 51);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(119, 29);
+            this.label3.Size = new System.Drawing.Size(75, 19);
             this.label3.TabIndex = 68;
             this.label3.Text = "Mật Khẩu";
             // 
@@ -95,13 +96,13 @@
             this.label2.Font = new System.Drawing.Font("Times New Roman", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(7, 15);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(263, 44);
+            this.label2.Size = new System.Drawing.Size(109, 19);
             this.label2.TabIndex = 69;
             this.label2.Text = "Mã Đăng Nhập";
             // 
             // fr_DangNhap
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 27F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(421, 151);
             this.Controls.Add(this.cmdthoat);
@@ -111,6 +112,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "fr_DangNhap";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

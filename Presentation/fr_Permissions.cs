@@ -1,4 +1,4 @@
-﻿using Report_Center.DataAccess;
+﻿using VOUCHER_CENTER.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,8 +6,10 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Lib.Utils.Package;
+using static VOUCHER_CENTER.Main;
 
-namespace Report_Center.Presentation
+namespace VOUCHER_CENTER.Presentation
 {
     public partial class fr_Permissions : Form
     {
@@ -30,7 +32,7 @@ namespace Report_Center.Presentation
             {
                 connection.Open();
 
-                string query = "SELECT UserID, UserName,[FullName],[PositionCode_Name],[DepartmentCode_Name],[DSMART],[status] FROM Users WITH (NOLOCK)";
+                string query = "SELECT UserID, UserName,[FullName],[Locations_Group],[Locations_Detail],[status] FROM Users WITH (NOLOCK) where UserID<>'1'";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
                 userDataTable = new DataTable();
                 adapter.Fill(userDataTable);
@@ -52,8 +54,16 @@ namespace Report_Center.Presentation
             using (SqlConnection connection = new SqlConnection(bientoancuc.connectionString))
             {
                 connection.Open();
-
-                string query = "SELECT MenuItemID, MenuItemName, ParentMenuID FROM MenuItems WITH (NOLOCK) where Enable_Check=1 ORDER BY COALESCE(ParentMenuID, MenuItemID), MenuItemID;";
+                string query = "";
+                if (GlobalVariables.User_Name.UpperCase() == "ADMIN" || GlobalVariables.User_Name.UpperCase() == "BL160")
+                {
+                    query = "SELECT MenuItemID, MenuItemName, ParentMenuID FROM MenuItems WITH (NOLOCK) where Enable_Check=1 ORDER BY ord_by,COALESCE(ParentMenuID, MenuItemID), MenuItemID;";
+                }
+                else
+                {
+                    query = "SELECT MenuItemID, MenuItemName, ParentMenuID FROM MenuItems WITH (NOLOCK) where Enable_Check=1 and MenuItemID not in (5,6,7,8,9) ORDER BY ord_by,COALESCE(ParentMenuID, MenuItemID), MenuItemID;";
+                }
+                
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
@@ -78,21 +88,41 @@ namespace Report_Center.Presentation
             {
                 connection.Open();
 
-                string query = "SELECT * FROM RoleGroups WITH (NOLOCK)";
+                string query = "SELECT * FROM Locations_Group WITH (NOLOCK) where status=1";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
 
                 // Load dữ liệu vào DataGridView
-                dgvRoleGroup.DataSource = dataTable;
+                dgvBRGGroup.DataSource = dataTable;
                 DataGridViewCheckBoxColumn checkboxColumn = new DataGridViewCheckBoxColumn();
                 checkboxColumn.HeaderText = "Enable";
                 checkboxColumn.Name = "CheckboxColumn";
-                dgvRoleGroup.Columns.Add(checkboxColumn);
+                dgvBRGGroup.Columns.Add(checkboxColumn);
                 // Thiết lập tự động điều chỉnh kích thước cột
-                dgvRoleGroup.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                dgvRoleGroup.Columns[0].ReadOnly = true;
-                dgvRoleGroup.Columns[1].ReadOnly = true;
+                dgvBRGGroup.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                dgvBRGGroup.Columns[0].ReadOnly = true;
+                dgvBRGGroup.Columns[1].ReadOnly = true;
+            }
+            using (SqlConnection connection = new SqlConnection(bientoancuc.connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT * FROM Locations_Detail WITH (NOLOCK) where status=1";
+                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+                // Load dữ liệu vào DataGridView
+                dgvBRGDetail.DataSource = dataTable;
+                DataGridViewCheckBoxColumn checkboxColumn = new DataGridViewCheckBoxColumn();
+                checkboxColumn.HeaderText = "Enable";
+                checkboxColumn.Name = "CheckboxColumn";
+                dgvBRGDetail.Columns.Add(checkboxColumn);
+                // Thiết lập tự động điều chỉnh kích thước cột
+                dgvBRGDetail.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                dgvBRGDetail.Columns[0].ReadOnly = true;
+                dgvBRGDetail.Columns[1].ReadOnly = true;
             }
         }
 
@@ -193,9 +223,9 @@ namespace Report_Center.Presentation
             {
                 string filterExpression = $"UserName LIKE '%{txt_Fillter.Text}%'";
                 filterExpression += $"or FullName LIKE '%{txt_Fillter.Text}%'";
-                filterExpression += $"or PositionCode_Name LIKE '%{txt_Fillter.Text}%'";
-                filterExpression += $"or DepartmentCode_Name LIKE '%{txt_Fillter.Text}%'";
-                filterExpression += $"or DSMART LIKE '%{txt_Fillter.Text}%'";
+                filterExpression += $"or Locations_Group LIKE '%{txt_Fillter.Text}%'";
+                filterExpression += $"or Locations_Detail LIKE '%{txt_Fillter.Text}%'";
+                //filterExpression += $"or DSMART LIKE '%{txt_Fillter.Text}%'";
                 userDataTable.DefaultView.RowFilter = filterExpression;
             }
             else
@@ -244,10 +274,12 @@ namespace Report_Center.Presentation
                         while (reader.Read())
                         {
                             int menuItemID1 = reader.GetInt32(0); // Giả sử MenuItemID là cột đầu tiên trong kết quả
-                            int menuItemID2 = reader.GetInt32(1); // Giả sử MenuItemID là cột thứ hai trong kết quả
+                            int menuItemID2 = reader.GetInt32(1); // Giả sử Locations_Group là cột thứ hai trong kết quả
+                            int menuItemID3 = reader.GetInt32(2); // Giả sử Locations_Detail là cột thứ hai trong kết quả
 
                             // Thêm mảng chứa 2 giá trị vào danh sách
-                            menuItemIDs.Add(new int[] { menuItemID1, menuItemID2 });
+                            menuItemIDs.Add(new int[] { menuItemID1, menuItemID2, menuItemID3 });
+                            //menuItemIDs.Add(new int[] { menuItemID1 });
                         }
                     }
                 }
@@ -287,13 +319,31 @@ namespace Report_Center.Presentation
 
             }
             // Duyệt qua các dòng trong dgvUserPermissions
-            foreach (DataGridViewRow row in dgvRoleGroup.Rows)
+            foreach (DataGridViewRow row in dgvBRGGroup.Rows)
             {
                 // Lấy giá trị MenuItemID từ dòng hiện tại trong dgvUserPermissions
-                int menuItemID = Convert.ToInt32(row.Cells["RoleGroupID"].Value);
+                int menuItemID = Convert.ToInt32(row.Cells["ID"].Value);
 
                 // Kiểm tra xem MenuItemID có trong mảng menuItemIDs không
-                bool menuItemExists = menuItemIDs.Any(pair => pair[1] == menuItemID);
+                bool menuItemExists = menuItemIDs.Any(pair => pair[1] == menuItemID  );
+
+                // Gán giá trị cho ô checkbox
+                row.Cells["CheckboxColumn"].Value = menuItemExists;
+
+                //// Gán màu xám cho dòng nếu MenuItemID không tồn tại
+                //row.DefaultCellStyle.BackColor = menuItemExists ? Color.White : Color.DarkGoldenrod;
+                // Gán màu xám cho dòng nếu MenuItemID tồn tại
+                row.DefaultCellStyle.BackColor = menuItemExists ? Color.Blue : Color.White;
+            }
+            // Duyệt qua các dòng trong dgvUserPermissions
+            foreach (DataGridViewRow row in dgvBRGDetail.Rows)
+            {
+                // Lấy giá trị MenuItemID từ dòng hiện tại trong dgvUserPermissions
+                int menuItemID = Convert.ToInt32(row.Cells["LocationType"].Value);
+                int menuItemID1 = Convert.ToInt32(row.Cells["LocationCode"].Value);
+
+                // Kiểm tra xem MenuItemID có trong mảng menuItemIDs không
+                bool menuItemExists = menuItemIDs.Any(pair => pair[1] == menuItemID && pair[2] == menuItemID1);
 
                 // Gán giá trị cho ô checkbox
                 row.Cells["CheckboxColumn"].Value = menuItemExists;
@@ -552,7 +602,7 @@ namespace Report_Center.Presentation
             //////////////////////////////////////////////////////////////////////////////////////////
             
             var convert_txt_UserID = Convert.ToInt32(txt_UserID.Text);
-            foreach (DataGridViewRow row in dgvRoleGroup.Rows)
+            foreach (DataGridViewRow row in dgvBRGGroup.Rows)
             {
                 int RoleGroupID = Convert.ToInt32(row.Cells["RoleGroupID"].Value);
                 int RoleGroupID_Check = Convert.ToInt32(row.Cells["CheckboxColumn"].Value);

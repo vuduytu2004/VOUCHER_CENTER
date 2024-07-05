@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 
-[assembly: AssemblyTitle("Report_Center")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("VOUCHER_CENTER")]
+[assembly: AssemblyDescription("Công Nghệ Thông Tin")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Report_Center")]
-[assembly: AssemblyCopyright("Copyright ©  2023")]
+[assembly: AssemblyCompany("HCRC")]
+[assembly: AssemblyProduct("VOUCHER_CENTER")]
+[assembly: AssemblyCopyright("Vũ Duy Tú - Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

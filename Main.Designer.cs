@@ -1,4 +1,4 @@
-﻿namespace Report_Center
+﻿namespace VOUCHER_CENTER
 {
     partial class Main
     {
@@ -90,7 +90,6 @@
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
             this.timer1.Interval = 180000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
@@ -98,7 +97,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::Report_Center.Properties.Resources.Brg_mart;
+            this.BackgroundImage = global::VOUCHER_CENTER.Properties.Resources.E_voucher;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(922, 505);
             this.Controls.Add(this.statusStrip1);
@@ -107,8 +106,9 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Main";
-            this.Text = "REPORTS CENTER - Ban Công nghệ Thông Tin";
+            this.Text = "E-Voucher * CÔNG NGHỆ THÔNG TIN HCRC *";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
+            this.Load += new System.EventHandler(this.Main_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);

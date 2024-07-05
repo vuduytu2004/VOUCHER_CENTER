@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Report_Center.DataAccess
+namespace VOUCHER_CENTER.DataAccess
 {
     public class LogBuild
     {

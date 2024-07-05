@@ -1,7 +1,7 @@
 ﻿using Lib.Utils.Package;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using Report_Center.DataAccess;
+using VOUCHER_CENTER.DataAccess;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -13,10 +13,10 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Report_Center.Main;
+using static VOUCHER_CENTER.Main;
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
-namespace Report_Center.Presentation
+namespace VOUCHER_CENTER.Presentation
 {
     public partial class fr_Reports : Form
     {
@@ -280,68 +280,35 @@ namespace Report_Center.Presentation
 
         private async void bt_BC_Click(object sender, EventArgs e)
         {
-            if (Pro_name.Text ==null) { return; }
+            if (Pro_name.Text ==null || Pro_name.Text== "" || Pro_name.Text == "1") { return; }
 
             progressBar1.Style = ProgressBarStyle.Marquee;
 
             string Dirpath = Directory.GetCurrentDirectory();
             string Template = Dirpath + @"/Media/Template/";
             string file_temp = "";
-            //if (Pro_name.Text == "rpt_Do_Phu_ASM")
-            //{
-            //     file_temp= "Template-BC-do_phu_ASM.xlsx";
-            //}
-            //else if (Pro_name.Text == "rpt_Nonmoving")
-            //{
-            //     file_temp = "Template-BC_NonMoving.xlsx";
-            //}
-            //else if (Pro_name.Text == "rpt_SUPP_IMPORT")
-            //{
-            //    file_temp = "Template-BC-NhapHang.xlsx";
-            //}
             file_temp = $"Template-{Pro_name.Text}.xlsx";
             //string dateAndRandom = DateTime.Now.ToString("yyyyMMdd") + "_" + new Random().Next(1000, 9999);
             string dateAndRandom = frdate.Value.ToString("yyyyMMddHHmm") + "_" + new Random().Next(100, 999);
             string templatePath = Path.Combine(Template, file_temp);
-
+            if (!File.Exists(templatePath))
+            {
+                MessageBox.Show($"Tệp {templatePath} không tồn tại.", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                progressBar1.Style = ProgressBarStyle.Blocks;
+                return;
+            }
             //var templatePath = RootPathConfig.TemplatePath.Template + "Template-BC-do_phu_ASM.xlsx";
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
                 saveFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
                 saveFileDialog.DefaultExt = "xlsx";
                 saveFileDialog.AddExtension = true;
-                //if (Pro_name.Text == "rpt_Do_Phu_ASM")
-                //{
-                //    saveFileDialog.FileName = "BC_do_phu_ASM";
-                //}
-                //else if (Pro_name.Text == "rpt_Nonmoving")
-                //{
-                //    saveFileDialog.FileName = "BC_Nonmoving";
-                //}
-                //else if (Pro_name.Text == "rpt_SUPP_IMPORT")
-                //{
-                //    saveFileDialog.FileName = "BC_Nhap_hang";
-                //}
-                //else if (Pro_name.Text == "rpt_DioByNCC")
-                //{
-                //    saveFileDialog.FileName = "BC_DIOByNCC";
-                //}
-                //saveFileDialog.FileName = Pro_name.Text;
-                saveFileDialog.FileName = $"Template-{Pro_name.Text}_{dateAndRandom}.xlsx";
+                saveFileDialog.FileName = $"Voucher_Update_{dateAndRandom}.xlsx";
+                //saveFileDialog.FileName = $"Template-{Pro_name.Text}_{dateAndRandom}.xlsx";
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string selectedDirectory = Path.GetDirectoryName(saveFileDialog.FileName);
                     string uniqueFileName = GetUniqueFileName(Path.GetFileName(saveFileDialog.FileName), selectedDirectory);
-                    //// Lấy tên tệp đã chọn
-                    //string originalFileName = Path.GetFileName(saveFileDialog.FileName);
-
-                    //// Tạo chuỗi ngày tháng và số ngẫu nhiên
-                    //string dateAndRandom = DateTime.Now.ToString("yyyyMMddHHmmss") +" "+ new Random().Next(1000, 9999);
-
-                    //// Kết hợp tên tệp gốc, ngày tháng và số ngẫu nhiên để tạo tên tệp duy nhất
-                    //string uniqueFileName = originalFileName + " " + dateAndRandom;
-
-                    ////string outputPath = saveFileDialog.FileName;
 
                     // Chạy thủ tục trong một luồng riêng biệt
                     if (Pro_name.Text == "rpt_TotalRetailWholesaleByIndustry")
@@ -359,6 +326,10 @@ namespace Report_Center.Presentation
                     else if (Pro_name.Text == "Tach_Don_333_314_315")
                     {
                         await Task.Run(() => RunReportAsync_Tach_Don_333_314_315(templatePath, uniqueFileName));
+                    }
+                    else if (Pro_name.Text == "rpt_Voucher_Sync")
+                    {
+                        await Task.Run(() => RunReportAsync_rpt_Voucher_Sync(templatePath, uniqueFileName));
                     }
 
                     else
@@ -378,6 +349,281 @@ namespace Report_Center.Presentation
             progressBar1.Style = ProgressBarStyle.Blocks;
 
         }
+        private async Task RunReportAsync_rpt_Voucher_Sync(string templatePath, string outputPath)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(bientoancuc.connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    using (SqlCommand command = new SqlCommand(Pro_name.Text, connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("@frdate", frdate.Value.ToString("yyyyMMdd"));
+                        command.Parameters.AddWithValue("@todate", todate.Value.ToString("yyyyMMdd"));
+                        command.Parameters.AddWithValue("@Locations_Group", GlobalVariables.Locations_Group ?? (object)DBNull.Value);
+
+                        command.CommandTimeout = 0; // Đặt thời gian chờ theo cần thiết
+
+                        try
+                        {
+                            DataTable dataTable = await GetDataFromStoredProcedureAsync(command);
+
+                            // Kiểm tra nếu không có dữ liệu
+                            if (dataTable.Rows.Count == 0)
+                            {
+                                MessageBox.Show("Không có dữ liệu để xuất Excel.", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+
+                            // Tiến hành tạo file Excel và ghi dữ liệu
+                            using (ExcelPackage package = new ExcelPackage(new FileInfo(templatePath)))
+                            {
+                                ExcelWorksheet sheet1 = package.Workbook.Worksheets["sheet1"];
+                                if (sheet1 == null)
+                                {
+                                    MessageBox.Show("Không tìm thấy sheet1 trong template Excel.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                // Ghi dòng thông tin từ ngày - đến ngày
+                                var frto = "Từ ngày: " + frdate.Value.ToString("dd-MM-yyyy") + " đến ngày: " + todate.Value.ToString("dd-MM-yyyy");
+                                sheet1.Cells["A4"].Value = frto;
+
+                                // Ghi dữ liệu từ DataTable vào Excel
+                                int row = 6;
+                                foreach (DataRow dataRow in dataTable.Rows)
+                                {
+                                    for (int col = 0; col < dataTable.Columns.Count; col++)
+                                    {
+                                        object value = dataRow[col];
+                                        sheet1.Cells[row, col + 1].Value = value != DBNull.Value ? value : string.Empty;
+                                    }
+                                    row++;
+                                }
+
+                                // Kẻ ô cho file Excel từ A5 đến hết dữ liệu
+                                int Endrows = row - 1;
+                                int columns = dataTable.Columns.Count;
+
+                                using (var range = sheet1.Cells[6, 1, Endrows, columns])
+                                {
+                                    range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                                    range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                                    range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                    range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                                }
+
+                                // Lưu file Excel và mở tệp Excel sau khi lưu
+                                package.SaveAs(new FileInfo(outputPath));
+                                System.Diagnostics.Process.Start(outputPath);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Lỗi khi thực hiện truy vấn hoặc ghi dữ liệu Excel: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi kết nối cơ sở dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async Task<DataTable> GetDataFromStoredProcedureAsync(SqlCommand command)
+        {
+            DataTable dataTable = new DataTable();
+
+            try
+            {
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                {
+                    await Task.Run(() => adapter.Fill(dataTable));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi lấy dữ liệu từ thủ tục SQL: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return dataTable;
+        }
+
+        #region RunReportAsync_rpt_Voucher_Sync_1
+        //private async Task RunReportAsync_rpt_Voucher_Sync_1(string templatePath, string outputPath)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection connection = new SqlConnection(bientoancuc.connectionString))
+        //        {
+        //            await connection.OpenAsync();
+
+        //            using (SqlCommand command = new SqlCommand(Pro_name.Text, connection))
+        //            {
+        //                command.CommandType = CommandType.StoredProcedure;
+
+        //                command.Parameters.AddWithValue("@frdate", frdate.Value.ToString("yyyyMMdd"));
+        //                command.Parameters.AddWithValue("@todate", todate.Value.ToString("yyyyMMdd"));
+        //                command.Parameters.AddWithValue("@Locations_Group", GlobalVariables.Locations_Group ?? (object)DBNull.Value);
+
+        //                command.CommandTimeout = 0; // Set timeout as needed
+
+        //                try
+        //                {
+        //                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+        //                    {
+        //                        if (!reader.HasRows)
+        //                        {
+        //                            MessageBox.Show("Không có dữ liệu để xuất Excel.", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //                            return;
+        //                        }
+
+        //                        using (ExcelPackage package = new ExcelPackage(new FileInfo(templatePath)))
+        //                        {
+        //                            ExcelWorksheet sheet1 = package.Workbook.Worksheets["sheet1"];
+        //                            if (sheet1 == null)
+        //                            {
+        //                                MessageBox.Show("Không tìm thấy sheet1 trong template Excel.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                                return;
+        //                            }
+
+        //                            var frto = "Từ ngày: " + frdate.Value.ToString("dd-MM-yyyy") + " đến ngày: " + todate.Value.ToString("dd-MM-yyyy");
+        //                            sheet1.Cells["A4"].Value = frto;
+
+        //                            int row = 6;
+        //                            try
+        //                            {
+        //                                do
+        //                                {
+        //                                    for (int col = 0; col < reader.FieldCount; col++)
+        //                                    {
+        //                                        if (!reader.IsDBNull(col))
+        //                                        {
+        //                                            sheet1.Cells[row, col + 1].Value = reader.GetValue(col);
+        //                                        }
+        //                                        else
+        //                                        {
+        //                                            sheet1.Cells[row, col + 1].Value = "";
+        //                                        }
+        //                                    }
+        //                                    row++;
+        //                                } while (await reader.ReadAsync());
+        //                            }
+        //                            catch (Exception ex)
+        //                            {
+        //                                MessageBox.Show("Lỗi khi thực hiện đọc dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                            }
+
+        //                            // Apply borders to the range of cells
+        //                            int Endrows = row - 1;
+        //                            int columns = reader.FieldCount;
+        //                            using (var range = sheet1.Cells[6, 1, Endrows, columns])
+        //                            {
+        //                                range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+        //                                range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+        //                                range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+        //                                range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+        //                            }
+
+        //                            // Save Excel file
+        //                            package.SaveAs(new FileInfo(outputPath));
+
+        //                            // Open the saved Excel file
+        //                            System.Diagnostics.Process.Start(outputPath);
+        //                        }
+        //                    }
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    MessageBox.Show("Lỗi khi thực hiện truy vấn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Lỗi kết nối cơ sở dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
+        #endregion
+
+        #region RunReportAsync_rpt_Voucher_Sync
+        //private async Task RunReportAsync_rpt_Voucher_Sync(string templatePath, string outputPath)
+        //{
+        //    using (SqlConnection connection = new SqlConnection(bientoancuc.connectionString))
+        //    {
+        //        await connection.OpenAsync();
+
+        //        using (SqlCommand command = new SqlCommand(Pro_name.Text, connection))
+        //        {
+        //            command.CommandType = CommandType.StoredProcedure;
+
+        //            command.Parameters.AddWithValue("@frdate", frdate.Value.ToString("yyyyMMdd"));
+        //            command.Parameters.AddWithValue("@todate", todate.Value.ToString("yyyyMMdd"));
+        //            string aaa = GlobalVariables.Locations_Group;
+        //            command.Parameters.AddWithValue("@Locations_Group", GlobalVariables.Locations_Group);
+
+        //            command.CommandTimeout = 0; // Đặt thời gian chờ theo cần thiết
+        //            MessageBox.Show("11111111111111111111", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            using (SqlDataReader reader = await command.ExecuteReaderAsync())
+        //            {
+        //                MessageBox.Show("22222222222222222222", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                if (!reader.HasRows)
+        //                {
+        //                    MessageBox.Show("3333333333333333333333333", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                    // Thông báo hoặc xử lý khi không có dữ liệu
+        //                    MessageBox.Show("Không có dữ liệu", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                    Console.WriteLine("Không có dữ liệu để xuất Excel.");
+        //                    return; // hoặc thực hiện các hành động khác theo yêu cầu của bạn
+        //                }
+
+        //                using (ExcelPackage package = new ExcelPackage(new FileInfo(templatePath)))
+        //                {
+
+        //                    var frto = "Từ ngày: " + frdate.Value.ToString("dd-MM-yyyy") + " đến ngày: " + todate.Value.ToString("dd-MM-yyyy");
+        //                    if (await reader.ReadAsync())
+        //                    {
+        //                        ExcelWorksheet sheet1 = package.Workbook.Worksheets["sheet1"];
+        //                        sheet1.Cells["A4"].Value = frto;
+        //                        int row = 6;
+        //                        do
+        //                        {
+        //                            for (int col = 0; col < reader.FieldCount; col++)
+        //                            {
+        //                                sheet1.Cells[row, col + 1].Value = reader.GetValue(col);
+        //                            }
+        //                            row++;
+        //                        } while (await reader.ReadAsync());
+        //                        // Kẻ ô cho file Excel từ A5 đến hết dữ liệu
+        //                        int Endrows = row - 1;
+        //                        int columns = reader.FieldCount;
+
+        //                        using (var range = sheet1.Cells[6, 1, Endrows, columns])
+        //                        {
+        //                            range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+        //                            range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+        //                            range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+        //                            range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+        //                        }
+        //                    }
+        //                    MessageBox.Show("Truoc khi luu", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                    package.SaveAs(new FileInfo(outputPath));
+        //                    MessageBox.Show("Truoc khi MỞ", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                    // Mở tệp Excel sau khi đã lưu
+        //                    System.Diagnostics.Process.Start(outputPath);
+        //                    //await package.SaveAsAsync(new FileInfo(outputPath));
+        //                    //System.Diagnostics.Process.Start(new ProcessStartInfo(outputPath) { UseShellExecute = true });
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+        #endregion
+
         private string GetUniqueFileName(string baseFileName, string directory)
         {
             string fileName = Path.Combine(directory, baseFileName);
