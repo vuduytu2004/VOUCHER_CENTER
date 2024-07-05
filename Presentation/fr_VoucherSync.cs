@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Windows.Forms;
 using VOUCHER_CENTER.DataAccess;
 using static VOUCHER_CENTER.Main;
@@ -261,7 +262,23 @@ namespace VOUCHER_CENTER.Presentation
                             return;
                         }
                     }
+                    // Kiểm tra xem txtVoucherSerial.Text đã có trong cột VoucherSerial chưa
+                    bool exists = dataGridView1.Rows.Cast<DataGridViewRow>()
+                        .Any(row => row.Cells["Voucher_Serial"].Value != null && row.Cells["Voucher_Serial"].Value.ToString() == txtVoucherSerial.Text);
 
+                    if (!exists)
+                    {
+                        // Thêm txtVoucherSerial.Text vào dataGridView1
+                        int newRowIndex = dataGridView1.Rows.Add();
+                        DataGridViewRow newRow = dataGridView1.Rows[newRowIndex];
+                        newRow.Cells["STT"].Value = newRowIndex + 1; // Tăng STT từ 1
+                        newRow.Cells["Voucher_Serial"].Value = txtVoucherSerial.Text;
+                    }
+
+
+                    //// Thêm txtVoucherSerial.Text vào listView1
+                    //ListViewItem item = new ListViewItem(txtVoucherSerial.Text);
+                    //listView1.Items.Add(item);
                 }
             }
             catch (Exception ex)
@@ -270,8 +287,8 @@ namespace VOUCHER_CENTER.Presentation
                 txtVoucherSerial.Focus();
             }
         }
-        private (bool Exists, int user_id, string VoucherCheckValue, string CardId, int Activate, int Status, DateTime DueDate, string VoucherSyncVoucherSerial, string VoucherSyncLocationGroupName, string VoucherSyncLocationDetailName, DateTime VoucherSyncLastUpdate, string VoucherSyncComputerName, string VoucherSyncTransNum, DateTime VoucherSyncCreatedDate, string VoucherSyncPlayerName, string VoucherSyncDescription, string HcrcVoucherSerial, string HcrcLocationType, string HcrcLocationName, DateTime HcrcLastUpdate) GetVoucher(SqlConnection connection, string voucherSerial)
-        {
+        private (bool Exists, int user_id, string VoucherCheckValue, string VoucherSyncVoucherSerial, string VoucherSyncLocationGroupName, string VoucherSyncLocationDetailName, DateTime VoucherSyncLastUpdate, string VoucherSyncComputerName, string VoucherSyncTransNum, DateTime VoucherSyncCreatedDate, string VoucherSyncPlayerName, string VoucherSyncDescription, string HcrcVoucherSerial, string HcrcLocationType, string HcrcLocationName, DateTime HcrcLastUpdate) GetVoucher(SqlConnection connection, string voucherSerial)
+        {//, string CardId, int Activate, int Status, DateTime DueDate
             using (SqlCommand command = new SqlCommand("CheckVoucher", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -283,13 +300,13 @@ namespace VOUCHER_CENTER.Presentation
                     {
                         string voucherCheckValue = reader.GetString(reader.GetOrdinal("Voucher_check_Value"));
 
-                            string cardId = reader.GetString(reader.GetOrdinal("CARD_ID"));
-                            int activate = reader.GetInt32(reader.GetOrdinal("ACTIVATE"));
-                            int status = reader.GetInt32(reader.GetOrdinal("STATUS"));
-                            DateTime dueDate = reader.GetDateTime(reader.GetOrdinal("DUE_DATE"));
+                        //string cardId = reader.GetString(reader.GetOrdinal("CARD_ID"));
+                        //int activate = reader.GetInt32(reader.GetOrdinal("ACTIVATE"));
+                        //int status = reader.GetInt32(reader.GetOrdinal("STATUS"));
+                        //DateTime dueDate = reader.GetDateTime(reader.GetOrdinal("DUE_DATE"));
 
-                            int user_id = reader.GetInt32(reader.GetOrdinal("VOUCHER_SYNC_userid"));
-                            string voucherSyncVoucherSerial = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_Voucher_Serial")) ? null : reader.GetString(reader.GetOrdinal("VOUCHER_SYNC_Voucher_Serial"));
+                        int user_id = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_userid")) ? 0 : reader.GetInt32(reader.GetOrdinal("VOUCHER_SYNC_userid"));
+                        string voucherSyncVoucherSerial = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_Voucher_Serial")) ? null : reader.GetString(reader.GetOrdinal("VOUCHER_SYNC_Voucher_Serial"));
                             string voucherSyncLocationGroupName = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_Location_GroupName")) ? null : reader.GetString(reader.GetOrdinal("VOUCHER_SYNC_Location_GroupName"));
                             string voucherSyncLocationDetailName = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_Location_DetailName")) ? null : reader.GetString(reader.GetOrdinal("VOUCHER_SYNC_Location_DetailName"));
                             DateTime voucherSyncLastUpdate = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_Last_update")) ? DateTime.MinValue : reader.GetDateTime(reader.GetOrdinal("VOUCHER_SYNC_Last_update"));
@@ -304,12 +321,14 @@ namespace VOUCHER_CENTER.Presentation
                             string hcrcLocationName = reader.IsDBNull(reader.GetOrdinal("HCRC_Location_Name")) ? null : reader.GetString(reader.GetOrdinal("HCRC_Location_Name"));
                             DateTime hcrcLastUpdate = reader.IsDBNull(reader.GetOrdinal("HCRC_Last_update")) ? DateTime.MinValue : reader.GetDateTime(reader.GetOrdinal("HCRC_Last_update"));
 
-                            return (true, user_id,voucherCheckValue, cardId, activate, status, dueDate, voucherSyncVoucherSerial, voucherSyncLocationGroupName, voucherSyncLocationDetailName, voucherSyncLastUpdate, voucherSyncComputerName, voucherSyncTransNum, voucherSyncCreatedDate, voucherSyncPlayerName, voucherSyncDescription, hcrcVoucherSerial, hcrcLocationType, hcrcLocationName, hcrcLastUpdate);
+                            return (true, user_id,voucherCheckValue, voucherSyncVoucherSerial, voucherSyncLocationGroupName, voucherSyncLocationDetailName, voucherSyncLastUpdate, voucherSyncComputerName, voucherSyncTransNum, voucherSyncCreatedDate, voucherSyncPlayerName, voucherSyncDescription, hcrcVoucherSerial, hcrcLocationType, hcrcLocationName, hcrcLastUpdate);
+                        //, cardId, activate, status, dueDate
 
                     }
                 }
             }
-            return (false, 0,null, null, 0, 0, DateTime.MinValue, null, null, null, DateTime.MinValue, null, null, DateTime.MinValue, null, null, null, null, null, DateTime.MinValue);
+            return (false, 0, null, null, null, null, DateTime.MinValue, null, null, DateTime.MinValue, null, null, null, null, null, DateTime.MinValue);
+            //, 0, 0, DateTime.MinValue
         }
 
 

@@ -49,75 +49,85 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.Cmd_Delete = new System.Windows.Forms.Button();
-            this.Voucher_Serial = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Voucher_Serial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtVoucherSerial
             // 
-            this.txtVoucherSerial.Location = new System.Drawing.Point(178, 126);
+            this.txtVoucherSerial.Location = new System.Drawing.Point(267, 194);
+            this.txtVoucherSerial.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtVoucherSerial.Name = "txtVoucherSerial";
-            this.txtVoucherSerial.Size = new System.Drawing.Size(172, 20);
+            this.txtVoucherSerial.Size = new System.Drawing.Size(256, 26);
             this.txtVoucherSerial.TabIndex = 0;
             this.txtVoucherSerial.Leave += new System.EventHandler(this.txtVoucherSerial_Leave);
             // 
             // txtTransNum
             // 
-            this.txtTransNum.Location = new System.Drawing.Point(178, 163);
+            this.txtTransNum.Location = new System.Drawing.Point(267, 251);
+            this.txtTransNum.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtTransNum.Name = "txtTransNum";
-            this.txtTransNum.Size = new System.Drawing.Size(254, 20);
+            this.txtTransNum.Size = new System.Drawing.Size(256, 26);
             this.txtTransNum.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(57, 126);
+            this.label1.Location = new System.Drawing.Point(86, 194);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.Size = new System.Drawing.Size(95, 20);
             this.label1.TabIndex = 2;
             this.label1.Text = "Mã Voucher";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(57, 164);
+            this.label2.Location = new System.Drawing.Point(86, 252);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 13);
+            this.label2.Size = new System.Drawing.Size(58, 20);
             this.label2.TabIndex = 3;
             this.label2.Text = "Số GD";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(57, 202);
+            this.label3.Location = new System.Drawing.Point(86, 311);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 13);
+            this.label3.Size = new System.Drawing.Size(74, 20);
             this.label3.TabIndex = 5;
             this.label3.Text = "Ngày GD";
             // 
             // dtpCreatedDate
             // 
             this.dtpCreatedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpCreatedDate.Location = new System.Drawing.Point(178, 200);
+            this.dtpCreatedDate.Location = new System.Drawing.Point(267, 308);
+            this.dtpCreatedDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dtpCreatedDate.Name = "dtpCreatedDate";
-            this.dtpCreatedDate.Size = new System.Drawing.Size(172, 20);
+            this.dtpCreatedDate.Size = new System.Drawing.Size(256, 26);
             this.dtpCreatedDate.TabIndex = 6;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(57, 240);
+            this.label4.Location = new System.Drawing.Point(86, 369);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 13);
+            this.label4.Size = new System.Drawing.Size(94, 20);
             this.label4.TabIndex = 8;
             this.label4.Text = "Khách hàng";
             // 
             // txtPlayerName
             // 
-            this.txtPlayerName.Location = new System.Drawing.Point(178, 237);
+            this.txtPlayerName.Location = new System.Drawing.Point(267, 365);
+            this.txtPlayerName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtPlayerName.Name = "txtPlayerName";
-            this.txtPlayerName.Size = new System.Drawing.Size(309, 20);
+            this.txtPlayerName.Size = new System.Drawing.Size(256, 26);
             this.txtPlayerName.TabIndex = 7;
             // 
             // lb_LocationsGroup
@@ -126,9 +136,10 @@
             this.lb_LocationsGroup.BackColor = System.Drawing.Color.Transparent;
             this.lb_LocationsGroup.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lb_LocationsGroup.ForeColor = System.Drawing.Color.Maroon;
-            this.lb_LocationsGroup.Location = new System.Drawing.Point(227, 36);
+            this.lb_LocationsGroup.Location = new System.Drawing.Point(340, 55);
+            this.lb_LocationsGroup.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lb_LocationsGroup.Name = "lb_LocationsGroup";
-            this.lb_LocationsGroup.Size = new System.Drawing.Size(67, 15);
+            this.lb_LocationsGroup.Size = new System.Drawing.Size(95, 22);
             this.lb_LocationsGroup.TabIndex = 9;
             this.lb_LocationsGroup.Text = "Mã Công Ty";
             // 
@@ -137,18 +148,20 @@
             this.lb_LocationsDetail.AutoSize = true;
             this.lb_LocationsDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lb_LocationsDetail.ForeColor = System.Drawing.Color.Maroon;
-            this.lb_LocationsDetail.Location = new System.Drawing.Point(227, 68);
+            this.lb_LocationsDetail.Location = new System.Drawing.Point(340, 105);
+            this.lb_LocationsDetail.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lb_LocationsDetail.Name = "lb_LocationsDetail";
-            this.lb_LocationsDetail.Size = new System.Drawing.Size(99, 15);
+            this.lb_LocationsDetail.Size = new System.Drawing.Size(145, 22);
             this.lb_LocationsDetail.TabIndex = 10;
             this.lb_LocationsDetail.Text = "Mã Điểm bán hàng";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(65, 68);
+            this.label5.Location = new System.Drawing.Point(98, 105);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(97, 13);
+            this.label5.Size = new System.Drawing.Size(143, 20);
             this.label5.TabIndex = 12;
             this.label5.Text = "Mã Điểm bán hàng";
             // 
@@ -157,18 +170,20 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(65, 36);
+            this.label6.Location = new System.Drawing.Point(98, 55);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 13);
+            this.label6.Size = new System.Drawing.Size(93, 20);
             this.label6.TabIndex = 11;
             this.label6.Text = "Mã Công Ty";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(385, 68);
+            this.label9.Location = new System.Drawing.Point(578, 105);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(79, 13);
+            this.label9.Size = new System.Drawing.Size(117, 20);
             this.label9.TabIndex = 14;
             this.label9.Text = "Điểm bán hàng";
             // 
@@ -176,9 +191,10 @@
             // 
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.Location = new System.Drawing.Point(385, 36);
+            this.label10.Location = new System.Drawing.Point(578, 55);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(47, 13);
+            this.label10.Size = new System.Drawing.Size(67, 20);
             this.label10.TabIndex = 13;
             this.label10.Text = "Công Ty";
             // 
@@ -186,9 +202,10 @@
             // 
             this.lb_LocationDetailName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lb_LocationDetailName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lb_LocationDetailName.Location = new System.Drawing.Point(512, 68);
+            this.lb_LocationDetailName.Location = new System.Drawing.Point(768, 105);
+            this.lb_LocationDetailName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lb_LocationDetailName.Name = "lb_LocationDetailName";
-            this.lb_LocationDetailName.Size = new System.Drawing.Size(234, 15);
+            this.lb_LocationDetailName.Size = new System.Drawing.Size(351, 23);
             this.lb_LocationDetailName.TabIndex = 16;
             this.lb_LocationDetailName.Text = "Tên điểm bán hàng";
             // 
@@ -197,33 +214,37 @@
             this.lb_LocationGroupName.AutoSize = true;
             this.lb_LocationGroupName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lb_LocationGroupName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lb_LocationGroupName.Location = new System.Drawing.Point(512, 36);
+            this.lb_LocationGroupName.Location = new System.Drawing.Point(768, 55);
+            this.lb_LocationGroupName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lb_LocationGroupName.Name = "lb_LocationGroupName";
-            this.lb_LocationGroupName.Size = new System.Drawing.Size(71, 15);
+            this.lb_LocationGroupName.Size = new System.Drawing.Size(100, 22);
             this.lb_LocationGroupName.TabIndex = 15;
             this.lb_LocationGroupName.Text = "Tên Công Ty";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(57, 278);
+            this.label7.Location = new System.Drawing.Point(86, 428);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(44, 13);
+            this.label7.Size = new System.Drawing.Size(64, 20);
             this.label7.TabIndex = 18;
             this.label7.Text = "Ghi chú";
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(178, 274);
+            this.txtDescription.Location = new System.Drawing.Point(267, 422);
+            this.txtDescription.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(593, 20);
+            this.txtDescription.Size = new System.Drawing.Size(888, 26);
             this.txtDescription.TabIndex = 17;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(221, 308);
+            this.btnSave.Location = new System.Drawing.Point(332, 474);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(112, 27);
+            this.btnSave.Size = new System.Drawing.Size(168, 42);
             this.btnSave.TabIndex = 19;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -231,9 +252,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(465, 308);
+            this.button2.Location = new System.Drawing.Point(698, 474);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(112, 27);
+            this.button2.Size = new System.Drawing.Size(168, 42);
             this.button2.TabIndex = 20;
             this.button2.Text = "Exit";
             this.button2.UseVisualStyleBackColor = true;
@@ -242,46 +264,65 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.groupBox1.Location = new System.Drawing.Point(26, 12);
+            this.groupBox1.Location = new System.Drawing.Point(39, 18);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(745, 88);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Size = new System.Drawing.Size(1118, 135);
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
-            // 
-            // listView1
-            // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Voucher_Serial});
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(493, 126);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(217, 131);
-            this.listView1.TabIndex = 22;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // Cmd_Delete
             // 
             this.Cmd_Delete.BackColor = System.Drawing.Color.RosyBrown;
-            this.Cmd_Delete.Location = new System.Drawing.Point(717, 126);
+            this.Cmd_Delete.Location = new System.Drawing.Point(1076, 194);
+            this.Cmd_Delete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Cmd_Delete.Name = "Cmd_Delete";
-            this.Cmd_Delete.Size = new System.Drawing.Size(54, 22);
+            this.Cmd_Delete.Size = new System.Drawing.Size(81, 34);
             this.Cmd_Delete.TabIndex = 24;
             this.Cmd_Delete.Text = "Delete";
             this.Cmd_Delete.UseVisualStyleBackColor = false;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.STT,
+            this.Voucher_Serial});
+            this.dataGridView1.Location = new System.Drawing.Point(622, 181);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersWidth = 62;
+            this.dataGridView1.RowTemplate.Height = 28;
+            this.dataGridView1.Size = new System.Drawing.Size(437, 224);
+            this.dataGridView1.TabIndex = 25;
+            // 
+            // STT
+            // 
+            this.STT.HeaderText = "STT";
+            this.STT.MinimumWidth = 8;
+            this.STT.Name = "STT";
+            this.STT.ReadOnly = true;
+            this.STT.Width = 80;
+            // 
             // Voucher_Serial
             // 
-            this.Voucher_Serial.Text = "";
+            this.Voucher_Serial.HeaderText = "Voucher Serial";
+            this.Voucher_Serial.MinimumWidth = 8;
+            this.Voucher_Serial.Name = "Voucher_Serial";
+            this.Voucher_Serial.ReadOnly = true;
+            this.Voucher_Serial.Width = 150;
             // 
             // fr_VoucherSync
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(801, 346);
+            this.ClientSize = new System.Drawing.Size(1202, 532);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.Cmd_Delete);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label7);
@@ -303,9 +344,11 @@
             this.Controls.Add(this.txtTransNum);
             this.Controls.Add(this.txtVoucherSerial);
             this.Controls.Add(this.groupBox1);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.Name = "fr_VoucherSync";
             this.Text = "Cập nhật Voucher đã sử dụng";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -334,8 +377,9 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Button Cmd_Delete;
-        private System.Windows.Forms.ColumnHeader Voucher_Serial;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn STT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Voucher_Serial;
     }
 }
