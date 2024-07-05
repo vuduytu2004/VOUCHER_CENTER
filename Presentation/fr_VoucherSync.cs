@@ -1,6 +1,4 @@
-﻿using DocumentFormat.OpenXml.VariantTypes;
-using Lib.Utils.Package;
-using System;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -26,7 +24,7 @@ namespace VOUCHER_CENTER.Presentation
             LoadUser_Location();
             lb_LocationsGroup.Text = GlobalVariables.Locations_Group.ToString();
             lb_LocationsDetail.Text = GlobalVariables.Locations_Detail.ToString();
-            
+
         }
 
         private void LoadUser_Location()
@@ -77,7 +75,7 @@ namespace VOUCHER_CENTER.Presentation
                     }
                 }
             }
-             catch (Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Không load được Location: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -107,7 +105,7 @@ namespace VOUCHER_CENTER.Presentation
                     var result = GetVoucherSerialDetails(connection, txtVoucherSerial.Text);
 
                     // Kiểm tra xem Voucher_Serial đã tồn tại trong HCRC_VOUCHER
-                    if (result.Exists && cap_nhat==false)
+                    if (result.Exists && cap_nhat == false)
                     {
                         MessageBox.Show($"Voucher Serial: {txtVoucherSerial.Text}\r\nĐã sử dụng tại {result.LocationType} - {result.LocationName}.\r\nCập nhật lần cuối vào {result.LastUpdate}.",
                             "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -194,7 +192,7 @@ namespace VOUCHER_CENTER.Presentation
             }
         }
 
-        
+
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -221,83 +219,49 @@ namespace VOUCHER_CENTER.Presentation
         {
             try
             {
-                //// Kiểm tra xem txtVoucherSerial có dữ liệu không
-                //if (string.IsNullOrWhiteSpace(txtVoucherSerial.Text))
-                //{
-                //    return; // Nếu không có dữ liệu, thoát khỏi phương thức
-                //}
-
-                // Kiểm tra xem listView1 có bản ghi nào không
-                if (listView1.Items.Count == 0)
+                // Kiểm tra xem txtVoucherSerial có dữ liệu không
+                if (string.IsNullOrWhiteSpace(txtVoucherSerial.Text))
                 {
-                    MessageBox.Show("Không có bản ghi nào trong danh sách.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return; // Nếu không có bản ghi, thoát khỏi phương thức
+                    return; // Nếu không có dữ liệu, thoát khỏi phương thức
                 }
-
-
-
-
-
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    var result = GetVoucherSerialDetails(connection, txtVoucherSerial.Text);
+                    var result = GetVoucher(connection, txtVoucherSerial.Text);
 
-                    // Kiểm tra xem Voucher_Serial đã tồn tại chưa trong HCRC_VOUCHER
+                    // Kiểm tra xem Voucher_Serial 
                     if (result.Exists)
                     {
-                        MessageBox.Show($"Voucher Serial: {txtVoucherSerial.Text}\r\nĐã sử dụng tại {result.LocationType} - {result.LocationName}.\r\nCập nhật lần cuối vào {result.LastUpdate}.",
-                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtVoucherSerial.Focus();
-                        return;
-                    }
-                    var result1 = GetVoucherSerialDetails_Local(connection, txtVoucherSerial.Text);
-
-                    // Kiểm tra xem Voucher_Serial đã tồn tại chưa trong local VOUCHER_SYNC
-                    if (result1.Exists)
-                    {
-                        if (GlobalVariables.User_Name.Trim() == result1.User_name.Trim())
+                        if (result.VoucherCheckValue == "0") 
                         {
-                            DialogResult dialogResult = MessageBox.Show($"Voucher Serial: {txtVoucherSerial.Text}\r\nĐã sử dụng tại {result1.LocationType} - {result1.LocationName}.\r\nCập nhật lần cuối vào {result1.LastUpdate}.\r\nBạn có muốn sửa lại không?",
-                                "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                            if (dialogResult == DialogResult.Yes)
-                            {
-                                // Gán các giá trị từ kết quả vào các điều khiển trên form
-                                txtVoucherSerial.Enabled = false;
-                                txtTransNum.Text = result1.TRANS_NUM;
-                                txtPlayerName.Text = result1.Player_Name;
-                                txtDescription.Text = result1.Description;
-                                dtpCreatedDate.Value = result1.Created_Date;
-                                cap_nhat = true;
-                                //btnSave.Text = "Update";
-                                // Thêm các gán biến khác nếu cần thiết
-                                return;
-                            }
-                            else
-                            {
-                                txtVoucherSerial.Focus();
-                                return;
-                            }
+                            MessageBox.Show($"Voucher : {txtVoucherSerial.Text} không có. \r\nVui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            txtVoucherSerial.Focus();
+                            return;
                         }
-                        else
+                        else if (result.VoucherCheckValue == "1")
                         {
-                            MessageBox.Show($"Voucher Serial: {txtVoucherSerial.Text}\r\nĐã sử dụng tại {result1.LocationType} - {result1.LocationName}.\r\nCập nhật lần cuối vào {result1.LastUpdate}.",
-                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"Voucher : {txtVoucherSerial.Text} đã hết hạn sử dụng. \r\nVui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            txtVoucherSerial.Focus();
+                            return;
+                        }
+                        else if(result.VoucherCheckValue == "3" && (GlobalVariables.UserID != result.user_id))                           
+                        {
+                            MessageBox.Show($"Voucher Serial: {txtVoucherSerial.Text}\r\nĐã sử dụng tại {result.HcrcLocationType} - {result.HcrcLocationName}.\r\nCập nhật lần cuối vào {result.HcrcLastUpdate}.",
+                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            txtVoucherSerial.Focus();
+                            return;
+                        }
+                        else if (result.VoucherCheckValue == "4" )//&& (GlobalVariables.UserID != result.user_id))
+                        {
+                            MessageBox.Show($"Voucher Serial: {txtVoucherSerial.Text}\r\nĐã sử dụng tại {result.VoucherSyncLocationGroupName} - {result.VoucherSyncLocationDetailName}.\r\nCập nhật lần cuối vào {result.VoucherSyncLastUpdate}.",
+                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             txtVoucherSerial.Focus();
                             return;
                         }
                     }
 
-                    // Kiểm tra xem Voucher_Serial có tồn tại trong Dsmart không
-                    if (!VoucherSerialExist_Dsmart(connection, txtVoucherSerial.Text))
-                    {
-                        MessageBox.Show("Voucher Serial Không có. Vui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtVoucherSerial.Focus();
-                        return;
-                    }
                 }
             }
             catch (Exception ex)
@@ -306,6 +270,138 @@ namespace VOUCHER_CENTER.Presentation
                 txtVoucherSerial.Focus();
             }
         }
+        private (bool Exists, int user_id, string VoucherCheckValue, string CardId, int Activate, int Status, DateTime DueDate, string VoucherSyncVoucherSerial, string VoucherSyncLocationGroupName, string VoucherSyncLocationDetailName, DateTime VoucherSyncLastUpdate, string VoucherSyncComputerName, string VoucherSyncTransNum, DateTime VoucherSyncCreatedDate, string VoucherSyncPlayerName, string VoucherSyncDescription, string HcrcVoucherSerial, string HcrcLocationType, string HcrcLocationName, DateTime HcrcLastUpdate) GetVoucher(SqlConnection connection, string voucherSerial)
+        {
+            using (SqlCommand command = new SqlCommand("CheckVoucher", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@Voucher_Serial", voucherSerial);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string voucherCheckValue = reader.GetString(reader.GetOrdinal("Voucher_check_Value"));
+
+                            string cardId = reader.GetString(reader.GetOrdinal("CARD_ID"));
+                            int activate = reader.GetInt32(reader.GetOrdinal("ACTIVATE"));
+                            int status = reader.GetInt32(reader.GetOrdinal("STATUS"));
+                            DateTime dueDate = reader.GetDateTime(reader.GetOrdinal("DUE_DATE"));
+
+                            int user_id = reader.GetInt32(reader.GetOrdinal("VOUCHER_SYNC_userid"));
+                            string voucherSyncVoucherSerial = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_Voucher_Serial")) ? null : reader.GetString(reader.GetOrdinal("VOUCHER_SYNC_Voucher_Serial"));
+                            string voucherSyncLocationGroupName = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_Location_GroupName")) ? null : reader.GetString(reader.GetOrdinal("VOUCHER_SYNC_Location_GroupName"));
+                            string voucherSyncLocationDetailName = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_Location_DetailName")) ? null : reader.GetString(reader.GetOrdinal("VOUCHER_SYNC_Location_DetailName"));
+                            DateTime voucherSyncLastUpdate = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_Last_update")) ? DateTime.MinValue : reader.GetDateTime(reader.GetOrdinal("VOUCHER_SYNC_Last_update"));
+                            string voucherSyncComputerName = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_Computer_name")) ? null : reader.GetString(reader.GetOrdinal("VOUCHER_SYNC_Computer_name"));
+                            string voucherSyncTransNum = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_TRANS_NUM")) ? null : reader.GetString(reader.GetOrdinal("VOUCHER_SYNC_TRANS_NUM"));
+                            DateTime voucherSyncCreatedDate = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_Created_Date")) ? DateTime.MinValue : reader.GetDateTime(reader.GetOrdinal("VOUCHER_SYNC_Created_Date"));
+                            string voucherSyncPlayerName = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_Player_Name")) ? null : reader.GetString(reader.GetOrdinal("VOUCHER_SYNC_Player_Name"));
+                            string voucherSyncDescription = reader.IsDBNull(reader.GetOrdinal("VOUCHER_SYNC_Description")) ? null : reader.GetString(reader.GetOrdinal("VOUCHER_SYNC_Description"));
+
+                            string hcrcVoucherSerial = reader.IsDBNull(reader.GetOrdinal("HCRC_Voucher_Serial")) ? null : reader.GetString(reader.GetOrdinal("HCRC_Voucher_Serial"));
+                            string hcrcLocationType = reader.IsDBNull(reader.GetOrdinal("HCRC_Location_Type")) ? null : reader.GetString(reader.GetOrdinal("HCRC_Location_Type"));
+                            string hcrcLocationName = reader.IsDBNull(reader.GetOrdinal("HCRC_Location_Name")) ? null : reader.GetString(reader.GetOrdinal("HCRC_Location_Name"));
+                            DateTime hcrcLastUpdate = reader.IsDBNull(reader.GetOrdinal("HCRC_Last_update")) ? DateTime.MinValue : reader.GetDateTime(reader.GetOrdinal("HCRC_Last_update"));
+
+                            return (true, user_id,voucherCheckValue, cardId, activate, status, dueDate, voucherSyncVoucherSerial, voucherSyncLocationGroupName, voucherSyncLocationDetailName, voucherSyncLastUpdate, voucherSyncComputerName, voucherSyncTransNum, voucherSyncCreatedDate, voucherSyncPlayerName, voucherSyncDescription, hcrcVoucherSerial, hcrcLocationType, hcrcLocationName, hcrcLastUpdate);
+
+                    }
+                }
+            }
+            return (false, 0,null, null, 0, 0, DateTime.MinValue, null, null, null, DateTime.MinValue, null, null, DateTime.MinValue, null, null, null, null, null, DateTime.MinValue);
+        }
+
+
+        //private void txtVoucherSerial_Leave_old1(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        // Kiểm tra xem txtVoucherSerial có dữ liệu không
+        //        if (string.IsNullOrWhiteSpace(txtVoucherSerial.Text))
+        //        {
+        //            return; // Nếu không có dữ liệu, thoát khỏi phương thức
+        //        }
+
+        //        //// Kiểm tra xem listView1 có bản ghi nào không
+        //        //if (listView1.Items.Count == 0)
+        //        //{
+        //        //    MessageBox.Show("Không có bản ghi nào trong danh sách.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        //    return; // Nếu không có bản ghi, thoát khỏi phương thức
+        //        //}
+
+
+
+
+
+
+        //        using (SqlConnection connection = new SqlConnection(connectionString))
+        //        {
+        //            connection.Open();
+
+        //            var result = GetVoucherSerialDetails(connection, txtVoucherSerial.Text);
+
+        //            // Kiểm tra xem Voucher_Serial đã tồn tại chưa trong HCRC_VOUCHER
+        //            if (result.Exists)
+        //            {
+        //                MessageBox.Show($"Voucher Serial: {txtVoucherSerial.Text}\r\nĐã sử dụng tại {result.LocationType} - {result.LocationName}.\r\nCập nhật lần cuối vào {result.LastUpdate}.",
+        //                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                txtVoucherSerial.Focus();
+        //                return;
+        //            }
+        //            var result1 = GetVoucherSerialDetails_Local(connection, txtVoucherSerial.Text);
+
+        //            // Kiểm tra xem Voucher_Serial đã tồn tại chưa trong local VOUCHER_SYNC
+        //            if (result1.Exists)
+        //            {
+        //                if (GlobalVariables.User_Name.Trim() == result1.User_name.Trim())
+        //                {
+        //                    DialogResult dialogResult = MessageBox.Show($"Voucher Serial: {txtVoucherSerial.Text}\r\nĐã sử dụng tại {result1.LocationType} - {result1.LocationName}.\r\nCập nhật lần cuối vào {result1.LastUpdate}.\r\nBạn có muốn sửa lại không?",
+        //                        "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+        //                    if (dialogResult == DialogResult.Yes)
+        //                    {
+        //                        // Gán các giá trị từ kết quả vào các điều khiển trên form
+        //                        txtVoucherSerial.Enabled = false;
+        //                        txtTransNum.Text = result1.TRANS_NUM;
+        //                        txtPlayerName.Text = result1.Player_Name;
+        //                        txtDescription.Text = result1.Description;
+        //                        dtpCreatedDate.Value = result1.Created_Date;
+        //                        cap_nhat = true;
+        //                        //btnSave.Text = "Update";
+        //                        // Thêm các gán biến khác nếu cần thiết
+        //                        return;
+        //                    }
+        //                    else
+        //                    {
+        //                        txtVoucherSerial.Focus();
+        //                        return;
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    MessageBox.Show($"Voucher Serial: {txtVoucherSerial.Text}\r\nĐã sử dụng tại {result1.LocationType} - {result1.LocationName}.\r\nCập nhật lần cuối vào {result1.LastUpdate}.",
+        //                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                    txtVoucherSerial.Focus();
+        //                    return;
+        //                }
+        //            }
+
+        //            // Kiểm tra xem Voucher_Serial có tồn tại trong Dsmart không
+        //            if (!VoucherSerialExist_Dsmart(connection, txtVoucherSerial.Text))
+        //            {
+        //                MessageBox.Show("Voucher Serial Không có. Vui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                txtVoucherSerial.Focus();
+        //                return;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error checking Voucher serial: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        txtVoucherSerial.Focus();
+        //    }
+        //}
         private (bool Exists, string LocationType, string LocationName, DateTime LastUpdate) GetVoucherSerialDetails(SqlConnection connection, string voucherSerial)
         {
             using (SqlCommand command = new SqlCommand("CheckVoucherSerialExistence", connection))
@@ -322,7 +418,7 @@ namespace VOUCHER_CENTER.Presentation
                         {
                             if (reader.NextResult() && reader.Read())
                             {
-                                string locationType = reader.GetString(reader.GetOrdinal("Location_Type"));                                
+                                string locationType = reader.GetString(reader.GetOrdinal("Location_Type"));
                                 string locationName = reader.GetString(reader.GetOrdinal("Location_Name"));
                                 DateTime lastUpdate = reader.GetDateTime(reader.GetOrdinal("Last_update"));
 
@@ -332,9 +428,9 @@ namespace VOUCHER_CENTER.Presentation
                     }
                 }
             }
-            return (false, null,  null, DateTime.MinValue);
+            return (false, null, null, DateTime.MinValue);
         }
-        private (bool Exists, string User_name,string LocationType, string LocationName, DateTime LastUpdate, string Computer_name, string TRANS_NUM, string Player_Name, string Description, DateTime Created_Date) GetVoucherSerialDetails_Local(SqlConnection connection, string voucherSerial)
+        private (bool Exists, string User_name, string LocationType, string LocationName, DateTime LastUpdate, string Computer_name, string TRANS_NUM, string Player_Name, string Description, DateTime Created_Date) GetVoucherSerialDetails_Local(SqlConnection connection, string voucherSerial)
         {
             using (SqlCommand command = new SqlCommand("CheckVoucherSerialExistence_Local", connection))
             {
@@ -360,13 +456,13 @@ namespace VOUCHER_CENTER.Presentation
                                 string Description = reader.GetString(reader.GetOrdinal("Description"));
                                 DateTime Created_Date = reader.GetDateTime(reader.GetOrdinal("Created_Date"));
 
-                                return (true, User_name,locationType, locationName, lastUpdate, Computer_name, TRANS_NUM, Player_Name, Description, Created_Date);
+                                return (true, User_name, locationType, locationName, lastUpdate, Computer_name, TRANS_NUM, Player_Name, Description, Created_Date);
                             }
                         }
                     }
                 }
             }
-            return (false, null,null, null, DateTime.MinValue,null, null, null, null, DateTime.MinValue);
+            return (false, null, null, null, DateTime.MinValue, null, null, null, null, DateTime.MinValue);
         }
         private void ClearInputFields()
         {
@@ -383,7 +479,7 @@ namespace VOUCHER_CENTER.Presentation
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if\ppp
+
         }
     }
 }
