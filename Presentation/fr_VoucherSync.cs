@@ -221,12 +221,24 @@ namespace VOUCHER_CENTER.Presentation
         {
             try
             {
-                // Kiểm tra xem txtVoucherSerial có dữ liệu không
-                if (string.IsNullOrWhiteSpace(txtVoucherSerial.Text))
+                //// Kiểm tra xem txtVoucherSerial có dữ liệu không
+                //if (string.IsNullOrWhiteSpace(txtVoucherSerial.Text))
+                //{
+                //    return; // Nếu không có dữ liệu, thoát khỏi phương thức
+                //}
+
+                // Kiểm tra xem listView1 có bản ghi nào không
+                if (listView1.Items.Count == 0)
                 {
-                    return; // Nếu không có dữ liệu, thoát khỏi phương thức
+                    MessageBox.Show("Không có bản ghi nào trong danh sách.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Nếu không có bản ghi, thoát khỏi phương thức
                 }
-                
+
+
+
+
+
+
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
@@ -362,6 +374,16 @@ namespace VOUCHER_CENTER.Presentation
             txtDescription.Clear();
             txtPlayerName.Clear();
             txtTransNum.Clear();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if\ppp
         }
     }
 }
