@@ -99,5 +99,15 @@ namespace VOUCHER_CENTER.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap zo_razafindramamba_cMjyAZ3O9Po_unsplash {
+            get {
+                object obj = ResourceManager.GetObject("zo-razafindramamba-cMjyAZ3O9Po-unsplash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

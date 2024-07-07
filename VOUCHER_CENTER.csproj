@@ -271,6 +271,12 @@
     <Compile Include="DataAccess\ConnectDB.cs" />
     <Compile Include="DataAccess\LogBuild.cs" />
     <Compile Include="DataAccess\Unicode2TCVN.cs" />
+    <Compile Include="Presentation\fr_VoucherSync_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\fr_VoucherSync_Edit.Designer.cs">
+      <DependentUpon>fr_VoucherSync_Edit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\fr_VoucherSync.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -333,6 +339,9 @@
     <EmbeddedResource Include="Presentation\fr_Reports.resx">
       <DependentUpon>fr_Reports.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\fr_VoucherSync_Edit.resx">
+      <DependentUpon>fr_VoucherSync_Edit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation\fr_VoucherSync.resx">
       <DependentUpon>fr_VoucherSync.cs</DependentUpon>
     </EmbeddedResource>
@@ -349,6 +358,7 @@
     <Content Include="Media\Template\Template-rpt_Voucher_Sync.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\zo-razafindramamba-cMjyAZ3O9Po-unsplash.jpg" />
     <Content Include="VC_Center">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
