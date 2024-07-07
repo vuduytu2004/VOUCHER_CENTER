@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Math;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -191,7 +192,7 @@ namespace VOUCHER_CENTER.Presentation
                         var voucherSerial = row.Cells["voucher_serial"].Value.ToString();
                         InsertVoucherSync(connection, voucherSerial, UniqueID_Group);
                     }
-                    dataGridView1.Rows.Clear();
+                    
 
                     // Hiển thị print preview
                     PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
@@ -204,6 +205,9 @@ namespace VOUCHER_CENTER.Presentation
                         float yPos = 0;
                         int count = 0;
                         float leftMargin = ev.MarginBounds.Left;
+                        //float rightMargin = ev.MarginBounds.Right;
+                        float printableWidth = ev.MarginBounds.Width; // Độ rộng của vùng in có thể in được
+                        float rightMargin = leftMargin + printableWidth-100;
                         float topMargin = ev.MarginBounds.Top;
                         string line = null;
                         Font printFont = new Font("Arial", 12);
@@ -265,16 +269,23 @@ namespace VOUCHER_CENTER.Presentation
                         ev.Graphics.DrawString("Diễn giải: " + description, printFont, myBrush, leftMargin, yPos, new StringFormat());
                         count += 1; // Cách 1 dòng
 
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        string indentedText1 = "Người Lập" + "               " + "              ";
+                       ev.Graphics.DrawString(indentedText1, printFont, myBrush, rightMargin, yPos, new StringFormat());
+                        count += 1; // Cách 1 dòng
                         ev.HasMorePages = false; // Chỉ in một trang
                     };
 
                     printPreviewDialog.Document = printDocument;
                     printPreviewDialog.ShowDialog();
 
+                    
                 }
 
-                MessageBox.Show("Record saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearInputFields();
+                dataGridView1.Rows.Clear();
+                MessageBox.Show("Record saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
                 txtVoucherSerial.Enabled = true;
             }
             catch (Exception ex)
