@@ -140,44 +140,44 @@ namespace VOUCHER_CENTER.Presentation
                 {
                     connection.Open();
 
-                    foreach (DataGridViewRow row in dataGridView1.Rows)
-                    {
-                        var voucherSerial = row.Cells["voucher_serial"].Value.ToString();
-                        var result = GetVoucher(connection, voucherSerial);
+                    //foreach (DataGridViewRow row in dataGridView1.Rows)
+                    //{
+                    //    var voucherSerial = row.Cells["voucher_serial"].Value.ToString();
+                    //    var result = GetVoucher(connection, voucherSerial);
 
-                        if (result.Exists)
-                        {
-                            switch (result.VoucherCheckValue)
-                            {
-                                case "0":
-                                    MessageBox.Show($"Voucher: {voucherSerial} không có. Vui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    row.DefaultCellStyle.BackColor = Color.Red;
-                                    return;
-                                case "1":
-                                    MessageBox.Show($"Voucher: {voucherSerial} đã hết hạn sử dụng. Vui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    row.DefaultCellStyle.BackColor = Color.Red;
-                                    return;
-                                case "3":
-                                    MessageBox.Show($"Voucher Serial: {voucherSerial}\r\nĐã sử dụng tại {result.HcrcLocationType} - {result.HcrcLocationName}.\r\nCập nhật lần cuối vào {result.HcrcLastUpdate}.",
-                                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    row.DefaultCellStyle.BackColor = Color.Red;
-                                    return;
-                                case "4":
-                                    MessageBox.Show($"Voucher Serial: {voucherSerial}\r\nĐã sử dụng tại {result.VoucherSyncLocationGroupName} - {result.VoucherSyncLocationDetailName}.\r\nCập nhật lần cuối vào {result.VoucherSyncLastUpdate}.",
-                                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    row.DefaultCellStyle.BackColor = Color.Red;
-                                    return;
-                                case "5":
-                                    MessageBox.Show($"Voucher Serial: {voucherSerial}\r\nChưa được Active", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    row.DefaultCellStyle.BackColor = Color.Red;
-                                    return;
-                                case "6":
-                                    MessageBox.Show($"Voucher Serial: {voucherSerial}\r\nĐã bị thu hồi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    row.DefaultCellStyle.BackColor = Color.Red;
-                                    return;
-                            }
-                        }
-                    }
+                    //    if (result.Exists)
+                    //    {
+                    //        switch (result.VoucherCheckValue)
+                    //        {
+                    //            case "0":
+                    //                MessageBox.Show($"Voucher: {voucherSerial} không có. Vui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //                row.DefaultCellStyle.BackColor = Color.Red;
+                    //                return;
+                    //            case "1":
+                    //                MessageBox.Show($"Voucher: {voucherSerial} đã hết hạn sử dụng. Vui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //                row.DefaultCellStyle.BackColor = Color.Red;
+                    //                return;
+                    //            case "3":
+                    //                MessageBox.Show($"Voucher Serial: {voucherSerial}\r\nĐã sử dụng tại {result.HcrcLocationType} - {result.HcrcLocationName}.\r\nCập nhật lần cuối vào {result.HcrcLastUpdate}.",
+                    //                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //                row.DefaultCellStyle.BackColor = Color.Red;
+                    //                return;
+                    //            case "4":
+                    //                MessageBox.Show($"Voucher Serial: {voucherSerial}\r\nĐã sử dụng tại {result.VoucherSyncLocationGroupName} - {result.VoucherSyncLocationDetailName}.\r\nCập nhật lần cuối vào {result.VoucherSyncLastUpdate}.",
+                    //                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //                row.DefaultCellStyle.BackColor = Color.Red;
+                    //                return;
+                    //            case "5":
+                    //                MessageBox.Show($"Voucher Serial: {voucherSerial}\r\nChưa được Active", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //                row.DefaultCellStyle.BackColor = Color.Red;
+                    //                return;
+                    //            case "6":
+                    //                MessageBox.Show($"Voucher Serial: {voucherSerial}\r\nĐã bị thu hồi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //                row.DefaultCellStyle.BackColor = Color.Red;
+                    //                return;
+                    //        }
+                    //    }
+                    //}
                     // Tạo chuỗi UniqueID_Group tương đương với đoạn code SQL
                     string UniqueID_Group;
                     // Lấy ngày giờ hiện tại
