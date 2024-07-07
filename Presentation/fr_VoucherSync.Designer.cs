@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtVoucherSerial = new System.Windows.Forms.TextBox();
             this.txtTransNum = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,7 +51,6 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Cmd_Delete = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Voucher_Serial = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,6 +64,8 @@
             this.txtVoucherSerial.Name = "txtVoucherSerial";
             this.txtVoucherSerial.Size = new System.Drawing.Size(256, 26);
             this.txtVoucherSerial.TabIndex = 0;
+            this.txtVoucherSerial.TextChanged += new System.EventHandler(this.txtVoucherSerial_TextChanged);
+            this.txtVoucherSerial.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtVoucherSerial_KeyPress);
             this.txtVoucherSerial.Leave += new System.EventHandler(this.txtVoucherSerial_Leave);
             // 
             // txtTransNum
@@ -272,17 +275,6 @@
             this.groupBox1.TabIndex = 21;
             this.groupBox1.TabStop = false;
             // 
-            // Cmd_Delete
-            // 
-            this.Cmd_Delete.BackColor = System.Drawing.Color.RosyBrown;
-            this.Cmd_Delete.Location = new System.Drawing.Point(1076, 194);
-            this.Cmd_Delete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Cmd_Delete.Name = "Cmd_Delete";
-            this.Cmd_Delete.Size = new System.Drawing.Size(81, 34);
-            this.Cmd_Delete.TabIndex = 24;
-            this.Cmd_Delete.Text = "Delete";
-            this.Cmd_Delete.UseVisualStyleBackColor = false;
-            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -291,16 +283,20 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.STT,
             this.Voucher_Serial});
-            this.dataGridView1.Location = new System.Drawing.Point(622, 181);
+            this.dataGridView1.Location = new System.Drawing.Point(591, 181);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(437, 224);
+            this.dataGridView1.Size = new System.Drawing.Size(566, 224);
             this.dataGridView1.TabIndex = 25;
             // 
             // STT
             // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.STT.DefaultCellStyle = dataGridViewCellStyle1;
             this.STT.HeaderText = "STT";
             this.STT.MinimumWidth = 8;
             this.STT.Name = "STT";
@@ -309,7 +305,9 @@
             // 
             // Voucher_Serial
             // 
-            this.Voucher_Serial.HeaderText = "Voucher Serial";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Voucher_Serial.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Voucher_Serial.HeaderText = "Voucher Hợp Lệ";
             this.Voucher_Serial.MinimumWidth = 8;
             this.Voucher_Serial.Name = "Voucher_Serial";
             this.Voucher_Serial.ReadOnly = true;
@@ -322,7 +320,6 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1202, 532);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.Cmd_Delete);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label7);
@@ -377,7 +374,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button Cmd_Delete;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn STT;
         private System.Windows.Forms.DataGridViewTextBoxColumn Voucher_Serial;
