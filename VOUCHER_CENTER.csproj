@@ -25,7 +25,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationRevision>14</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -271,6 +271,12 @@
     <Compile Include="DataAccess\ConnectDB.cs" />
     <Compile Include="DataAccess\LogBuild.cs" />
     <Compile Include="DataAccess\Unicode2TCVN.cs" />
+    <Compile Include="Presentation\fr_VoucherSync_Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\fr_VoucherSync_Test.Designer.cs">
+      <DependentUpon>fr_VoucherSync_Test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\fr_VoucherSync_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -339,11 +345,15 @@
     <EmbeddedResource Include="Presentation\fr_Reports.resx">
       <DependentUpon>fr_Reports.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\fr_VoucherSync_Test.resx">
+      <DependentUpon>fr_VoucherSync_Test.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation\fr_VoucherSync_Edit.resx">
       <DependentUpon>fr_VoucherSync_Edit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentation\fr_VoucherSync.resx">
       <DependentUpon>fr_VoucherSync.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -359,6 +369,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\zo-razafindramamba-cMjyAZ3O9Po-unsplash.jpg" />
+    <None Include="Resources\Voucher_Xanh.png" />
+    <None Include="Resources\Đỏ.png" />
     <Content Include="VC_Center">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

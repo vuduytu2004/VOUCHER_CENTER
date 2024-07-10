@@ -9,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace VOUCHER_CENTER
 {
@@ -109,17 +110,29 @@ namespace VOUCHER_CENTER
                 {
                     Directory.CreateDirectory(LogsDirectory);
                 }
-                try
+                //try
+                //{
+                //    using (FileStream fs = File.Create(filePath + ".txt"))
+                //    {
+                //        // Do any additional operations with the file if needed
+                //    }
+                //    //File.Create(filePath + ".txt");
+                //    //System.Windows.Forms.Application.Exit();
+                //}
+                //catch { }
+                // Lấy phiên bản của ứng dụng từ assembly info
+                // Lấy phiên bản của ứng dụng từ assembly info
+                //string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                //string informationalVersion = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+                // Lấy phiên bản của ứng dụng từ assembly info
+                string version = Application.ProductVersion;
+
+                string uat_str = "";
+                if (bientoancuc.Server_nguon=="172.16.71.170")
                 {
-                    using (FileStream fs = File.Create(filePath + ".txt"))
-                    {
-                        // Do any additional operations with the file if needed
-                    }
-                    //File.Create(filePath + ".txt");
-                    //System.Windows.Forms.Application.Exit();
-                }
-                catch { }
-                toolStripStatusLabel2.Text = "   Người sử dụng: " + GlobalVariables.User_Name.ToString();
+                    uat_str = " -- Phiên bản dùng cho UAT -- ";
+                }    
+                toolStripStatusLabel2.Text = "   Người sử dụng: " + GlobalVariables.User_Name.ToString()+uat_str+"  - Ver ."+ version;
                 BuildDynamicMenu(GlobalVariables.UserID);
                 Get_use_location(GlobalVariables.UserID);
                 if (chua_pham_quyen == -2) { MessageBox.Show("Bạn chưa được phân quyền, \r\n Vui lòng liên hệ với Quản trị viên ", "Thông báo!", MessageBoxButtons.OK, MessageBoxIcon.Information); }
@@ -455,7 +468,8 @@ namespace VOUCHER_CENTER
                 }
                 try
                 {
-                    File.Delete(filePath + ".txt");
+                    //File.Delete(filePath + ".txt");
+                    //File.Create
                     System.Environment.Exit(0);
                 }
                 catch { }
@@ -488,7 +502,7 @@ namespace VOUCHER_CENTER
                 //Application.Exit();
                 try
                 {
-                    File.Delete(filePath + ".txt");
+                    //File.Delete(filePath + ".txt");
                     System.Environment.Exit(0);
                     //System.Windows.Forms.Application.Exit();
                 }

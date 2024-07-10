@@ -77,14 +77,14 @@
             this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(130, 21);
-            this.toolStripStatusLabel1.Text = "Duy Tú - 090.433.5559©";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(133, 21);
+            this.toolStripStatusLabel1.Text = "Duy Tú - 090.433.5559 ©";
             this.toolStripStatusLabel1.VisitedLinkColor = System.Drawing.Color.Blue;
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(716, 21);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(682, 21);
             this.toolStripStatusLabel2.Spring = true;
             this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
             // 

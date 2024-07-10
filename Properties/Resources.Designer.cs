@@ -83,6 +83,16 @@ namespace VOUCHER_CENTER.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Đỏ {
+            get {
+                object obj = ResourceManager.GetObject("Đỏ", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap E_voucher {
             get {
                 object obj = ResourceManager.GetObject("E_voucher", resourceCulture);
@@ -96,6 +106,16 @@ namespace VOUCHER_CENTER.Properties {
         internal static System.Drawing.Bitmap Tu_Logo_Photoroom1 {
             get {
                 object obj = ResourceManager.GetObject("Tu_Logo-Photoroom1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Voucher_Xanh {
+            get {
+                object obj = ResourceManager.GetObject("Voucher_Xanh", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

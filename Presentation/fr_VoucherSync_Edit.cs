@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -12,10 +13,13 @@ namespace VOUCHER_CENTER.Presentation
     public partial class fr_VoucherSync_Edit : Form
     {
         private string connectionString = bientoancuc.connectionString;
-        string UniqueID_Group1="";
-        bool cap_nhat = false;
-        private DateTime _lastInputTime;
-        private const int ScanInputThreshold = 50; // Thời gian tính bằng milliseconds, có thể điều chỉnh
+        string UniqueID_Group1 = "";
+        //bool cap_nhat = false;
+        //private DateTime _lastInputTime;
+        //private const int ScanInputThreshold = 50; // Thời gian tính bằng milliseconds, có thể điều chỉnh
+        private DateTime lastKeystroke = DateTime.MinValue;
+        private List<char> barcode = new List<char>();
+        private TimeSpan barcodeTimeSpan = TimeSpan.FromMilliseconds(70); // Adjust this time span as needed
         public fr_VoucherSync_Edit()
         {
             InitializeComponent();
@@ -126,7 +130,7 @@ namespace VOUCHER_CENTER.Presentation
                 {
                     return; // No data in dataGridView1
                 }
-                if (UniqueID_Group1=="")
+                if (UniqueID_Group1 == "")
                 {
                     return; // No data in dataGridView1
                 }
@@ -140,44 +144,7 @@ namespace VOUCHER_CENTER.Presentation
                 {
                     connection.Open();
 
-                    //foreach (DataGridViewRow row in dataGridView1.Rows)
-                    //{
-                    //    var voucherSerial = row.Cells["voucher_serial"].Value.ToString();
-                    //    var result = GetVoucher(connection, voucherSerial);
 
-                    //    if (result.Exists)
-                    //    {
-                    //        switch (result.VoucherCheckValue)
-                    //        {
-                    //            case "0":
-                    //                MessageBox.Show($"Voucher: {voucherSerial} không có. Vui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //                row.DefaultCellStyle.BackColor = Color.Red;
-                    //                return;
-                    //            case "1":
-                    //                MessageBox.Show($"Voucher: {voucherSerial} đã hết hạn sử dụng. Vui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //                row.DefaultCellStyle.BackColor = Color.Red;
-                    //                return;
-                    //            case "3":
-                    //                MessageBox.Show($"Voucher Serial: {voucherSerial}\r\nĐã sử dụng tại {result.HcrcLocationType} - {result.HcrcLocationName}.\r\nCập nhật lần cuối vào {result.HcrcLastUpdate}.",
-                    //                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //                row.DefaultCellStyle.BackColor = Color.Red;
-                    //                return;
-                    //            case "4":
-                    //                MessageBox.Show($"Voucher Serial: {voucherSerial}\r\nĐã sử dụng tại {result.VoucherSyncLocationGroupName} - {result.VoucherSyncLocationDetailName}.\r\nCập nhật lần cuối vào {result.VoucherSyncLastUpdate}.",
-                    //                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //                row.DefaultCellStyle.BackColor = Color.Red;
-                    //                return;
-                    //            case "5":
-                    //                MessageBox.Show($"Voucher Serial: {voucherSerial}\r\nChưa được Active", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //                row.DefaultCellStyle.BackColor = Color.Red;
-                    //                return;
-                    //            case "6":
-                    //                MessageBox.Show($"Voucher Serial: {voucherSerial}\r\nĐã bị thu hồi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //                row.DefaultCellStyle.BackColor = Color.Red;
-                    //                return;
-                    //        }
-                    //    }
-                    //}
                     // Tạo chuỗi UniqueID_Group tương đương với đoạn code SQL
                     string UniqueID_Group;
                     // Lấy ngày giờ hiện tại
@@ -191,7 +158,7 @@ namespace VOUCHER_CENTER.Presentation
                     UniqueID_Group = GlobalVariables.User_Name + dateString + randomString;
                     foreach (DataGridViewRow row in dataGridView1.Rows)
                     {
-                        var voucherSerial = row.Cells["voucher_serial"].Value.ToString();
+                        var voucherSerial = "C" + row.Cells["voucher_serial"].Value.ToString();
                         InsertVoucherSync(connection, voucherSerial, UniqueID_Group);
                     }
 
@@ -203,17 +170,23 @@ namespace VOUCHER_CENTER.Presentation
                     printDocument.PrintPage += (s, ev) =>
                     {
                         // Thiết lập font và độ rộng của trang
-                        float linesPerPage = 0;
                         float yPos = 0;
                         int count = 0;
-                        float leftMargin = ev.MarginBounds.Left;
-                        //float rightMargin = ev.MarginBounds.Right;
+                        float leftMargin = ev.MarginBounds.Left - 40; // 1 cm ~ 40 points
+                                                                      //float rightMargin = ev.MarginBounds.Right; // 1 cm ~ 40 points
                         float printableWidth = ev.MarginBounds.Width; // Độ rộng của vùng in có thể in được
                         float rightMargin = leftMargin + printableWidth - 100;
                         float topMargin = ev.MarginBounds.Top;
-                        string line = null;
-                        Font printFont = new Font("Arial", 12);
+                        float cellHeight = 25; // Chiều cao mỗi ô
+                        Font printFont = new Font("Arial", 11);
                         SolidBrush myBrush = new SolidBrush(Color.Black);
+                        Pen blackPen = new Pen(Color.Black);
+
+                        // Đặt chiều rộng các cột theo số ký tự yêu cầu
+                        float transNumWidth = 18 * 10; // 18 ký tự * 10 điểm (mỗi ký tự ước tính khoảng 10 điểm)
+                        float voucherWidth = 14 * 10; // 14 ký tự * 10 điểm
+                        float dateWidth = 11 * 10; // 11 ký tự * 10 điểm
+                        float customerWidth = 25 * 10; // 30 ký tự * 10 điểm
 
                         // Lấy các thông tin từ form
                         string locationGroupName = lb_LocationGroupName.Text;
@@ -234,44 +207,65 @@ namespace VOUCHER_CENTER.Presentation
                         count += 2; // Cách 2 dòng
 
                         yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                        ev.Graphics.DrawString("BIÊN BẢN THU HỒI VOUCHER", printFont, myBrush, leftMargin + (ev.MarginBounds.Width - ev.Graphics.MeasureString("Bên Bản Thu thôi Voucher", printFont).Width) / 2, yPos, new StringFormat());
+                        ev.Graphics.DrawString("BIÊN BẢN THU HỒI VOUCHER", printFont, myBrush, leftMargin + (ev.MarginBounds.Width - ev.Graphics.MeasureString("BIÊN BẢN THU HỒI VOUCHER", printFont).Width) / 2, yPos, new StringFormat());
                         count += 1; // Cách 1 dòng
 
                         yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
                         ev.Graphics.DrawString(currentDateFormatted, printFont, myBrush, leftMargin + (ev.MarginBounds.Width - ev.Graphics.MeasureString(currentDateFormatted, printFont).Width) / 2, yPos, new StringFormat());
-                        count += 2; // Cách 2 dòng
 
-                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                        ev.Graphics.DrawString("Mã Voucher :", printFont, myBrush, leftMargin, yPos, new StringFormat());
-                        count += 1; // Cách 1 dòng
+                        // Tạo header cho bảng
+                        yPos = topMargin + count * cellHeight;
 
-                        // Lặp qua từng hàng trong dataGridView1 để in mã voucher
+                        // Sử dụng StringFormat để căn giữa
+                        StringFormat centerFormat = new StringFormat();
+                        centerFormat.Alignment = StringAlignment.Center;
+                        centerFormat.LineAlignment = StringAlignment.Center;
+
+                        ev.Graphics.DrawString("Số giao dịch", printFont, myBrush, new RectangleF(leftMargin, yPos, transNumWidth, cellHeight), centerFormat);
+                        ev.Graphics.DrawString("Mã Voucher", printFont, myBrush, new RectangleF(leftMargin + transNumWidth, yPos, voucherWidth, cellHeight), centerFormat);
+                        ev.Graphics.DrawString("Ngày thu hồi", printFont, myBrush, new RectangleF(leftMargin + transNumWidth + voucherWidth, yPos, dateWidth, cellHeight), centerFormat);
+                        ev.Graphics.DrawString("Khách hàng", printFont, myBrush, new RectangleF(leftMargin + transNumWidth + voucherWidth + dateWidth, yPos, customerWidth, cellHeight), centerFormat);
+                        count += 1;
+
+                        // Vẽ các đường viền cho header
+                        ev.Graphics.DrawRectangle(blackPen, leftMargin, yPos, transNumWidth, cellHeight);
+                        ev.Graphics.DrawRectangle(blackPen, leftMargin + transNumWidth, yPos, voucherWidth, cellHeight);
+                        ev.Graphics.DrawRectangle(blackPen, leftMargin + transNumWidth + voucherWidth, yPos, dateWidth, cellHeight);
+                        ev.Graphics.DrawRectangle(blackPen, leftMargin + transNumWidth + voucherWidth + dateWidth, yPos, customerWidth, cellHeight);
+
+                        // Lặp qua từng hàng trong dataGridView1 để in dữ liệu
                         foreach (DataGridViewRow dgvRow in dataGridView1.Rows)
                         {
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            // Thêm lề bằng cách thêm khoảng trống vào đầu dòng
-                            string indentedText = "    " + dgvRow.Cells["voucher_serial"].Value.ToString();
-                            ev.Graphics.DrawString(indentedText, printFont, myBrush, leftMargin, yPos, new StringFormat());
+                            yPos = topMargin + count * cellHeight;
+
+                            ev.Graphics.DrawString(transNum, printFont, myBrush, leftMargin, yPos, new StringFormat());
+                            ev.Graphics.DrawString(dgvRow.Cells["Voucher_serial"].Value?.ToString(), printFont, myBrush, leftMargin + transNumWidth, yPos, new StringFormat());
+                            ev.Graphics.DrawString(createdDate, printFont, myBrush, new RectangleF(leftMargin + transNumWidth + voucherWidth, yPos, dateWidth, cellHeight), centerFormat);
+                            //ev.Graphics.DrawString(createdDate, printFont, myBrush, leftMargin + transNumWidth + voucherWidth, yPos, new StringFormat());
+                            ev.Graphics.DrawString(playerName, printFont, myBrush, leftMargin + transNumWidth + voucherWidth + dateWidth, yPos, new StringFormat());
+
+                            //ev.Graphics.DrawString(transNum, printFont, myBrush, leftMargin, yPos, new StringFormat());
+                            //ev.Graphics.DrawString(dgvRow.Cells["Voucher_serial"].Value?.ToString(), printFont, myBrush, new RectangleF(leftMargin + transNumWidth, yPos, voucherWidth, cellHeight), centerFormat);
+                            //ev.Graphics.DrawString(createdDate, printFont, myBrush, new RectangleF(leftMargin + transNumWidth + voucherWidth, yPos, dateWidth, cellHeight), centerFormat);
+                            //ev.Graphics.DrawString(playerName, printFont, myBrush, new RectangleF(leftMargin + transNumWidth + voucherWidth + dateWidth, yPos, customerWidth, cellHeight), centerFormat);
+
+                            // Vẽ các đường viền cho dữ liệu
+                            ev.Graphics.DrawRectangle(blackPen, leftMargin, yPos, transNumWidth, cellHeight);
+                            ev.Graphics.DrawRectangle(blackPen, leftMargin + transNumWidth, yPos, voucherWidth, cellHeight);
+                            ev.Graphics.DrawRectangle(blackPen, leftMargin + transNumWidth + voucherWidth, yPos, dateWidth, cellHeight);
+                            ev.Graphics.DrawRectangle(blackPen, leftMargin + transNumWidth + voucherWidth + dateWidth, yPos, customerWidth, cellHeight);
+
                             count += 1; // Cách 1 dòng
                         }
+                        count -= 1;
+                        // Vẽ phần "Diễn giải" dưới bảng
+                        yPos = topMargin + count * cellHeight + 2 * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString("Diễn giải:", printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        yPos += printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString(description, printFont, myBrush, leftMargin, yPos, new StringFormat());
 
-                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                        ev.Graphics.DrawString("Số giao dịch: " + transNum, printFont, myBrush, leftMargin, yPos, new StringFormat());
-                        count += 1; // Cách 1 dòng
-
-                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                        ev.Graphics.DrawString("Ngày thu hồi: " + createdDate, printFont, myBrush, leftMargin, yPos, new StringFormat());
-                        count += 1; // Cách 1 dòng
-
-                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                        ev.Graphics.DrawString("Khách hàng: " + playerName, printFont, myBrush, leftMargin, yPos, new StringFormat());
-                        count += 1; // Cách 1 dòng
-
-                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                        ev.Graphics.DrawString("Diễn giải: " + description, printFont, myBrush, leftMargin, yPos, new StringFormat());
-                        count += 1; // Cách 1 dòng
-
-                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        count += 2; // Cách 1 dòng
+                        yPos = topMargin + count * cellHeight + 2 * printFont.GetHeight(ev.Graphics);
                         string indentedText1 = "Người Lập" + "               " + "              ";
                         ev.Graphics.DrawString(indentedText1, printFont, myBrush, rightMargin, yPos, new StringFormat());
                         count += 1; // Cách 1 dòng
@@ -295,6 +289,32 @@ namespace VOUCHER_CENTER.Presentation
                 MessageBox.Show("Error saving record: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        //private void btnSave_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (dataGridView1.Rows.Count == 0)
+        //        {
+        //            return; // No data in dataGridView1
+        //        }
+        //        if (UniqueID_Group1 == "")
+        //        {
+        //            return; // No data in dataGridView1
+        //        }
+
+
+        //        ClearInputFields();
+        //        dataGridView1.Rows.Clear();
+        //        MessageBox.Show("Record saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        //        txtVoucherSerial.Enabled = true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error saving record: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
 
 
         private bool VoucherSerialExists(SqlConnection connection, string voucherSerial)
@@ -336,28 +356,74 @@ namespace VOUCHER_CENTER.Presentation
             }
         }
 
+        //------------------------------------------------------
+
+
         private void txtVoucherSerial_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Chặn tất cả các phím gõ từ bàn phím
-            if (GlobalVariables.User_Name.ToUpper() != "TEST")
+            if (GlobalVariables.User_Name.ToUpper() == "TEST")
             {
-                e.Handled = true;
+                return;
             }
-        }
-        private void txtVoucherSerial_TextChanged(object sender, EventArgs e)
-        {
-            if (!IsScannedInput() && GlobalVariables.User_Name.ToUpper() != "TEST")
+            DateTime currentKeystroke = DateTime.Now;
+            TimeSpan timeSinceLastKeystroke = currentKeystroke - lastKeystroke;
+
+            if (timeSinceLastKeystroke > barcodeTimeSpan)
             {
-                txtVoucherSerial.Text = string.Empty;
+                // If the time between keystrokes is too long, reset the barcode list
+                barcode.Clear();
             }
+
+            // Add the current character to the barcode list
+            barcode.Add(e.KeyChar);
+            lastKeystroke = currentKeystroke;
+
+            // If we have a complete barcode (based on length or special characters, e.g., Enter key), process it
+            if (IsCompleteBarcode(e.KeyChar))
+            {
+                // Join all characters to form the final barcode string
+                string barcodeString = new string(barcode.ToArray());
+                ProcessBarcode(barcodeString);
+
+                // Clear the barcode list after processing
+                barcode.Clear();
+            }
+
+            // Prevent input from keyboard
+            e.Handled = true;
         }
-        private bool IsScannedInput()
+
+        private bool IsCompleteBarcode(char keyChar)
         {
-            DateTime currentTime = DateTime.Now;
-            bool isScanned = (currentTime - _lastInputTime).TotalMilliseconds < ScanInputThreshold;
-            _lastInputTime = currentTime;
-            return isScanned;
+            // Here you can define the logic to determine if the barcode is complete
+            // For example, if the barcode ends with a newline character, or if it has reached a certain length
+            return keyChar == '\r' || keyChar == '\n' || barcode.Count >= 13; // Adjust as needed
         }
+
+        private void ProcessBarcode(string barcode)
+        {
+            // Process the scanned barcode
+            txtVoucherSerial.Text = barcode;
+            // Call your existing logic for handling the scanned barcode
+            //txtVoucherSerial_Leave(null, null);
+        }
+
+        //--------------------------------------------------------
+
+        //private void txtVoucherSerial_TextChanged(object sender, EventArgs e)
+        //{
+        //    if (!IsScannedInput() && GlobalVariables.User_Name.ToUpper() != "TEST")
+        //    {
+        //        txtVoucherSerial.Text = string.Empty;
+        //    }
+        //}
+        //private bool IsScannedInput()
+        //{
+        //    DateTime currentTime = DateTime.Now;
+        //    bool isScanned = (currentTime - _lastInputTime).TotalMilliseconds < ScanInputThreshold;
+        //    _lastInputTime = currentTime;
+        //    return isScanned;
+        //}
         private bool VoucherSerialExist_Dsmart(SqlConnection connection, string voucherSerial)
         {
             using (SqlCommand command = new SqlCommand("CheckVoucherSerialExist_Dsmart", connection))
@@ -392,6 +458,30 @@ namespace VOUCHER_CENTER.Presentation
                 ApplyEnterKeyToAllControls(ctrl);
             }
         }
+        //private void txtVoucherSerial_Leave1(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        // Kiểm tra xem txtVoucherSerial có dữ liệu không
+        //        if (string.IsNullOrWhiteSpace(txtVoucherSerial.Text))
+        //        {
+        //            return; // Nếu không có dữ liệu, thoát khỏi phương thức
+        //        }
+
+
+        //        // Thêm txtVoucherSerial.Text vào dataGridView1
+        //        int newRowIndex = dataGridView1.Rows.Add();
+        //        DataGridViewRow newRow = dataGridView1.Rows[newRowIndex];
+        //        newRow.Cells["STT"].Value = newRowIndex + 1; // Tăng STT từ 1
+        //        newRow.Cells["Voucher_Serial"].Value = txtVoucherSerial.Text;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error checking Voucher serial: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        txtVoucherSerial.Focus();
+        //    }
+        //}
         private void txtVoucherSerial_Leave(object sender, EventArgs e)
         {
             try
@@ -406,7 +496,9 @@ namespace VOUCHER_CENTER.Presentation
                 {
                     connection.Open();
 
+
                     var result1 = GetVoucherSerialDetails_Local(connection, txtVoucherSerial.Text);
+                    txtVoucherSerial.Text = txtVoucherSerial.Text.Substring(1);
 
                     // Kiểm tra xem Voucher_Serial đã tồn tại chưa trong local VOUCHER_SYNC
                     if (result1.Exists)
@@ -430,7 +522,7 @@ namespace VOUCHER_CENTER.Presentation
                                 dataGridView1.Rows.Clear();
 
                                 // Thêm các giá trị từ kết quả truy vấn vào dataGridView1
-                                using (SqlCommand command = new SqlCommand("SELECT Voucher_Serial FROM VOUCHER_SYNC WHERE UniqueID_Group = @UniqueID_Group", connection))
+                                using (SqlCommand command = new SqlCommand("SELECT Voucher_code FROM VOUCHER_SYNC WHERE UniqueID_Group = @UniqueID_Group", connection))
                                 {
                                     command.Parameters.AddWithValue("@UniqueID_Group", result1.UniqueID_Group);
                                     using (SqlDataReader reader = command.ExecuteReader())
@@ -440,7 +532,7 @@ namespace VOUCHER_CENTER.Presentation
                                             int newRowIndex = dataGridView1.Rows.Add();
                                             DataGridViewRow newRow = dataGridView1.Rows[newRowIndex];
                                             newRow.Cells["STT"].Value = newRowIndex + 1; // Tăng STT từ 1
-                                            newRow.Cells["Voucher_Serial"].Value = reader["Voucher_Serial"].ToString();
+                                            newRow.Cells["Voucher_Serial"].Value = reader["Voucher_code"].ToString();
                                         }
                                     }
                                 }
@@ -455,7 +547,7 @@ namespace VOUCHER_CENTER.Presentation
                         }
                         else
                         {
-                            MessageBox.Show($"Voucher Serial: {txtVoucherSerial.Text}\r\nĐã sử dụng tại {result1.LocationType} - {result1.LocationName}.\r\nCập nhật lần cuối vào {result1.LastUpdate}.",
+                            MessageBox.Show($"Voucher Serial: {txtVoucherSerial.Text}\r\nĐã sử dụng tại {result1.LocationType} - {result1.LocationName}.\r\nCập nhật lần cuối vào {result1.LastUpdate} bởi : {result1.User_name}.\r\n Bạn không có quyền sửa GD này!",
                                 "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             txtVoucherSerial.Focus();
                             return;
@@ -463,7 +555,8 @@ namespace VOUCHER_CENTER.Presentation
                     }
                     else
                     {
-                        MessageBox.Show("Voucher Serial Không có. Vui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtVoucherSerial.Clear();
+                        MessageBox.Show($"Voucher Serial: {txtVoucherSerial.Text}\r\n Không có. Vui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtVoucherSerial.Focus();
                         return;
                     }
