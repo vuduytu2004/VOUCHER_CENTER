@@ -371,6 +371,9 @@
     <None Include="Resources\zo-razafindramamba-cMjyAZ3O9Po-unsplash.jpg" />
     <None Include="Resources\Voucher_Xanh.png" />
     <None Include="Resources\Đỏ.png" />
+    <None Include="Resources\HCRC-E-voucher.png" />
+    <None Include="Resources\BackGrd0.jpg" />
+    <None Include="Resources\custlogo.jpg" />
     <Content Include="VC_Center">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

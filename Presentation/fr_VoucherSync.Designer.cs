@@ -58,6 +58,8 @@
             this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Voucher_Serial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menhgia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clear_test = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -264,8 +266,8 @@
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -356,12 +358,36 @@
             this.menhgia.ReadOnly = true;
             this.menhgia.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // clear_test
+            // 
+            this.clear_test.BackColor = System.Drawing.Color.LightCoral;
+            this.clear_test.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.clear_test.Location = new System.Drawing.Point(355, 346);
+            this.clear_test.Name = "clear_test";
+            this.clear_test.Size = new System.Drawing.Size(77, 24);
+            this.clear_test.TabIndex = 28;
+            this.clear_test.Text = "Clear Test";
+            this.clear_test.UseVisualStyleBackColor = false;
+            this.clear_test.Click += new System.EventHandler(this.clear_test_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(30, 387);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(741, 39);
+            this.textBox1.TabIndex = 29;
+            this.textBox1.Text = "CC44000000001 , CC44000000003 , CC24000014172 , CC24000014174 , CC24000000007 , C" +
+    "C24000000009 , CC14000000010 , CC14000000006 , CC54000028022 , CC54000028023";
+            // 
             // fr_VoucherSync
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(801, 359);
+            this.ClientSize = new System.Drawing.Size(801, 438);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.clear_test);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnSave);
@@ -416,5 +442,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn STT;
         private System.Windows.Forms.DataGridViewTextBoxColumn Voucher_Serial;
         private System.Windows.Forms.DataGridViewTextBoxColumn menhgia;
+        private System.Windows.Forms.Button clear_test;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

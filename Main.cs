@@ -470,6 +470,7 @@ namespace VOUCHER_CENTER
                 {
                     //File.Delete(filePath + ".txt");
                     //File.Create
+
                     System.Environment.Exit(0);
                 }
                 catch { }

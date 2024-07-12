@@ -294,6 +294,13 @@ namespace VOUCHER_CENTER.Presentation
                 };
 
                 printPreviewDialog.Document = printDocument;
+                // Thiết lập mức thu phóng (zoom) của PrintPreviewDialog
+                ((Form)printPreviewDialog).WindowState = FormWindowState.Maximized;
+                printPreviewDialog.Load += (s, ev) =>
+                {
+                    // Thiết lập mức thu phóng của PrintPreviewControl bên trong PrintPreviewDialog
+                    ((PrintPreviewDialog)s).PrintPreviewControl.Zoom = 2.0;
+                };
                 printPreviewDialog.ShowDialog();
 
                 txtVoucherSerial.Enabled = true;

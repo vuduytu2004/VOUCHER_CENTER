@@ -63,6 +63,26 @@ namespace VOUCHER_CENTER.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BackGrd0 {
+            get {
+                object obj = ResourceManager.GetObject("BackGrd0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BackGrd01 {
+            get {
+                object obj = ResourceManager.GetObject("BackGrd01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Brg_mart {
             get {
                 object obj = ResourceManager.GetObject("Brg_mart", resourceCulture);
@@ -83,6 +103,16 @@ namespace VOUCHER_CENTER.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap custlogo {
+            get {
+                object obj = ResourceManager.GetObject("custlogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Đỏ {
             get {
                 object obj = ResourceManager.GetObject("Đỏ", resourceCulture);
@@ -96,6 +126,16 @@ namespace VOUCHER_CENTER.Properties {
         internal static System.Drawing.Bitmap E_voucher {
             get {
                 object obj = ResourceManager.GetObject("E_voucher", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HCRC_E_voucher {
+            get {
+                object obj = ResourceManager.GetObject("HCRC-E-voucher", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
