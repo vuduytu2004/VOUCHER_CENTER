@@ -374,6 +374,8 @@
     <None Include="Resources\HCRC-E-voucher.png" />
     <None Include="Resources\BackGrd0.jpg" />
     <None Include="Resources\custlogo.jpg" />
+    <None Include="Resources\z5626396585309_951087e1716ceabea998439beae36e73.jpg" />
+    <None Include="Resources\1111111244376f7551b54481e640.jpg" />
     <Content Include="VC_Center">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

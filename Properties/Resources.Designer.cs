@@ -63,6 +63,16 @@ namespace VOUCHER_CENTER.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _1111111244376f7551b54481e640 {
+            get {
+                object obj = ResourceManager.GetObject("1111111244376f7551b54481e640", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BackGrd0 {
             get {
                 object obj = ResourceManager.GetObject("BackGrd0", resourceCulture);
@@ -156,6 +166,16 @@ namespace VOUCHER_CENTER.Properties {
         internal static System.Drawing.Bitmap Voucher_Xanh {
             get {
                 object obj = ResourceManager.GetObject("Voucher_Xanh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap z5626396585309_951087e1716ceabea998439beae36e73 {
+            get {
+                object obj = ResourceManager.GetObject("z5626396585309_951087e1716ceabea998439beae36e73", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

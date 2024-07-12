@@ -90,7 +90,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::VOUCHER_CENTER.Properties.Resources.E_voucher;
+            this.BackgroundImage = global::VOUCHER_CENTER.Properties.Resources._1111111244376f7551b54481e640;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(922, 505);
             this.Controls.Add(this.statusStrip1);
