@@ -25,7 +25,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>15</ApplicationRevision>
+    <ApplicationRevision>17</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -376,6 +376,7 @@
     <None Include="Resources\custlogo.jpg" />
     <None Include="Resources\z5626396585309_951087e1716ceabea998439beae36e73.jpg" />
     <None Include="Resources\1111111244376f7551b54481e640.jpg" />
+    <None Include="Resources\HCRC.png" />
     <Content Include="VC_Center">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

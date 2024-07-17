@@ -118,43 +118,46 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BRGMart" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BRGMart.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="HCRC-E-voucher" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HCRC-E-voucher.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Voucher_Xanh" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Voucher_Xanh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="custlogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\custlogo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Đỏ" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Đỏ.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="z5626396585309_951087e1716ceabea998439beae36e73" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\z5626396585309_951087e1716ceabea998439beae36e73.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Tu_Logo-Photoroom1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Tu_Logo-Photoroom1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="E_voucher" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\E_voucher.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Brg_mart" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Brg_mart.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BackGrd0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BackGrd0.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BackGrd01" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BackGrd0.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="zo-razafindramamba-cMjyAZ3O9Po-unsplash" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\zo-razafindramamba-cMjyAZ3O9Po-unsplash.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Đỏ" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Đỏ.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="1111111244376f7551b54481e640" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1111111244376f7551b54481e640.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Voucher_Xanh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Voucher_Xanh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BackGrd0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BackGrd0.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Tu_Logo-Photoroom1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Tu_Logo-Photoroom1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="z5626396585309_951087e1716ceabea998439beae36e73" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\z5626396585309_951087e1716ceabea998439beae36e73.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="custlogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\custlogo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="zo-razafindramamba-cMjyAZ3O9Po-unsplash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\zo-razafindramamba-cMjyAZ3O9Po-unsplash.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Brg_mart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Brg_mart.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="E_voucher" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\E_voucher.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BRGMart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BRGMart.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HCRC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HCRC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using VOUCHER_CENTER.DataAccess;
 using static VOUCHER_CENTER.Main;
@@ -1185,6 +1186,31 @@ namespace VOUCHER_CENTER.Presentation
 
             printPreviewDialog.Document = printDocument;
             printPreviewDialog.ShowDialog();
+        }
+
+        private void phone_number_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Chỉ cho phép các ký tự số và các ký tự đặc biệt hợp lệ
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '+' && e.KeyChar != '-' && e.KeyChar != ' ')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void phone_number_Leave(object sender, EventArgs e)
+        {
+            if (!IsValidPhoneNumber(phone_number.Text))
+            {
+                MessageBox.Show("Không đúng định dạng của Số điện thoại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                phone_number.Focus();
+            }
+        }
+        public static bool IsValidPhoneNumber(string phoneNumber)
+        {
+            // Biểu thức chính quy kiểm tra số điện thoại
+            string pattern = @"^(\+?\d{1,4}?[\s-]?)?\(?\d{1,4}?\)?[\s-]?\d{1,4}[\s-]?\d{1,9}$";
+            Regex regex = new Regex(pattern);
+            return regex.IsMatch(phoneNumber);
         }
     }
 }

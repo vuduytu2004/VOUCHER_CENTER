@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using VOUCHER_CENTER.DataAccess;
 using static VOUCHER_CENTER.Main;
@@ -41,6 +42,7 @@ namespace VOUCHER_CENTER.Presentation
             dtpCreatedDate.Enabled = false;
             txtPlayerName.Enabled = false;
             txtDescription.Enabled = false;
+            phone_number.Enabled = false;
 
         }
         //private void InitializeDataGridView()
@@ -152,6 +154,11 @@ namespace VOUCHER_CENTER.Presentation
                 {
                     connection.Open();
 
+                    using (SqlCommand command = new SqlCommand("UPDATE VOUCHER_SYNC SET Cancelled_Date = GETDATE() WHERE UniqueID_Group = @UniqueID_Group", connection))
+                    {
+                        command.Parameters.AddWithValue("@UniqueID_Group", UniqueID_Group1);
+                        command.ExecuteNonQuery();
+                    }
 
                     // Tạo chuỗi UniqueID_Group tương đương với đoạn code SQL
                     string UniqueID_Group;
@@ -211,6 +218,7 @@ namespace VOUCHER_CENTER.Presentation
                         string createdDate = dtpCreatedDate.Value.ToString("dd/MM/yyyy");
                         string playerName = txtPlayerName.Text;
                         string description = txtDescription.Text;
+                        string phone_num = phone_number.Text;
 
                         // Vẽ thông tin lên trang
                         yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
@@ -233,7 +241,7 @@ namespace VOUCHER_CENTER.Presentation
                         count += 2; // Cách 1 dòng
 
                         yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                        ev.Graphics.DrawString($"Số giao dịch :  {transNum}     -       Ngày GD : {createdDate}", printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        ev.Graphics.DrawString($"Số giao dịch :  {transNum} -       Ngày GD : {createdDate}", printFont, myBrush, leftMargin, yPos, new StringFormat());
 
                         count += 1; // Cách 1 dòng
 
@@ -241,7 +249,7 @@ namespace VOUCHER_CENTER.Presentation
                         string truncatedPlayerName = playerName.Length > 50 ? playerName.Substring(0, 50) : playerName;
                         yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
                         //ev.Graphics.DrawString($"Khách hàng :  {playerName}", printFont, myBrush, leftMargin, yPos, new StringFormat());
-                        ev.Graphics.DrawString($"Khách hàng :  {truncatedPlayerName}", printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        ev.Graphics.DrawString($"Khách hàng :  {truncatedPlayerName}    -       Số ĐT : {phone_num}", printFont, myBrush, leftMargin, yPos, new StringFormat());
 
                         // Tạo header cho bảng
                         yPos = topMargin + count * cellHeight;
@@ -335,6 +343,7 @@ namespace VOUCHER_CENTER.Presentation
                 dtpCreatedDate.Enabled = false;
                 txtPlayerName.Enabled = false;
                 txtDescription.Enabled = false;
+                phone_number.Enabled = false;
 
                 ClearInputFields();
                 dataGridView1.Rows.Clear();
@@ -407,6 +416,7 @@ namespace VOUCHER_CENTER.Presentation
                 command.Parameters.AddWithValue("@Description", txtDescription.Text);
                 command.Parameters.AddWithValue("@UniqueID_Group", UniqueID_Group);
                 command.Parameters.AddWithValue("@VALUE_AMT", VALUE_AMT);
+                command.Parameters.AddWithValue("@phone_number", phone_number.Text);
                 //command.Parameters.AddWithValue("@Last_update", DateTime.Now);
                 //command.Parameters.AddWithValue("@Sync", "N");
                 //command.Parameters.AddWithValue("@Sync_update", DBNull.Value);
@@ -570,12 +580,13 @@ namespace VOUCHER_CENTER.Presentation
                             if (dialogResult == DialogResult.Yes)
                             {
                                 // Gán các giá trị từ kết quả vào các điều khiển trên form
-                                txtVoucherSerial.Enabled = false;
-                                txtTransNum.Text = result1.TRANS_NUM;
+                                txtVoucherSerial.Enabled = false;                                
                                 txtPlayerName.Text = result1.Player_Name;
                                 txtDescription.Text = result1.Description;
                                 dtpCreatedDate.Value = result1.Created_Date;
                                 UniqueID_Group1 = result1.UniqueID_Group;
+                                phone_number.Text = result1.phonenumber;
+                                txtTransNum.Text = result1.TRANS_NUM;
 
                                 // Xóa dữ liệu hiện tại trong dataGridView1
                                 dataGridView1.Rows.Clear();
@@ -598,13 +609,15 @@ namespace VOUCHER_CENTER.Presentation
                                 }
                                 // Cập nhật hoặc thêm dòng "Tổng cộng"
                                 UpdateTotalRow();
-                                txtTransNum.Enabled = true;
+                                
                                 dtpCreatedDate.Enabled = true;
                                 txtPlayerName.Enabled = true;
                                 txtDescription.Enabled = true;
+                                phone_number.Enabled = true;
+                                txtTransNum.Enabled = true;
 
                                 txtVoucherSerial.Clear();
-                                txtVoucherSerial.Focus();
+                                txtTransNum.Focus();
 
                                 return;
                             }
@@ -824,7 +837,7 @@ namespace VOUCHER_CENTER.Presentation
             }
             return (false, null, null, DateTime.MinValue);
         }
-        private (bool Exists, int user_id, string User_name, string LocationType, string LocationName, DateTime LastUpdate, string Computer_name, string TRANS_NUM, string Player_Name, string Description, DateTime Created_Date, string UniqueID_Group) GetVoucherSerialDetails_Local(SqlConnection connection, string voucherSerial)
+        private (bool Exists, int user_id, string User_name, string LocationType, string LocationName, DateTime LastUpdate, string Computer_name, string TRANS_NUM, string Player_Name, string Description, DateTime Created_Date, string UniqueID_Group, string phonenumber) GetVoucherSerialDetails_Local(SqlConnection connection, string voucherSerial)
         {
             using (SqlCommand command = new SqlCommand("CheckVoucherSerialExistence_Local", connection))
             {
@@ -852,15 +865,18 @@ namespace VOUCHER_CENTER.Presentation
                                 DateTime Created_Date = reader.GetDateTime(reader.GetOrdinal("Created_Date"));
                                 string UniqueID_Group = reader.GetString(reader.GetOrdinal("UniqueID_Group"));
                                 decimal VALUE_AMT = reader.IsDBNull(reader.GetOrdinal("VALUE_AMT")) ? 0 : reader.GetDecimal(reader.GetOrdinal("VALUE_AMT"));
+                                //string phonenumber = reader.GetString(reader.GetOrdinal("phone_number"));
+                                string phonenumber = reader.IsDBNull(reader.GetOrdinal("phone_number")) ? "" : reader.GetString(reader.GetOrdinal("phone_number"));
+
 
                                 //reader.GetString(reader.GetOrdinal("VALUE_AMT"));
-                                return (true, user_id, User_name, locationType, locationName, lastUpdate, Computer_name, TRANS_NUM, Player_Name, Description, Created_Date, UniqueID_Group);
+                                return (true, user_id, User_name, locationType, locationName, lastUpdate, Computer_name, TRANS_NUM, Player_Name, Description, Created_Date, UniqueID_Group, phonenumber);
                             }
                         }
                     }
                 }
             }
-            return (false, 0, null, null, null, DateTime.MinValue, null, null, null, null, DateTime.MinValue, null);
+            return (false, 0, null, null, null, DateTime.MinValue, null, null, null, null, DateTime.MinValue, null,null);
         }
 
         private void ClearInputFields()
@@ -884,6 +900,35 @@ namespace VOUCHER_CENTER.Presentation
         private void txtVoucherSerial_TextChanged(object sender, EventArgs e)
         {
 
+        }
+        private void phone_number_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Chỉ cho phép các ký tự số và các ký tự đặc biệt hợp lệ
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '+' && e.KeyChar != '-' && e.KeyChar != ' ')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void phone_number_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(phone_number.Text))
+            {
+                MessageBox.Show("Không được để trống Số điện thoại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                phone_number.Focus();
+            }
+            if (!IsValidPhoneNumber(phone_number.Text))
+            {
+                MessageBox.Show("Không đúng định dạng của Số điện thoại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                phone_number.Focus();
+            }
+        }
+        public static bool IsValidPhoneNumber(string phoneNumber)
+        {
+            // Biểu thức chính quy kiểm tra số điện thoại
+            string pattern = @"^(\+?\d{1,4}?[\s-]?)?\(?\d{1,4}?\)?[\s-]?\d{1,4}[\s-]?\d{1,9}$";
+            Regex regex = new Regex(pattern);
+            return regex.IsMatch(phoneNumber);
         }
     }
 }

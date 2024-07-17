@@ -143,6 +143,16 @@ namespace VOUCHER_CENTER.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap HCRC {
+            get {
+                object obj = ResourceManager.GetObject("HCRC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap HCRC_E_voucher {
             get {
                 object obj = ResourceManager.GetObject("HCRC-E-voucher", resourceCulture);

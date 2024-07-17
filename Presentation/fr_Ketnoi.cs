@@ -103,6 +103,7 @@ namespace VOUCHER_CENTER.Presentation
                 txtdb1.Text = ((txtdb1.Text));
                 user1.Text = ConnectDB.DecryptString((user1.Text), bientoancuc.amti);
                 pass1.Text = ConnectDB.DecryptString((pass1.Text), bientoancuc.amti);
+                //-------------------
                 txtserver2.Text = (txtserver2.Text);
                 txtdb2.Text = (txtdb2.Text);
                 user2.Text = ConnectDB.DecryptString((user2.Text), bientoancuc.amti);
@@ -112,6 +113,7 @@ namespace VOUCHER_CENTER.Presentation
                 txtdb3.Text = (txtdb3.Text);
                 user3.Text = ConnectDB.DecryptString((user3.Text), bientoancuc.amti);
                 pass3.Text = ConnectDB.DecryptString((pass3.Text), bientoancuc.amti);
+                //--------------------------
                 //ConnectDB.EncryptString((txtserver1.Text), bientoancuc.amti);
 
             }
@@ -122,6 +124,7 @@ namespace VOUCHER_CENTER.Presentation
                 this.txtdb1.Text = (read.ReadLine().Split(':')[1]);
                 this.user1.Text = (read.ReadLine().Split(':')[1]);
                 this.pass1.Text = (read.ReadLine().Split(':')[1]);
+                //---------------------------
                 this.txtserver2.Text = (read.ReadLine().Split(':')[1]);
                 this.txtdb2.Text = (read.ReadLine().Split(':')[1]);
                 this.user2.Text = (read.ReadLine().Split(':')[1]);
@@ -131,6 +134,7 @@ namespace VOUCHER_CENTER.Presentation
                 this.txtdb3.Text = (read.ReadLine().Split(':')[1]);
                 this.user3.Text = (read.ReadLine().Split(':')[1]);
                 this.pass3.Text = (read.ReadLine().Split(':')[1]);
+                //---------------------------
                 read.Close();
             }
         }
