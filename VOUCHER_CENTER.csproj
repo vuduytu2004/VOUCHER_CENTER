@@ -271,6 +271,12 @@
     <Compile Include="DataAccess\ConnectDB.cs" />
     <Compile Include="DataAccess\LogBuild.cs" />
     <Compile Include="DataAccess\Unicode2TCVN.cs" />
+    <Compile Include="Presentation\fr_VoucherSync_Print.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation\fr_VoucherSync_Print.Designer.cs">
+      <DependentUpon>fr_VoucherSync_Print.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\fr_VoucherSync_Test.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -345,6 +351,10 @@
     <EmbeddedResource Include="Presentation\fr_Reports.resx">
       <DependentUpon>fr_Reports.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentation\fr_VoucherSync_Print.resx">
+      <DependentUpon>fr_VoucherSync_Print.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentation\fr_VoucherSync_Test.resx">
       <DependentUpon>fr_VoucherSync_Test.cs</DependentUpon>
     </EmbeddedResource>
@@ -377,6 +387,8 @@
     <None Include="Resources\z5626396585309_951087e1716ceabea998439beae36e73.jpg" />
     <None Include="Resources\1111111244376f7551b54481e640.jpg" />
     <None Include="Resources\HCRC.png" />
+    <None Include="Resources\invoice1.png" />
+    <None Include="Resources\hoadon.png" />
     <Content Include="VC_Center">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -19,7 +19,9 @@ namespace VOUCHER_CENTER.Presentation
             if (mk.Text != "Vu Duy Tu")
             {
                 MessageBox.Show("Không thiết lập được", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Application.Exit();
+                //Application.Exit();
+                this.Close();
+                return ;
             }
             try
             {

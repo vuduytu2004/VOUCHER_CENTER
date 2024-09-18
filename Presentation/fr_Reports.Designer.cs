@@ -43,7 +43,6 @@
             this.gr_dept_id = new System.Windows.Forms.GroupBox();
             this.dept_id = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.gr_stk_id = new System.Windows.Forms.GroupBox();
             this.stk_id = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -235,17 +234,6 @@
             this.label2.TabIndex = 18;
             this.label2.Text = "Dept_id";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(533, 67);
-            this.label1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(337, 13);
-            this.label1.TabIndex = 24;
-            this.label1.Text = "* Chú ý: Điều kiện BC phân cách nhau bằng dấu ,(phẩy) Vd : 001,002";
-            // 
             // gr_stk_id
             // 
             this.gr_stk_id.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -400,7 +388,6 @@
             this.Controls.Add(this.lbl_API);
             this.Controls.Add(this.para_name);
             this.Controls.Add(this.gr_stk_id);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.gr_dept_id);
             this.Controls.Add(this.gr_fr_to_date);
             this.Controls.Add(this.gr_para_name);
@@ -447,7 +434,6 @@
         private System.Windows.Forms.GroupBox gr_dept_id;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox dept_id;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox gr_stk_id;
         private System.Windows.Forms.TextBox stk_id;
         private System.Windows.Forms.Label label3;

@@ -127,8 +127,11 @@
   <data name="Đỏ" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Đỏ.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="1111111244376f7551b54481e640" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1111111244376f7551b54481e640.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="invoice" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\invoice1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HCRC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HCRC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Voucher_Xanh" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Voucher_Xanh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -141,6 +144,9 @@
   </data>
   <data name="z5626396585309_951087e1716ceabea998439beae36e73" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\z5626396585309_951087e1716ceabea998439beae36e73.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1111111244376f7551b54481e640" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1111111244376f7551b54481e640.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="custlogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\custlogo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -157,7 +163,7 @@
   <data name="BRGMart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BRGMart.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="HCRC" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\HCRC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="hoadon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hoadon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

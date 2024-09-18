@@ -472,6 +472,7 @@ namespace VOUCHER_CENTER
                     //File.Create
 
                     System.Environment.Exit(0);
+                    //Application.Exit();
                 }
                 catch { }
             }
