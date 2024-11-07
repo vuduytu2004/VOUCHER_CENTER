@@ -10,7 +10,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using VOUCHER_CENTER.DataAccess;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using static VOUCHER_CENTER.Main;
 
 namespace VOUCHER_CENTER.Presentation
@@ -72,7 +71,7 @@ namespace VOUCHER_CENTER.Presentation
 
             ////////// Đăng ký sự kiện CellClick
             ////////dataGridView1.CellClick += dataGridView1_CellClick;
-            
+
             //// Gọi phương thức Leave khi giá trị thay đổi
             //dateTimePicker1_check_Leave(sender, e);
         }
@@ -163,7 +162,7 @@ namespace VOUCHER_CENTER.Presentation
                 ////    MessageBox.Show("Không được để trống Số điện thoại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 ////    phone_number.Focus();
                 ////    return;
-                    
+
                 ////}
                 ////DialogResult dialogResult = MessageBox.Show("Bạn có thực hiện thu hồi voucher không?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 ////if (dialogResult == DialogResult.Cancel)
@@ -175,361 +174,361 @@ namespace VOUCHER_CENTER.Presentation
                 //////////////{
                 //////////////    connection.Open();
 
-                    //////foreach (DataGridViewRow row in dataGridView1.Rows)
-                    //////{
-                    //////    var voucherSerial = "C" + row.Cells["voucher_serial"].Value.ToString();
-                    //////    var result = GetVoucher(connection, voucherSerial);
+                //////foreach (DataGridViewRow row in dataGridView1.Rows)
+                //////{
+                //////    var voucherSerial = "C" + row.Cells["voucher_serial"].Value.ToString();
+                //////    var result = GetVoucher(connection, voucherSerial);
 
-                    //////    if (result.Exists)
-                    //////    {
-                    //////        switch (result.VoucherCheckValue)
-                    //////        {
-                    //////            case "0":
-                    //////                MessageBox.Show($"Voucher: {voucherSerial.Substring(1)} không có. Vui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //////                row.DefaultCellStyle.BackColor = Color.Red;
-                    //////                return;
-                    //////            case "1":
-                    //////                MessageBox.Show($"Voucher: {voucherSerial.Substring(1)} đã hết hạn sử dụng. Vui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //////                row.DefaultCellStyle.BackColor = Color.Red;
-                    //////                return;
-                    //////            case "3":
-                    //////                MessageBox.Show($"Voucher Serial: {voucherSerial.Substring(1)}\r\nĐã sử dụng tại {result.HcrcLocationType} - {result.HcrcLocationName}.\r\nCập nhật lần cuối vào {result.HcrcLastUpdate}.",
-                    //////                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //////                row.DefaultCellStyle.BackColor = Color.Red;
-                    //////                return;
-                    //////            case "4":
-                    //////                MessageBox.Show($"Voucher Serial: {voucherSerial.Substring(1)}\r\nĐã sử dụng tại {result.VoucherSyncLocationGroupName} - {result.VoucherSyncLocationDetailName}.\r\nCập nhật lần cuối vào {result.VoucherSyncLastUpdate}.",
-                    //////                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //////                row.DefaultCellStyle.BackColor = Color.Red;
-                    //////                return;
-                    //////            case "5":
-                    //////                MessageBox.Show($"Voucher Serial: {voucherSerial.Substring(1)}\r\nChưa được Active", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //////                row.DefaultCellStyle.BackColor = Color.Red;
-                    //////                return;
-                    //////            case "6":
-                    //////                MessageBox.Show($"Voucher Serial: {voucherSerial.Substring(1)}\r\nĐã bị thu hồi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //////                row.DefaultCellStyle.BackColor = Color.Red;
-                    //////                return;
-                    //////        }
-                    //////    }
-                    //////}
-                    // Tạo chuỗi UniqueID_Group tương đương với đoạn code SQL
-                    string UniqueID_Group;
-                    // Lấy ngày giờ hiện tại
-                    DateTime currentDate = DateTime.Now;
-                    // Format ngày giờ hiện tại thành chuỗi theo định dạng yyyymmddHHMMss
-                    string dateString = currentDate.ToString("yyyyMMddHHmmss");
-                    // Tạo chuỗi ngẫu nhiên với độ dài là 5 ký tự
-                    Random random = new Random();
-                    string randomString = random.Next(100000).ToString("D5");
-                    // Kết hợp các chuỗi lại với nhau để tạo UniqueID_Group
-                    UniqueID_Group = GlobalVariables.User_Name + dateString + randomString;
-                    ////////////foreach (DataGridViewRow row in dataGridView1.Rows)
-                    ////////////{
-                    ////////////    // Nếu đây là hàng cuối cùng (Tổng cộng), thì bỏ qua
-                    ////////////    if (row.Index == dataGridView1.Rows.Count - 1) continue;
+                //////    if (result.Exists)
+                //////    {
+                //////        switch (result.VoucherCheckValue)
+                //////        {
+                //////            case "0":
+                //////                MessageBox.Show($"Voucher: {voucherSerial.Substring(1)} không có. Vui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //////                row.DefaultCellStyle.BackColor = Color.Red;
+                //////                return;
+                //////            case "1":
+                //////                MessageBox.Show($"Voucher: {voucherSerial.Substring(1)} đã hết hạn sử dụng. Vui lòng nhập giá trị khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //////                row.DefaultCellStyle.BackColor = Color.Red;
+                //////                return;
+                //////            case "3":
+                //////                MessageBox.Show($"Voucher Serial: {voucherSerial.Substring(1)}\r\nĐã sử dụng tại {result.HcrcLocationType} - {result.HcrcLocationName}.\r\nCập nhật lần cuối vào {result.HcrcLastUpdate}.",
+                //////                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //////                row.DefaultCellStyle.BackColor = Color.Red;
+                //////                return;
+                //////            case "4":
+                //////                MessageBox.Show($"Voucher Serial: {voucherSerial.Substring(1)}\r\nĐã sử dụng tại {result.VoucherSyncLocationGroupName} - {result.VoucherSyncLocationDetailName}.\r\nCập nhật lần cuối vào {result.VoucherSyncLastUpdate}.",
+                //////                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //////                row.DefaultCellStyle.BackColor = Color.Red;
+                //////                return;
+                //////            case "5":
+                //////                MessageBox.Show($"Voucher Serial: {voucherSerial.Substring(1)}\r\nChưa được Active", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //////                row.DefaultCellStyle.BackColor = Color.Red;
+                //////                return;
+                //////            case "6":
+                //////                MessageBox.Show($"Voucher Serial: {voucherSerial.Substring(1)}\r\nĐã bị thu hồi", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //////                row.DefaultCellStyle.BackColor = Color.Red;
+                //////                return;
+                //////        }
+                //////    }
+                //////}
+                // Tạo chuỗi UniqueID_Group tương đương với đoạn code SQL
+                string UniqueID_Group;
+                // Lấy ngày giờ hiện tại
+                DateTime currentDate = DateTime.Now;
+                // Format ngày giờ hiện tại thành chuỗi theo định dạng yyyymmddHHMMss
+                string dateString = currentDate.ToString("yyyyMMddHHmmss");
+                // Tạo chuỗi ngẫu nhiên với độ dài là 5 ký tự
+                Random random = new Random();
+                string randomString = random.Next(100000).ToString("D5");
+                // Kết hợp các chuỗi lại với nhau để tạo UniqueID_Group
+                UniqueID_Group = GlobalVariables.User_Name + dateString + randomString;
+                ////////////foreach (DataGridViewRow row in dataGridView1.Rows)
+                ////////////{
+                ////////////    // Nếu đây là hàng cuối cùng (Tổng cộng), thì bỏ qua
+                ////////////    if (row.Index == dataGridView1.Rows.Count - 1) continue;
 
-                    ////////////    var voucherSerial = "C" + row.Cells["voucher_serial"].Value.ToString();
-                    ////////////    decimal VALUE_AMT = Convert.ToDecimal(row.Cells["menhgia"].Value);
-                    ////////////    InsertVoucherSync(connection, voucherSerial, UniqueID_Group, VALUE_AMT);
-                    ////////////}
+                ////////////    var voucherSerial = "C" + row.Cells["voucher_serial"].Value.ToString();
+                ////////////    decimal VALUE_AMT = Convert.ToDecimal(row.Cells["menhgia"].Value);
+                ////////////    InsertVoucherSync(connection, voucherSerial, UniqueID_Group, VALUE_AMT);
+                ////////////}
 
-                    if (radioButton1.Checked == true)
+                if (radioButton1.Checked == true)
+                {
+                    // Hiển thị print preview
+                    PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
+                    PrintDocument printDocument = new PrintDocument();
+
+                    printDocument.PrintPage += (s, ev) =>
                     {
-                        // Hiển thị print preview
-                        PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
-                        PrintDocument printDocument = new PrintDocument();
+                        // Thiết lập font và độ rộng của trang
+                        float yPos = 0;
+                        int count = 0;
+                        float leftMargin = ev.MarginBounds.Left; //- 20; // 1 cm ~ 40 points
+                                                                 //float rightMargin = ev.MarginBounds.Right; // 1 cm ~ 40 points
+                        float printableWidth = ev.MarginBounds.Width; // Độ rộng của vùng in có thể in được
+                        float rightMargin = leftMargin + printableWidth - 100;
+                        float topMargin = ev.MarginBounds.Top;
+                        float cellHeight = 25; // Chiều cao mỗi ô
+                        Font printFont = new Font("Arial", 11);
+                        SolidBrush myBrush = new SolidBrush(Color.Black);
+                        Pen blackPen = new Pen(Color.Black);
 
-                        printDocument.PrintPage += (s, ev) =>
+                        // Đặt chiều rộng các cột theo số ký tự yêu cầu
+                        float sttWidth = 10 * 10;
+                        float transNumWidth = 18 * 10; // 18 ký tự * 10 điểm (mỗi ký tự ước tính khoảng 10 điểm)
+                        float voucherWidth = 20 * 10; // 14 ký tự * 10 điểm
+                        float dateWidth = 11 * 10; // 11 ký tự * 10 điểm
+                        float customerWidth = 25 * 10; // 30 ký tự * 10 điểm
+                        float Menh_giaWidth = 25 * 10;
+
+                        // Lấy các thông tin từ form lb_LocationGroupName
+                        string locationGroupName = lb_LocationGroupName.Text.Length > 50 ? lb_LocationGroupName.Text.Substring(0, 50) : lb_LocationGroupName.Text;
+                        //playerName.Length > 50 ? playerName.Substring(0, 50) : playerName;  lb_LocationDetailName
+                        string locationDetailName = lb_LocationDetailName.Text.Length > 50 ? lb_LocationDetailName.Text.Substring(0, 50) : lb_LocationDetailName.Text;
+                        string currentDateFormatted = currentDate.ToString("dd/MM/yyyy HH:mm:ss");
+                        string transNum = txtTransNum.Text;
+                        string createdDate = dtpCreatedDate.Value.ToString("dd/MM/yyyy");
+                        string playerName = txtPlayerName.Text;
+                        string description = txtDescription.Text;
+                        string phone_num = phone_number.Text;
+
+                        // Vẽ thông tin lên trang
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString(locationGroupName, printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        count += 2; // Cách 2 dòng
+
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString(locationDetailName, printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        count += 2; // Cách 2 dòng
+
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString("BIÊN BẢN THU HỒI VOUCHER", printFont, myBrush, leftMargin + (ev.MarginBounds.Width - ev.Graphics.MeasureString("BIÊN BẢN THU HỒI VOUCHER", printFont).Width) / 2, yPos, new StringFormat());
+                        count += 1; // Cách 1 dòng
+
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString(currentDateFormatted, printFont, myBrush, leftMargin + (ev.MarginBounds.Width - ev.Graphics.MeasureString(currentDateFormatted, printFont).Width) / 2, yPos, new StringFormat());
+
+                        //ev.Graphics.DrawString("Số giao dịch", printFont, myBrush, new RectangleF(leftMargin, yPos, transNumWidth, cellHeight), centerFormat);
+                        // Vẽ phần "Diễn giải" dưới bảng
+                        count += 2; // Cách 1 dòng
+
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString($"Số giao dịch :  {transNum} -       Ngày GD : {createdDate}", printFont, myBrush, leftMargin, yPos, new StringFormat());
+
+                        count += 1; // Cách 1 dòng
+
+                        // Giả sử bạn muốn chỉ lấy 50 ký tự của biến playerName
+                        string truncatedPlayerName = playerName.Length > 50 ? playerName.Substring(0, 50) : playerName;
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        //ev.Graphics.DrawString($"Khách hàng :  {playerName}", printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        ev.Graphics.DrawString($"Khách hàng :  {truncatedPlayerName}    -       Số ĐT : {phone_num}", printFont, myBrush, leftMargin, yPos, new StringFormat());
+
+                        // Tạo header cho bảng
+                        yPos = topMargin + count * cellHeight;
+
+                        // Sử dụng StringFormat để căn giữa
+                        StringFormat centerFormat = new StringFormat();
+                        centerFormat.Alignment = StringAlignment.Center;
+                        centerFormat.LineAlignment = StringAlignment.Center;
+
+                        ev.Graphics.DrawString("STT", printFont, myBrush, new RectangleF(leftMargin, yPos, sttWidth, cellHeight), centerFormat);
+                        ev.Graphics.DrawString("Mã Voucher", printFont, myBrush, new RectangleF(leftMargin + sttWidth, yPos, voucherWidth, cellHeight), centerFormat);
+                        ev.Graphics.DrawString("Mệnh giá", printFont, myBrush, new RectangleF(leftMargin + sttWidth + voucherWidth, yPos, Menh_giaWidth, cellHeight), centerFormat);
+                        //ev.Graphics.DrawString("Khách hàng", printFont, myBrush, new RectangleF(leftMargin + transNumWidth + voucherWidth + dateWidth, yPos, customerWidth, cellHeight), centerFormat);
+                        count += 1;
+
+                        // Vẽ các đường viền cho header
+                        ev.Graphics.DrawRectangle(blackPen, leftMargin, yPos, sttWidth, cellHeight);
+                        ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth, yPos, voucherWidth, cellHeight);
+                        ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth + voucherWidth, yPos, Menh_giaWidth, cellHeight);
+                        //ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth + voucherWidth + Menh_giaWidth, yPos, customerWidth, cellHeight);
+
+
+
+                        // Lặp qua từng hàng trong dataGridView1 để in dữ liệu
+                        foreach (DataGridViewRow dgvRow in dataGridView1.Rows)
                         {
-                            // Thiết lập font và độ rộng của trang
-                            float yPos = 0;
-                            int count = 0;
-                            float leftMargin = ev.MarginBounds.Left; //- 20; // 1 cm ~ 40 points
-                                                                     //float rightMargin = ev.MarginBounds.Right; // 1 cm ~ 40 points
-                            float printableWidth = ev.MarginBounds.Width; // Độ rộng của vùng in có thể in được
-                            float rightMargin = leftMargin + printableWidth - 100;
-                            float topMargin = ev.MarginBounds.Top;
-                            float cellHeight = 25; // Chiều cao mỗi ô
-                            Font printFont = new Font("Arial", 11);
-                            SolidBrush myBrush = new SolidBrush(Color.Black);
-                            Pen blackPen = new Pen(Color.Black);
-
-                            // Đặt chiều rộng các cột theo số ký tự yêu cầu
-                            float sttWidth = 10 * 10;
-                            float transNumWidth = 18 * 10; // 18 ký tự * 10 điểm (mỗi ký tự ước tính khoảng 10 điểm)
-                            float voucherWidth = 20 * 10; // 14 ký tự * 10 điểm
-                            float dateWidth = 11 * 10; // 11 ký tự * 10 điểm
-                            float customerWidth = 25 * 10; // 30 ký tự * 10 điểm
-                            float Menh_giaWidth = 25 * 10;
-
-                            // Lấy các thông tin từ form lb_LocationGroupName
-                            string locationGroupName = lb_LocationGroupName.Text.Length > 50 ? lb_LocationGroupName.Text.Substring(0, 50) : lb_LocationGroupName.Text;
-                            //playerName.Length > 50 ? playerName.Substring(0, 50) : playerName;  lb_LocationDetailName
-                            string locationDetailName = lb_LocationDetailName.Text.Length > 50 ? lb_LocationDetailName.Text.Substring(0, 50) : lb_LocationDetailName.Text;
-                            string currentDateFormatted = currentDate.ToString("dd/MM/yyyy HH:mm:ss");
-                            string transNum = txtTransNum.Text;
-                            string createdDate = dtpCreatedDate.Value.ToString("dd/MM/yyyy");
-                            string playerName = txtPlayerName.Text;
-                            string description = txtDescription.Text;
-                            string phone_num = phone_number.Text;
-
-                            // Vẽ thông tin lên trang
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString(locationGroupName, printFont, myBrush, leftMargin, yPos, new StringFormat());
-                            count += 2; // Cách 2 dòng
-
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString(locationDetailName, printFont, myBrush, leftMargin, yPos, new StringFormat());
-                            count += 2; // Cách 2 dòng
-
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString("BIÊN BẢN THU HỒI VOUCHER", printFont, myBrush, leftMargin + (ev.MarginBounds.Width - ev.Graphics.MeasureString("BIÊN BẢN THU HỒI VOUCHER", printFont).Width) / 2, yPos, new StringFormat());
-                            count += 1; // Cách 1 dòng
-
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString(currentDateFormatted, printFont, myBrush, leftMargin + (ev.MarginBounds.Width - ev.Graphics.MeasureString(currentDateFormatted, printFont).Width) / 2, yPos, new StringFormat());
-
-                            //ev.Graphics.DrawString("Số giao dịch", printFont, myBrush, new RectangleF(leftMargin, yPos, transNumWidth, cellHeight), centerFormat);
-                            // Vẽ phần "Diễn giải" dưới bảng
-                            count += 2; // Cách 1 dòng
-
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString($"Số giao dịch :  {transNum} -       Ngày GD : {createdDate}", printFont, myBrush, leftMargin, yPos, new StringFormat());
-
-                            count += 1; // Cách 1 dòng
-
-                            // Giả sử bạn muốn chỉ lấy 50 ký tự của biến playerName
-                            string truncatedPlayerName = playerName.Length > 50 ? playerName.Substring(0, 50) : playerName;
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            //ev.Graphics.DrawString($"Khách hàng :  {playerName}", printFont, myBrush, leftMargin, yPos, new StringFormat());
-                            ev.Graphics.DrawString($"Khách hàng :  {truncatedPlayerName}    -       Số ĐT : {phone_num}", printFont, myBrush, leftMargin, yPos, new StringFormat());
-
-                            // Tạo header cho bảng
                             yPos = topMargin + count * cellHeight;
 
-                            // Sử dụng StringFormat để căn giữa
-                            StringFormat centerFormat = new StringFormat();
-                            centerFormat.Alignment = StringAlignment.Center;
-                            centerFormat.LineAlignment = StringAlignment.Center;
+                            // Căn giữa cột STT
+                            ev.Graphics.DrawString(dgvRow.Cells["STT"].Value?.ToString(), printFont, myBrush, new RectangleF(leftMargin, yPos, sttWidth, cellHeight), centerFormat);
+                            ev.Graphics.DrawString(dgvRow.Cells["Voucher_serial"].Value?.ToString(), printFont, myBrush, leftMargin + sttWidth + 5, yPos, new StringFormat());
+                            // Căn phải và định dạng số cho cột "Mệnh giá"
+                            decimal menhGiaValue = 0;
+                            if (dgvRow.Cells["menhgia"].Value != null && decimal.TryParse(dgvRow.Cells["menhgia"].Value.ToString(), out menhGiaValue))
+                            {
+                                ev.Graphics.DrawString(menhGiaValue.ToString("N0"), printFont, myBrush, new RectangleF(leftMargin + sttWidth + voucherWidth - 10, yPos, Menh_giaWidth, cellHeight), new StringFormat { Alignment = StringAlignment.Far });
+                            }
+                            else
+                            {
+                                ev.Graphics.DrawString("", printFont, myBrush, new RectangleF(leftMargin + sttWidth + voucherWidth - 10, yPos, Menh_giaWidth, cellHeight), new StringFormat { Alignment = StringAlignment.Far });
+                            }
 
-                            ev.Graphics.DrawString("STT", printFont, myBrush, new RectangleF(leftMargin, yPos, sttWidth, cellHeight), centerFormat);
-                            ev.Graphics.DrawString("Mã Voucher", printFont, myBrush, new RectangleF(leftMargin + sttWidth, yPos, voucherWidth, cellHeight), centerFormat);
-                            ev.Graphics.DrawString("Mệnh giá", printFont, myBrush, new RectangleF(leftMargin + sttWidth + voucherWidth, yPos, Menh_giaWidth, cellHeight), centerFormat);
-                            //ev.Graphics.DrawString("Khách hàng", printFont, myBrush, new RectangleF(leftMargin + transNumWidth + voucherWidth + dateWidth, yPos, customerWidth, cellHeight), centerFormat);
-                            count += 1;
-
-                            // Vẽ các đường viền cho header
+                            // Vẽ các đường viền cho dữ liệu
                             ev.Graphics.DrawRectangle(blackPen, leftMargin, yPos, sttWidth, cellHeight);
                             ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth, yPos, voucherWidth, cellHeight);
                             ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth + voucherWidth, yPos, Menh_giaWidth, cellHeight);
-                            //ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth + voucherWidth + Menh_giaWidth, yPos, customerWidth, cellHeight);
 
+                            count += 1; // Cách 1 dòng
+                        }
 
+                        //// Thêm dòng "Tổng cộng" vào cuối bảng
+                        //yPos = topMargin + count * cellHeight;
+                        //ev.Graphics.DrawString("Tổng cộng:", printFont, myBrush, leftMargin + sttWidth, yPos, new StringFormat { Alignment = StringAlignment.Far });
+                        ////ev.Graphics.DrawString(totalMenhgia.ToString("N0"), printFont, myBrush, leftMargin + sttWidth + voucherWidth, yPos, new StringFormat { Alignment = StringAlignment.Far });
+                        //ev.Graphics.DrawString(totalMenhgia.ToString("N0"), printFont, myBrush, new RectangleF(leftMargin + sttWidth + voucherWidth - 10, yPos, Menh_giaWidth, cellHeight), new StringFormat { Alignment = StringAlignment.Far });
 
-                            // Lặp qua từng hàng trong dataGridView1 để in dữ liệu
-                            foreach (DataGridViewRow dgvRow in dataGridView1.Rows)
+                        //// Vẽ đường viền cho dòng "Tổng cộng"
+                        //ev.Graphics.DrawRectangle(blackPen, leftMargin, yPos, sttWidth + voucherWidth, cellHeight);
+                        //ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth + voucherWidth, yPos, Menh_giaWidth, cellHeight);
+
+                        count += 1; // Cách 1 dòng
+
+                        count -= 1;
+                        // Vẽ phần "Diễn giải" dưới bảng
+                        yPos = topMargin + count * cellHeight + 2 * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString($"Diễn giải:  {description}", printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        //yPos += printFont.GetHeight(ev.Graphics);
+                        //ev.Graphics.DrawString(description, printFont, myBrush, leftMargin, yPos, new StringFormat());
+
+                        count += 2; // Cách 1 dòng
+                        yPos = topMargin + count * cellHeight + 2 * printFont.GetHeight(ev.Graphics);
+                        string indentedText1 = "Người Lập" + "               " + "              ";
+                        ev.Graphics.DrawString(indentedText1, printFont, myBrush, rightMargin, yPos, new StringFormat());
+                        count += 1; // Cách 1 dòng
+                        ev.HasMorePages = false; // Chỉ in một trang
+                    };
+
+                    printPreviewDialog.Document = printDocument;
+                    ((Form)printPreviewDialog).WindowState = FormWindowState.Maximized;
+                    printPreviewDialog.Load += (s, ev) =>
+                    {
+                        // Thiết lập mức thu phóng của PrintPreviewControl bên trong PrintPreviewDialog
+                        ((PrintPreviewDialog)s).PrintPreviewControl.Zoom = 1.0;
+                    };
+                    printPreviewDialog.ShowDialog();
+                }
+                if (radioButton2.Checked == true)
+                {
+                    // Hiển thị print preview
+                    PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
+                    PrintDocument printDocument = new PrintDocument();
+
+                    printDocument.PrintPage += (s, ev) =>
+                    {
+                        // Thiết lập font và độ rộng của trang
+                        float yPos = 0;
+                        int count = 0;
+                        float leftMargin = ev.PageBounds.Left + 10;
+                        float rightMargin = ev.PageBounds.Right + 10;
+                        float printableWidth = 80 * 3.93701f; // 80mm to points
+                        float topMargin = ev.PageBounds.Top + 10;
+                        float cellHeight = 25; // Chiều cao mỗi ô
+                        Font printFont = new Font("Arial", 9);
+                        SolidBrush myBrush = new SolidBrush(Color.Black);
+                        Pen blackPen = new Pen(Color.Black);
+
+                        // Đặt chiều rộng các cột theo số ký tự yêu cầu
+                        float sttWidth = 5 * 10;
+                        float transNumWidth = 50;
+                        float voucherWidth = 14 * 10;
+                        float dateWidth = 40;
+                        float customerWidth = 80;
+                        float menhGiaWidth = 8 * 10;
+
+                        // Lấy các thông tin từ form lb_LocationGroupName
+                        string locationGroupName = lb_LocationGroupName.Text.Length > 50 ? lb_LocationGroupName.Text.Substring(0, 50) : lb_LocationGroupName.Text;
+                        string locationDetailName = lb_LocationDetailName.Text.Length > 50 ? lb_LocationDetailName.Text.Substring(0, 50) : lb_LocationDetailName.Text;
+                        string currentDateFormatted = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                        string transNum = txtTransNum.Text;
+                        string createdDate = dtpCreatedDate.Value.ToString("dd/MM/yyyy");
+                        string playerName = txtPlayerName.Text;
+                        string description = txtDescription.Text;
+                        string phone_num = phone_number.Text;
+
+                        // Vẽ thông tin lên trang
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString(locationGroupName, printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        count += 2; // Cách 2 dòng
+
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString(locationDetailName, printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        count += 2; // Cách 2 dòng
+
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString("BIÊN BẢN THU HỒI VOUCHER", printFont, myBrush, leftMargin + (printableWidth - ev.Graphics.MeasureString("BIÊN BẢN THU HỒI VOUCHER", printFont).Width) / 2, yPos, new StringFormat());
+                        count += 1; // Cách 1 dòng
+
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString(currentDateFormatted, printFont, myBrush, leftMargin + (printableWidth - ev.Graphics.MeasureString(currentDateFormatted, printFont).Width) / 2, yPos, new StringFormat());
+                        count += 2; // Cách 2 dòng
+
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString($"Số giao dịch: {transNum}", printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        count += 1; // Cách 1 dòng
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString($"Ngày GD: {createdDate}", printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        count += 1; // Cách 1 dòng
+
+                        // Giả sử bạn muốn chỉ lấy 50 ký tự của biến playerName
+                        string truncatedPlayerName = playerName.Length > 50 ? playerName.Substring(0, 50) : playerName;
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString($"Khách hàng: {truncatedPlayerName}", printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        count += 1; // Cách 1 dòng
+                        yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString($"Số ĐT: {phone_num}", printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        //count += 2; // Cách 2 dòng
+
+                        // Tạo header cho bảng
+                        yPos = topMargin + (count - 2) * cellHeight;
+
+                        // Sử dụng StringFormat để căn giữa
+                        StringFormat centerFormat = new StringFormat();
+                        centerFormat.Alignment = StringAlignment.Center;
+                        centerFormat.LineAlignment = StringAlignment.Center;
+
+                        ev.Graphics.DrawString("STT", printFont, myBrush, new RectangleF(leftMargin, yPos, sttWidth, cellHeight), centerFormat);
+                        ev.Graphics.DrawString("Mã Voucher", printFont, myBrush, new RectangleF(leftMargin + sttWidth, yPos, voucherWidth, cellHeight), centerFormat);
+                        ev.Graphics.DrawString("Mệnh giá", printFont, myBrush, new RectangleF(leftMargin + sttWidth + voucherWidth, yPos, menhGiaWidth, cellHeight), centerFormat);
+                        //count += 1;
+
+                        // Vẽ các đường viền cho header
+                        ev.Graphics.DrawRectangle(blackPen, leftMargin, yPos, sttWidth, cellHeight);
+                        ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth, yPos, voucherWidth, cellHeight);
+                        ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth + voucherWidth, yPos, menhGiaWidth, cellHeight);
+
+                        // Lặp qua từng hàng trong dataGridView1 để in dữ liệu
+                        foreach (DataGridViewRow dgvRow in dataGridView1.Rows)
+                        {
+                            yPos = topMargin + (count - 1) * cellHeight;
+
+                            // Căn giữa cột STT
+                            ev.Graphics.DrawString(dgvRow.Cells["STT"].Value?.ToString(), printFont, myBrush, new RectangleF(leftMargin, yPos, sttWidth, cellHeight), centerFormat);
+                            ev.Graphics.DrawString(dgvRow.Cells["Voucher_serial"].Value?.ToString(), printFont, myBrush, leftMargin + sttWidth + 5, yPos, new StringFormat());
+
+                            // Căn phải và định dạng số cho cột "Mệnh giá"
+                            decimal menhGiaValue = 0;
+                            if (dgvRow.Cells["menhgia"].Value != null && decimal.TryParse(dgvRow.Cells["menhgia"].Value.ToString(), out menhGiaValue))
                             {
-                                yPos = topMargin + count * cellHeight;
-
-                                // Căn giữa cột STT
-                                ev.Graphics.DrawString(dgvRow.Cells["STT"].Value?.ToString(), printFont, myBrush, new RectangleF(leftMargin, yPos, sttWidth, cellHeight), centerFormat);
-                                ev.Graphics.DrawString(dgvRow.Cells["Voucher_serial"].Value?.ToString(), printFont, myBrush, leftMargin + sttWidth + 5, yPos, new StringFormat());
-                                // Căn phải và định dạng số cho cột "Mệnh giá"
-                                decimal menhGiaValue = 0;
-                                if (dgvRow.Cells["menhgia"].Value != null && decimal.TryParse(dgvRow.Cells["menhgia"].Value.ToString(), out menhGiaValue))
-                                {
-                                    ev.Graphics.DrawString(menhGiaValue.ToString("N0"), printFont, myBrush, new RectangleF(leftMargin + sttWidth + voucherWidth - 10, yPos, Menh_giaWidth, cellHeight), new StringFormat { Alignment = StringAlignment.Far });
-                                }
-                                else
-                                {
-                                    ev.Graphics.DrawString("", printFont, myBrush, new RectangleF(leftMargin + sttWidth + voucherWidth - 10, yPos, Menh_giaWidth, cellHeight), new StringFormat { Alignment = StringAlignment.Far });
-                                }
-
-                                // Vẽ các đường viền cho dữ liệu
-                                ev.Graphics.DrawRectangle(blackPen, leftMargin, yPos, sttWidth, cellHeight);
-                                ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth, yPos, voucherWidth, cellHeight);
-                                ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth + voucherWidth, yPos, Menh_giaWidth, cellHeight);
-
-                                count += 1; // Cách 1 dòng
+                                ev.Graphics.DrawString(menhGiaValue.ToString("N0"), printFont, myBrush, new RectangleF(leftMargin + sttWidth + voucherWidth - 10, yPos, menhGiaWidth, cellHeight), new StringFormat { Alignment = StringAlignment.Far });
+                            }
+                            else
+                            {
+                                ev.Graphics.DrawString("", printFont, myBrush, new RectangleF(leftMargin + sttWidth + voucherWidth - 10, yPos, menhGiaWidth, cellHeight), new StringFormat { Alignment = StringAlignment.Far });
                             }
 
-                            //// Thêm dòng "Tổng cộng" vào cuối bảng
-                            //yPos = topMargin + count * cellHeight;
-                            //ev.Graphics.DrawString("Tổng cộng:", printFont, myBrush, leftMargin + sttWidth, yPos, new StringFormat { Alignment = StringAlignment.Far });
-                            ////ev.Graphics.DrawString(totalMenhgia.ToString("N0"), printFont, myBrush, leftMargin + sttWidth + voucherWidth, yPos, new StringFormat { Alignment = StringAlignment.Far });
-                            //ev.Graphics.DrawString(totalMenhgia.ToString("N0"), printFont, myBrush, new RectangleF(leftMargin + sttWidth + voucherWidth - 10, yPos, Menh_giaWidth, cellHeight), new StringFormat { Alignment = StringAlignment.Far });
-
-                            //// Vẽ đường viền cho dòng "Tổng cộng"
-                            //ev.Graphics.DrawRectangle(blackPen, leftMargin, yPos, sttWidth + voucherWidth, cellHeight);
-                            //ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth + voucherWidth, yPos, Menh_giaWidth, cellHeight);
-
-                            count += 1; // Cách 1 dòng
-
-                            count -= 1;
-                            // Vẽ phần "Diễn giải" dưới bảng
-                            yPos = topMargin + count * cellHeight + 2 * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString($"Diễn giải:  {description}", printFont, myBrush, leftMargin, yPos, new StringFormat());
-                            //yPos += printFont.GetHeight(ev.Graphics);
-                            //ev.Graphics.DrawString(description, printFont, myBrush, leftMargin, yPos, new StringFormat());
-
-                            count += 2; // Cách 1 dòng
-                            yPos = topMargin + count * cellHeight + 2 * printFont.GetHeight(ev.Graphics);
-                            string indentedText1 = "Người Lập" + "               " + "              ";
-                            ev.Graphics.DrawString(indentedText1, printFont, myBrush, rightMargin, yPos, new StringFormat());
-                            count += 1; // Cách 1 dòng
-                            ev.HasMorePages = false; // Chỉ in một trang
-                        };
-
-                        printPreviewDialog.Document = printDocument;
-                        ((Form)printPreviewDialog).WindowState = FormWindowState.Maximized;
-                        printPreviewDialog.Load += (s, ev) =>
-                        {
-                            // Thiết lập mức thu phóng của PrintPreviewControl bên trong PrintPreviewDialog
-                            ((PrintPreviewDialog)s).PrintPreviewControl.Zoom = 1.0;
-                        };
-                        printPreviewDialog.ShowDialog();
-                    }
-                    if (radioButton2.Checked == true)
-                    {
-                        // Hiển thị print preview
-                        PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
-                        PrintDocument printDocument = new PrintDocument();
-
-                        printDocument.PrintPage += (s, ev) =>
-                        {
-                            // Thiết lập font và độ rộng của trang
-                            float yPos = 0;
-                            int count = 0;
-                            float leftMargin = ev.PageBounds.Left + 10;
-                            float rightMargin = ev.PageBounds.Right + 10;
-                            float printableWidth = 80 * 3.93701f; // 80mm to points
-                            float topMargin = ev.PageBounds.Top + 10;
-                            float cellHeight = 25; // Chiều cao mỗi ô
-                            Font printFont = new Font("Arial", 9);
-                            SolidBrush myBrush = new SolidBrush(Color.Black);
-                            Pen blackPen = new Pen(Color.Black);
-
-                            // Đặt chiều rộng các cột theo số ký tự yêu cầu
-                            float sttWidth = 5 * 10;
-                            float transNumWidth = 50;
-                            float voucherWidth = 14 * 10;
-                            float dateWidth = 40;
-                            float customerWidth = 80;
-                            float menhGiaWidth = 8 * 10;
-
-                            // Lấy các thông tin từ form lb_LocationGroupName
-                            string locationGroupName = lb_LocationGroupName.Text.Length > 50 ? lb_LocationGroupName.Text.Substring(0, 50) : lb_LocationGroupName.Text;
-                            string locationDetailName = lb_LocationDetailName.Text.Length > 50 ? lb_LocationDetailName.Text.Substring(0, 50) : lb_LocationDetailName.Text;
-                            string currentDateFormatted = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                            string transNum = txtTransNum.Text;
-                            string createdDate = dtpCreatedDate.Value.ToString("dd/MM/yyyy");
-                            string playerName = txtPlayerName.Text;
-                            string description = txtDescription.Text;
-                            string phone_num = phone_number.Text;
-
-                            // Vẽ thông tin lên trang
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString(locationGroupName, printFont, myBrush, leftMargin, yPos, new StringFormat());
-                            count += 2; // Cách 2 dòng
-
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString(locationDetailName, printFont, myBrush, leftMargin, yPos, new StringFormat());
-                            count += 2; // Cách 2 dòng
-
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString("BIÊN BẢN THU HỒI VOUCHER", printFont, myBrush, leftMargin + (printableWidth - ev.Graphics.MeasureString("BIÊN BẢN THU HỒI VOUCHER", printFont).Width) / 2, yPos, new StringFormat());
-                            count += 1; // Cách 1 dòng
-
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString(currentDateFormatted, printFont, myBrush, leftMargin + (printableWidth - ev.Graphics.MeasureString(currentDateFormatted, printFont).Width) / 2, yPos, new StringFormat());
-                            count += 2; // Cách 2 dòng
-
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString($"Số giao dịch: {transNum}", printFont, myBrush, leftMargin, yPos, new StringFormat());
-                            count += 1; // Cách 1 dòng
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString($"Ngày GD: {createdDate}", printFont, myBrush, leftMargin, yPos, new StringFormat());
-                            count += 1; // Cách 1 dòng
-
-                            // Giả sử bạn muốn chỉ lấy 50 ký tự của biến playerName
-                            string truncatedPlayerName = playerName.Length > 50 ? playerName.Substring(0, 50) : playerName;
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString($"Khách hàng: {truncatedPlayerName}", printFont, myBrush, leftMargin, yPos, new StringFormat());
-                            count += 1; // Cách 1 dòng
-                            yPos = topMargin + count * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString($"Số ĐT: {phone_num}", printFont, myBrush, leftMargin, yPos, new StringFormat());
-                            //count += 2; // Cách 2 dòng
-
-                            // Tạo header cho bảng
-                            yPos = topMargin + (count - 2) * cellHeight;
-
-                            // Sử dụng StringFormat để căn giữa
-                            StringFormat centerFormat = new StringFormat();
-                            centerFormat.Alignment = StringAlignment.Center;
-                            centerFormat.LineAlignment = StringAlignment.Center;
-
-                            ev.Graphics.DrawString("STT", printFont, myBrush, new RectangleF(leftMargin, yPos, sttWidth, cellHeight), centerFormat);
-                            ev.Graphics.DrawString("Mã Voucher", printFont, myBrush, new RectangleF(leftMargin + sttWidth, yPos, voucherWidth, cellHeight), centerFormat);
-                            ev.Graphics.DrawString("Mệnh giá", printFont, myBrush, new RectangleF(leftMargin + sttWidth + voucherWidth, yPos, menhGiaWidth, cellHeight), centerFormat);
-                            //count += 1;
-
-                            // Vẽ các đường viền cho header
+                            // Vẽ các đường viền cho dữ liệu
                             ev.Graphics.DrawRectangle(blackPen, leftMargin, yPos, sttWidth, cellHeight);
                             ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth, yPos, voucherWidth, cellHeight);
                             ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth + voucherWidth, yPos, menhGiaWidth, cellHeight);
 
-                            // Lặp qua từng hàng trong dataGridView1 để in dữ liệu
-                            foreach (DataGridViewRow dgvRow in dataGridView1.Rows)
-                            {
-                                yPos = topMargin + (count - 1) * cellHeight;
+                            count += 1; // Cách 1 dòng
+                        }
 
-                                // Căn giữa cột STT
-                                ev.Graphics.DrawString(dgvRow.Cells["STT"].Value?.ToString(), printFont, myBrush, new RectangleF(leftMargin, yPos, sttWidth, cellHeight), centerFormat);
-                                ev.Graphics.DrawString(dgvRow.Cells["Voucher_serial"].Value?.ToString(), printFont, myBrush, leftMargin + sttWidth + 5, yPos, new StringFormat());
+                        // Vẽ phần "Diễn giải" dưới bảng
+                        yPos = topMargin + (count - 2) * cellHeight + 2 * printFont.GetHeight(ev.Graphics);
+                        ev.Graphics.DrawString($"Diễn giải: {description}", printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        //count += 2; // Cách 2 dòng
 
-                                // Căn phải và định dạng số cho cột "Mệnh giá"
-                                decimal menhGiaValue = 0;
-                                if (dgvRow.Cells["menhgia"].Value != null && decimal.TryParse(dgvRow.Cells["menhgia"].Value.ToString(), out menhGiaValue))
-                                {
-                                    ev.Graphics.DrawString(menhGiaValue.ToString("N0"), printFont, myBrush, new RectangleF(leftMargin + sttWidth + voucherWidth - 10, yPos, menhGiaWidth, cellHeight), new StringFormat { Alignment = StringAlignment.Far });
-                                }
-                                else
-                                {
-                                    ev.Graphics.DrawString("", printFont, myBrush, new RectangleF(leftMargin + sttWidth + voucherWidth - 10, yPos, menhGiaWidth, cellHeight), new StringFormat { Alignment = StringAlignment.Far });
-                                }
+                        // Vẽ phần "Người Lập"
+                        yPos = topMargin + count * cellHeight + 2 * printFont.GetHeight(ev.Graphics);
+                        string indentedText1 = "Người Lập";
+                        ev.Graphics.DrawString(indentedText1, printFont, myBrush, leftMargin, yPos, new StringFormat());
+                        //ev.Graphics.DrawString(indentedText1, printFont, myBrush, rightMargin - ev.Graphics.MeasureString(indentedText1, printFont).Width, yPos, new StringFormat());
 
-                                // Vẽ các đường viền cho dữ liệu
-                                ev.Graphics.DrawRectangle(blackPen, leftMargin, yPos, sttWidth, cellHeight);
-                                ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth, yPos, voucherWidth, cellHeight);
-                                ev.Graphics.DrawRectangle(blackPen, leftMargin + sttWidth + voucherWidth, yPos, menhGiaWidth, cellHeight);
+                        ev.HasMorePages = false; // Chỉ in một trang
+                    };
 
-                                count += 1; // Cách 1 dòng
-                            }
-
-                            // Vẽ phần "Diễn giải" dưới bảng
-                            yPos = topMargin + (count - 2) * cellHeight + 2 * printFont.GetHeight(ev.Graphics);
-                            ev.Graphics.DrawString($"Diễn giải: {description}", printFont, myBrush, leftMargin, yPos, new StringFormat());
-                            //count += 2; // Cách 2 dòng
-
-                            // Vẽ phần "Người Lập"
-                            yPos = topMargin + count * cellHeight + 2 * printFont.GetHeight(ev.Graphics);
-                            string indentedText1 = "Người Lập";
-                            ev.Graphics.DrawString(indentedText1, printFont, myBrush, leftMargin, yPos, new StringFormat());
-                            //ev.Graphics.DrawString(indentedText1, printFont, myBrush, rightMargin - ev.Graphics.MeasureString(indentedText1, printFont).Width, yPos, new StringFormat());
-
-                            ev.HasMorePages = false; // Chỉ in một trang
-                        };
-
-                        printPreviewDialog.Document = printDocument;
-                        ((Form)printPreviewDialog).WindowState = FormWindowState.Maximized;
-                        printPreviewDialog.Load += (s, ev) =>
-                        {
-                            // Thiết lập mức thu phóng của PrintPreviewControl bên trong PrintPreviewDialog
-                            ((PrintPreviewDialog)s).PrintPreviewControl.Zoom = 1.0;
-                        };
-                        printPreviewDialog.ShowDialog();
-                    }
+                    printPreviewDialog.Document = printDocument;
+                    ((Form)printPreviewDialog).WindowState = FormWindowState.Maximized;
+                    printPreviewDialog.Load += (s, ev) =>
+                    {
+                        // Thiết lập mức thu phóng của PrintPreviewControl bên trong PrintPreviewDialog
+                        ((PrintPreviewDialog)s).PrintPreviewControl.Zoom = 1.0;
+                    };
+                    printPreviewDialog.ShowDialog();
+                }
 
                 //////////////}
 
@@ -754,7 +753,7 @@ namespace VOUCHER_CENTER.Presentation
                 command.Parameters.AddWithValue("@Description", txtDescription.Text);
                 command.Parameters.AddWithValue("@UniqueID_Group", UniqueID_Group);
                 command.Parameters.AddWithValue("@VALUE_AMT", VALUE_AMT);
-                command.Parameters.AddWithValue("@phone_number", phone_number.Text); 
+                command.Parameters.AddWithValue("@phone_number", phone_number.Text);
                 //command.Parameters.AddWithValue("@Last_update", DateTime.Now);
                 //command.Parameters.AddWithValue("@Sync", "N");
                 //command.Parameters.AddWithValue("@Sync_update", DBNull.Value);
@@ -765,7 +764,7 @@ namespace VOUCHER_CENTER.Presentation
         //------------------------------------------------------
 
 
-        
+
 
         //--------------------------------------------------------
 
@@ -1075,7 +1074,7 @@ namespace VOUCHER_CENTER.Presentation
         }
 
 
-       
+
 
         private (bool Exists, string LocationType, string LocationName, DateTime LastUpdate) GetVoucherSerialDetails(SqlConnection connection, string voucherSerial)
         {
@@ -1146,10 +1145,10 @@ namespace VOUCHER_CENTER.Presentation
             txtTransNum.Clear();
             phone_number.Clear();
         }
-        
 
-    private void clear_test_Click(object sender, EventArgs e)
-    {
+
+        private void clear_test_Click(object sender, EventArgs e)
+        {
             using (SqlConnection connection = new SqlConnection(bientoancuc.connectionString))
             {
                 connection.Open();
@@ -1194,13 +1193,17 @@ namespace VOUCHER_CENTER.Presentation
                     connection.Open();
 
                     // Câu lệnh SQL truy vấn với tham số Created_Date
-                    string query = "SELECT DISTINCT [UniqueID_Group], [TRANS_NUM] FROM [VOUCHER_CENTER].[dbo].[VOUCHER_SYNC] WHERE CONVERT(DATE, Created_Date) = @Created_Date AND Cancelled_Date IS NULL ";
+                    string query = "SELECT DISTINCT [UniqueID_Group], [TRANS_NUM] FROM [VOUCHER_CENTER].[dbo].[VOUCHER_SYNC] WHERE CONVERT(DATE, Created_Date) = @Created_Date AND Cancelled_Date IS NULL and Locations_Group = @Locations_Group and Locations_Detail = @Locations_Detail";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         // Thêm tham số ngày vào câu lệnh SQL
                         //command.Parameters.AddWithValue("@Created_Date", selectedDate);
                         command.Parameters.AddWithValue("@Created_Date", dateTimePicker1_check.Value.ToString("yyyyMMdd"));
+                        command.Parameters.AddWithValue("@Locations_Group", GlobalVariables.Locations_Group.ToString());
+                        command.Parameters.AddWithValue("@Locations_Detail", GlobalVariables.Locations_Detail.ToString());
+                        //lb_LocationGroupName
+                        //    lb_LocationDetailName
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -1345,9 +1348,9 @@ namespace VOUCHER_CENTER.Presentation
                                             ? Convert.ToDecimal(reader["VALUE_AMT"])
                                             : 0;
                                         dtpCreatedDate.Value = Convert.ToDateTime(reader["Created_Date"]);
-                                        txtTransNum.Text= reader["TRANS_NUM"].ToString();
-                                        txtPlayerName.Text= reader["Player_Name"].ToString();
-                                        phone_number.Text= reader["Phone_Number"].ToString();
+                                        txtTransNum.Text = reader["TRANS_NUM"].ToString();
+                                        txtPlayerName.Text = reader["Player_Name"].ToString();
+                                        phone_number.Text = reader["Phone_Number"].ToString();
                                         txtDescription.Text = reader["Description"].ToString();
                                     }
                                 }
@@ -1368,7 +1371,6 @@ namespace VOUCHER_CENTER.Presentation
                 MessageBox.Show("Lỗi khi truy vấn dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
     }
 }
 
